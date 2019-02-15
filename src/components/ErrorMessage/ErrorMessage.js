@@ -1,0 +1,13 @@
+import React, { Component } from 'react';
+import classes from './ErrorMessage.module.css';
+import MaterialIcon, {colorPalette} from 'material-icons-react';
+
+const errorMessage = (props) => {
+    return (
+        <div className={classes.errorDiv + " alert alert-danger"}role="alert">
+      <MaterialIcon icon="info"/> <span className={classes.errorText}>{props.text}</span>
+        </div>
+    )
+}
+
+export default errorMessage;

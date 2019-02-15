@@ -4,16 +4,18 @@ import firebase from '../../firebase.js';
 import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 import classes from './AddWorkout.module.css';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 class AddWorkout extends Component {
   state = {
     workoutName: "",
     exerciseNumber: 1,
-    exerciseName: "",
+    exerciseName: null,
     sets: null,
     reps: null,
     weight: null,
-    exercises: []
+    exercises: [],
+    workoutNameError: null
   }
       render() {
   
@@ -108,11 +110,18 @@ class AddWorkout extends Component {
         }
         const updateWorkoutNameState = (e) => {
           this.setState({
-           workoutName: e.target.value
+           workoutName: e.target.value,
+           workoutNameError: null
           })
         }
 
         const submitExercisesToFirebase = () => {
+          if (!this.state.workoutName) {
+            console.log("there is no workout name :( pepehands");
+            this.setState({
+              workoutNameError: <ErrorMessage text="Workout Name is required" />
+            });
+          } else if (this.state.workoutName != null) {
           this.state.exercises.map(ex => {
             firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
@@ -144,6 +153,9 @@ class AddWorkout extends Component {
             })
             })
           }
+          }
+
+         
 
         return (
           <>
@@ -153,6 +165,7 @@ class AddWorkout extends Component {
               </Modal.Header>
               <Modal.Body>
                 <input onChange={updateWorkoutNameState} className={classes.workoutNameInput} type="text" placeholder="Workout Name" value={this.state.workoutName}/>
+                {this.state.workoutNameError}
                 <hr className={classes.workoutNameInputHr} />
                 <h5 className={classes.exercisesHeader}>Exercise {this.state.exerciseNumber}</h5>
                 <input onChange={updateExerciseNameState} className={classes.inputField} type="text" placeholder="Exercise Name" value={this.state.exerciseName} />
