@@ -1,0 +1,13 @@
+.authButton {
+    display: inline-block;
+    background: #fff;
+    border: solid 1px #eee;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.authButton:hover {
+    border: solid 1px coral;
+    color: coral;
+}

@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import firebase from './firebase.js';
+import 'firebase/firestore';
+import * as firebaseui from 'firebaseui';
 import './App.css';
+
+import Login from './components/Auth/Login/Login';
+import Workouts from './components/Workouts/Workouts';
+import Signup from './components/Auth/Signup/Signup';
 
 class App extends Component {
   render() {
+    const testFirebase = (e) => {
+      e.preventDefault();
+      firebase.firestore().collection("users").doc("lmao").set({
+        first: "Ada",
+        last: "Loveblace",
+        born: 1815
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+    }
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <Switch>
+        <Route path='/' exact component={Login} />
+        <Route path='/workouts' exact component={Workouts} />
+        <Route path='/signup' exact component={Signup} />
+      </Switch>
+      {/* <button className="testBtn" onClick={testFirebase}>Test Firebase</button> */}
       </div>
     );
   }
