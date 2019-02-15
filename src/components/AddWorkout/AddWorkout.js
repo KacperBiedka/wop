@@ -117,6 +117,11 @@ class AddWorkout extends Component {
             firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
                 const uid = user.uid;
+                db.collection("users").doc(uid).set({
+                  uid: uid,
+                  email: user.email,
+                  workoutsNumber: globalWorkoutNumber+1
+                })
                 db.collection("exercises").add({
                   uid: uid,
                   exerciseNumber: ex.exercise.exerciseNumber,
