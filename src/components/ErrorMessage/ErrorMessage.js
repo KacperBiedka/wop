@@ -5,7 +5,7 @@ import MaterialIcon, {colorPalette} from 'material-icons-react';
 const errorMessage = (props) => {
     return (
         <div className={classes.errorDiv + " alert alert-danger"}role="alert">
-      <MaterialIcon icon="info"/> <span className={classes.errorText}>{props.text}</span>
+      <MaterialIcon icon="warning" size="tiny" color="#721c24"/> <span className={classes.errorText}>{props.text}</span>
         </div>
     )
 }

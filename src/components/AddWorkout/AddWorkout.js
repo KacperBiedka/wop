@@ -62,6 +62,23 @@ class AddWorkout extends Component {
         let exercisesList = null;
 
         const renderNextExerciseInputs = () => {
+          if (!this.state.exerciseName) {
+            this.setState({
+              exerciseNameError: <ErrorMessage text="Exercise Name field is required" />
+            });
+          } if (!this.state.sets) {
+            this.setState({
+              setsError: <ErrorMessage text="Sets field is required" />
+            });
+          } if (!this.state.reps) {
+            this.setState({
+              repsError: <ErrorMessage text="Reps field is required" />
+            });
+          } if (!this.state.weight) {
+            this.setState({
+              weightError: <ErrorMessage text="Weight field is required" />
+            });
+          } if (this.state.weight != null && !this.state.reps != null && this.state.sets != null && this.state.exerciseName != null) {
           let exercisesArray = this.state.exercises.slice();
           let exercise = {
             workoutName: this.state.workoutName,
@@ -85,8 +102,13 @@ class AddWorkout extends Component {
             exerciseName: "",
             sets: "",
             reps: "",
-            weight: ""
+            weight: "",
+            exerciseNameError: null,
+            setsError: null,
+            repsError: null,
+            weightError: null
           });
+        }
         }
 
         const logState = () => {
@@ -175,40 +197,18 @@ class AddWorkout extends Component {
                 <hr className={classes.workoutNameInputHr} />
                 <h5 className={classes.exercisesHeader}>Exercise {this.state.exerciseNumber}</h5>
                 <input onChange={updateExerciseNameState} className={classes.inputField} type="text" placeholder="Exercise Name" value={this.state.exerciseName} />
+                {this.state.exerciseNameError}
                 <input onChange={updateSetsState} className={classes.inputField + " " + classes.numberInputField} type="number" placeholder="Sets"  value={this.state.sets} />
+                {this.state.setsError}
                 <input onChange={updateRepsState} className={classes.inputField + " " + classes.numberInputField} type="number" placeholder="Reps"  value={this.state.reps} />
+                {this.state.repsError}
                 <input onChange={updateWeightState} className={classes.inputField + " " + classes.numberInputField} type="number" placeholder="Weight (kg)"  value={this.state.weight} />
+                {this.state.weightError}
                 <button onClick={renderNextExerciseInputs} className={classes.addExerciseButton}>+ Add exercise</button>
                 { this.state.exercises.map(ex => {
-                  // if (ex.exercise.exerciseName = null) {
-                  //   return (
-                  //   <span className={classes.errorMessage} key={ex.exercise.exerciseNumber}>
-                  //     Please fill the exercise name input field
-                  //   </span>
-                  //   )
-                  // } if (ex.exercise.sets = null) {
-                  //   return (
-                  //   <span className={classes.errorMessage} key={ex.exercise.exerciseNumber}>
-                  //     Please fill the sets input field
-                  //   </span>
-                  //   ) 
-                  // } if (ex.exercise.reps = null) {
-                  //   return (
-                  //   <span className={classes.errorMessage} key={ex.exercise.exerciseNumber}>
-                  //     Please fill the reps input field
-                  //   </span>
-                  //   )
-                  // } if (ex.exercise.weight = null) {
-                  //   return (
-                  //   <span number={ex.exercise.exerciseNumber} className={classes.exerciseListSpan} key={ex.exercise.exerciseName + ex.exercise.exerciseNumber + ex.exercise.weight}>
-                  //     Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with 0 kg
-                  //   </span>
-                  //   )
-                  // } if (ex.exercise.exerciseName != null && ex.exercise.sets != null && ex.exercise.reps != null && ex.exercise.weight != null) {
                     return  <span number={ex.exercise.exerciseNumber} className={classes.exerciseListSpan} key={ex.exercise.exerciseName + ex.exercise.exerciseNumber + ex.exercise.weight}>
                       Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg
                     </span> 
-                    // }
                   }
                 )}
               </Modal.Body>

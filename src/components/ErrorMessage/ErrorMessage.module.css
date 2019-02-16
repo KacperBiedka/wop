@@ -1,8 +1,8 @@
 .errorDiv {
     margin-left: 2.5%;
     height: 32.5px;
-    font-size: 90%;
-    padding: 1%;
+    font-size: 80%;
+    padding: 1.5%;
     width: 90%;
 }
 
@@ -10,4 +10,5 @@
     display: inline-block;
     position: absolute;
     margin-left: 1%;
+    margin-top: -0.1%;
 }
