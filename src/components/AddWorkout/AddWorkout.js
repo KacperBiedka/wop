@@ -9,13 +9,19 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 class AddWorkout extends Component {
   state = {
     workoutName: "",
+    workoutNameError: null,
     exerciseNumber: 1,
+    exerciseNumberError: null,
     exerciseName: null,
+    exerciseNameError: null,
     sets: null,
+    setsError: null,
     reps: null,
+    repsError: null,
     weight: null,
+    weightError: null,
     exercises: [],
-    workoutNameError: null
+    
   }
       render() {
   
@@ -142,7 +148,7 @@ class AddWorkout extends Component {
                   workoutNumber: globalWorkoutNumber+1
                 })
                 .then(function() {
-                  
+                  window.location.href = "/workouts";
                 })
                 .catch(function(error) {
                     console.error("Error adding workout: ", error);
