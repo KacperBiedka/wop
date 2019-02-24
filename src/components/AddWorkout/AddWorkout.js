@@ -150,7 +150,6 @@ class AddWorkout extends Component {
               workoutNameError: <ErrorMessage text="Workout Name is required" />
             });
           } else if (this.state.workoutName != null) {
-          this.state.exercises.map(ex => {
             firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
                 const uid = user.uid;
@@ -159,14 +158,12 @@ class AddWorkout extends Component {
                   email: user.email,
                   workoutsNumber: globalWorkoutNumber+1
                 })
-                db.collection("exercises").add({
+                // let exercisesStateCopy = this.state.exercises;
+                // let workoutNameStateCopy = this.state.workoutName
+                db.collection("workouts").add({
                   uid: uid,
-                  exerciseNumber: ex.exercise.exerciseNumber,
-                  exerciseName: ex.exercise.exerciseName,
-                  sets: ex.exercise.sets,
-                  reps: ex.exercise.reps,
-                  weight: ex.exercise.weight,
-                  workoutName: ex.exercise.workoutName,
+                  exercises: this.state.exercises,
+                  workoutName: this.state.workoutName,
                   workoutNumber: globalWorkoutNumber+1
                 })
                 .then(function() {
@@ -178,13 +175,12 @@ class AddWorkout extends Component {
               } else {
                 console.log("user not logged in");
               }
-            })
-            })
+            }.bind(this))
+            
           }
           }
 
-         
-
+        
         return (
           <>
             <Modal show={this.props.visible} onHide={this.props.closeModal}>

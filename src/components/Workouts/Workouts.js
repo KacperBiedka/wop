@@ -6,20 +6,84 @@ import classes from './Workouts.module.css';
 import Navbar from '../Navbar/Navbar';
 
 class Workouts extends Component {
-    render() {
-      const logout = () => {
-        firebase.auth().signOut();
-        window.location.href = "..";
-        }
+  state = {
+    workouts: [],
+    workoutNames: [],
+    exercises: [],
+    workoutCards: {}
+  }
+
+  componentDidMount() {
+    const db = firebase.firestore();  
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        const uid = user.uid;
+        const query = db.collection("workouts").where("uid", "==", uid).orderBy("workoutNumber", "asc")
+        query.get()
+        .then((snapshot) => {
+            snapshot.docs.forEach(doc => {
+            let exercisesCopy = this.state.exercises;
+            exercisesCopy.push(doc.data().exercises);
+            let workoutsCopy = this.state.workouts;
+            let workoutObject = {
+              name: doc.data().workoutName,
+              number: doc.data().workoutNumber
+            }
+            workoutsCopy.push(workoutObject);
+            this.setState({
+              exercises: exercisesCopy,
+              workouts: workoutsCopy,
+            })
+          })
+        })
+        .catch(function(error) {
+          console.log("Error getting workoutName: " + error);
+        })
+      } else {
+          console.log("Error getting document");
+      }
+    }.bind(this));
+  }
+  
+
+    logout = () => {
+      firebase.auth().signOut();
+      window.location.href = "..";
+    }
+
+    logData = () => {
+      console.log(this.state.workouts);
+      console.log(this.state.exercises);
+    }
+
+  render() {
+
         return (
           <div className={classes.workoutsDiv}>
           <Navbar/>
               <h1 className={classes.workoutsHeader}>
                 Workouts Screen Successfuly Loaded!
               </h1>
-              <button onClick={logout} className={classes.authButton}>
-                Log out              
-              </button>
+              <button onClick={this.logout} className={classes.authButton}>Log out</button>
+              <button onClick={() => this.logData()} className={classes.authButton}>Firebase!</button>
+              {
+                this.state.workouts.map(w => {
+                  return (
+                    <div className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
+                    <div className={classes.workoutCardHeaderDiv}>
+                    <h5 className={classes.workoutNameHeader}>{w.name}</h5>
+                    </div>
+                    <ul className={classes.workoutCardList}>
+                  { 
+                    this.state.exercises[w.number-1].map(ex => {
+                    return <li className={classes.workoutCardListItem}>{ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight}kg</li>
+                    })
+                  }
+                  </ul>
+                </div>
+                )
+                })
+              }
           </div>  
         );
     }
