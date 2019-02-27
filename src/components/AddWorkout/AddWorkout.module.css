@@ -119,4 +119,19 @@
     padding: 1%;
     margin-top: 2.5%;
     width: 90%;
+    vertical-align: middle;
+}
+
+.iconSpan {
+    display: inline-flex;
+    margin-left: 1%;
+    padding-top: 1%;
+    vertical-align: middle;
+    float: right;
+    cursor: pointer;
+    border-bottom: solid 1px white;
+}
+.iconSpan:hover { 
+    border-color: coral;
+    transition: 0.1s border-color ease-in;
 }

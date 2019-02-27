@@ -180,6 +180,17 @@ class AddWorkout extends Component {
           }
           }
 
+          const removeExercise = (number) => {
+            let exercisesStateCopy = this.state.exercises;
+            this.state.exercises.splice(number, 1);
+            this.setState({
+              exercises: exercisesStateCopy
+            })
+          }
+
+          const logCurrentState = () => {
+            console.log(this.state.exercises);
+          }
         
         return (
           <>
@@ -203,14 +214,19 @@ class AddWorkout extends Component {
                 <button onClick={renderNextExerciseInputs} className={classes.addExerciseButton}>+ Add exercise</button>
                 { this.state.exercises.map(ex => {
                     return  <span number={ex.exercise.exerciseNumber} className={classes.exerciseListSpan} key={ex.exercise.exerciseName + ex.exercise.exerciseNumber + ex.exercise.weight}>
-                      Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg
+                     Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg 
+                     <span number={ex.exercise.number} onClick={() => removeExercise(this.number)} className={classes.iconSpan}><MaterialIcon icon="cancel" color="coral" size="tiny"></MaterialIcon></span>
                     </span> 
                   }
                 )}
               </Modal.Body>
               <Modal.Footer>
+                
                 <button className={classes.modalButton} onClick={this.props.closeModal}>
                   Close
+                </button>
+                <button className={classes.modalButton} onClick={logCurrentState}>
+                  Log State
                 </button>
                 <button className={classes.modalButton} onClick={submitExercisesToFirebase}>
                   Add Workout
