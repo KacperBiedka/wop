@@ -4,13 +4,15 @@ import firebase from '../../firebase.js';
 import classes from './Workouts.module.css';
 
 import Navbar from '../Navbar/Navbar';
+import Loading from '../Loading/Loading';
 
 class Workouts extends Component {
   state = {
     workouts: [],
     workoutNames: [],
     exercises: [],
-    workoutCards: {}
+    workoutCards: {},
+    loading: true
   }
 
   componentDidMount() {
@@ -35,9 +37,15 @@ class Workouts extends Component {
               workouts: workoutsCopy,
             })
           })
+          this.setState({
+            loading: false
+          })
         })
         .catch(function(error) {
           console.log("Error getting workoutName: " + error);
+          this.setState({
+            loading: false
+          })
         })
       } else {
           console.log("Error getting document");
@@ -61,6 +69,7 @@ class Workouts extends Component {
         return (
           <div className={classes.workoutsDiv}>
           <Navbar/>
+              {this.state.loading ? <Loading /> : null}
               <h1 className={classes.workoutsHeader}>
                 Workouts Screen Successfuly Loaded!
               </h1>
