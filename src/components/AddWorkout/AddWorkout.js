@@ -182,9 +182,17 @@ class AddWorkout extends Component {
 
           const removeExercise = (number) => {
             let exercisesStateCopy = this.state.exercises;
-            this.state.exercises.splice(number, 1);
+            exercisesStateCopy.splice(number, 1);
+            exercisesStateCopy.map(ex => {
+            if (ex.exercise.exerciseNumber > number) {
+                ex.exercise.exerciseNumber -= 1;
+            }
+            })
+            let exerciseNumberStateCopy = this.state.exerciseNumber;
+            exerciseNumberStateCopy = exerciseNumberStateCopy - 1; 
             this.setState({
-              exercises: exercisesStateCopy
+              exercises: exercisesStateCopy,
+              exerciseNumber: exerciseNumberStateCopy
             })
           }
 
@@ -215,7 +223,7 @@ class AddWorkout extends Component {
                 { this.state.exercises.map(ex => {
                     return  <span number={ex.exercise.exerciseNumber} className={classes.exerciseListSpan} key={ex.exercise.exerciseName + ex.exercise.exerciseNumber + ex.exercise.weight}>
                      Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg 
-                     <span number={ex.exercise.number} onClick={() => removeExercise(this.number)} className={classes.iconSpan}><MaterialIcon icon="cancel" color="coral" size="tiny"></MaterialIcon></span>
+                     <span onClick={() => removeExercise(ex.exercise.exerciseNumber-1)} className={classes.iconSpan}><MaterialIcon icon="cancel" color="coral" size="tiny"></MaterialIcon></span>
                     </span> 
                   }
                 )}
