@@ -2,11 +2,11 @@
 
 #firebase
 .firebaserc
-.database.rules.json
-.firebase.json
-.firestore.indexes.json
-.firestore.rules
-.storage.rules
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+storage.rules
 /functions
 
 # dependencies
