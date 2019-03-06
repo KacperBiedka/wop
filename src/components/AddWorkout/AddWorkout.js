@@ -123,17 +123,17 @@ class AddWorkout extends Component {
         }
         const updateSetsState = (e) => {
           this.setState({
-           sets: e.target.value
+           sets: parseInt(e.target.value)
           })
         }
         const updateRepsState = (e) => {
           this.setState({
-           reps: e.target.value
+           reps: parseInt(e.target.value)
           })
         }
         const updateWeightState = (e) => {
           this.setState({
-           weight: e.target.value
+           weight: parseInt(e.target.value)
           })
         }
         const updateWorkoutNameState = (e) => {
@@ -219,7 +219,9 @@ class AddWorkout extends Component {
                 {this.state.repsError}
                 <input onChange={updateWeightState} className={classes.inputField + " " + classes.numberInputField} type="number" placeholder="Weight (kg)"  value={this.state.weight} />
                 {this.state.weightError}
-                <button onClick={renderNextExerciseInputs} className={classes.addExerciseButton}>+ Add exercise</button>
+                <div className={classes.addExerciseButtonContainer}>
+                  <button onClick={renderNextExerciseInputs} className={classes.addExerciseButton}>+ Add exercise</button>
+                </div>
                 { this.state.exercises.map(ex => {
                     return  <span number={ex.exercise.exerciseNumber} className={classes.exerciseListSpan} key={ex.exercise.exerciseName + ex.exercise.exerciseNumber + ex.exercise.weight}>
                      Exercise {ex.exercise.exerciseNumber} - {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg 

@@ -87,6 +87,7 @@
 
 .exercisesHeader {
     display: block;
+    text-align: left;
     margin-left: 2.5%;
     font-size: 125%;
     color: #555;
@@ -102,6 +103,10 @@
     height: 30px;
     color: white;
     cursor: pointer;
+}
+
+.addExerciseButtonContainer {
+   text-align: left; 
 }
 
 .addExerciseButton:hover {
@@ -120,6 +125,7 @@
     margin-top: 2.5%;
     width: 90%;
     vertical-align: middle;
+    text-align: left; 
 }
 
 .iconSpan {

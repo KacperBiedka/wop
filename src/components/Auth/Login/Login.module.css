@@ -50,6 +50,16 @@
     cursor: pointer;
 }
 
+.loginErrorDiv {
+    width: 90%;
+    margin: auto;
+    color: #555;
+    background: rgba(255,127,80 ,0.2);;
+    font-size: 90%;
+    text-align: left;
+    padding: 0.5%;
+}
+
 .authButton:hover {
     border: solid 1px coral;
     color: coral;
