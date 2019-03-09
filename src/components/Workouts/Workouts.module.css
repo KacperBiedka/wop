@@ -38,18 +38,19 @@
   position: absolute;
 }
 
+
 .anchorDiv .modalAnchor::after {
     top: 65%;
     height: 1.5px;
     width: 0%;
     left: 4%;
     background-color: coral;
-    transition: 0.5s ease all .3s;
+    transition: 0.2s ease all 0.2s;
   }
   
   .anchorDiv:hover .modalAnchor::after {
     width: 90%;
-    transition: 0.3s ease all;
+    transition: 0.2s ease all;
   }
 
 .modalAnchor::after {
@@ -58,12 +59,12 @@
     width: 0%;
     left: 4%;
     background-color: rgba(255, 255, 255, 0.6);
-    transition: 0.5s ease all .3s;
+    transition: 0.2s ease all 0.2s;
   }
   
   .custom.custom-underline::after {
     width: 95%;
-    transition: 0.3s ease all;
+    transition: 0.2s ease all;
   }
 
 .workoutCardDiv {

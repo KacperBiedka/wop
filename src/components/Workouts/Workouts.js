@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Redux from 'redux';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions/actionTypes';
 import firebase from '../../firebase.js';
 import classes from './Workouts.module.css';
+import { NavLink } from 'react-router-dom';
 
 import Navbar from '../Navbar/Navbar';
 import Loading from '../Loading/Loading';
@@ -70,7 +73,7 @@ class Workouts extends Component {
                   return (
                     <div className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
                     <div className={classes.workoutCardHeaderDiv}>
-                    <h5 className={classes.workoutNameHeader}>{w.name}</h5>
+                    <h5 onClick={this.logData}className={classes.workoutNameHeader}>{w.name}</h5>
                     </div>
                     <ul className={classes.workoutCardList}>
                   { 
@@ -80,9 +83,11 @@ class Workouts extends Component {
                   }
                   </ul>
                   <hr />
+                  <NavLink to="/exercises">
                   <div className={classes.anchorDiv}>
-                    <a className={classes.modalAnchor} onClick={() => {}}>Choose</a>
+                    <a onClick={() => this.props.getExercisesToRedux(this.state.exercises[w.number-1])} className={classes.modalAnchor}>choose</a>
                   </div>
+                  </NavLink>
                   </div>
                 )
                 })
@@ -92,4 +97,10 @@ class Workouts extends Component {
     }
 }
 
-export default Workouts;
+const mapDispatchToProps = dispatch => {
+  return {
+    getExercisesToRedux: (exercises) => dispatch({type: actionTypes.GET_EXERCISE, exercises: exercises}),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Workouts);
