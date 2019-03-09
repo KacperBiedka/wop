@@ -9,6 +9,8 @@ body {
 .loadingDiv {
   display: block;
   margin: auto;
+  text-align: center;
+  margin-top: 10%;
   margin-bottom: 5%;
 }
 

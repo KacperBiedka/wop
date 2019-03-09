@@ -1,5 +1,6 @@
-.authButton {
+/* .modalButton {
     display: inline-block;
+    margin-right: 87.5%;
     background: #fff;
     border: solid 1px #eee;
     width: 100px;
@@ -7,10 +8,63 @@
     cursor: pointer;
 }
 
-.authButton:hover {
+.modalButton:hover {
     border: solid 1px coral;
     color: coral;
+} */
+
+.modalAnchor {
+  position: relative;
+  display: inline-block;
+  font-size: 95%;;
+  font-weight: 400;
+  text-align: left;
+  padding-bottom: 1%;
+  margin-right: 90%;
+  color: black !important;
+  cursor: pointer
 }
+
+.modalAnchor,
+.modalAnchor:hover,
+.modalAnchor:focus,
+.modalAnchor:active {
+  color: #555;
+  text-decoration: none;
+}
+
+.modalAnchor::after {
+  content: "";
+  position: absolute;
+}
+
+.anchorDiv .modalAnchor::after {
+    top: 65%;
+    height: 1.5px;
+    width: 0%;
+    left: 4%;
+    background-color: coral;
+    transition: 0.5s ease all .3s;
+  }
+  
+  .anchorDiv:hover .modalAnchor::after {
+    width: 90%;
+    transition: 0.3s ease all;
+  }
+
+.modalAnchor::after {
+    top: 65%;
+    height: 1.5px;
+    width: 0%;
+    left: 4%;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: 0.5s ease all .3s;
+  }
+  
+  .custom.custom-underline::after {
+    width: 95%;
+    transition: 0.3s ease all;
+  }
 
 .workoutCardDiv {
     display: block;

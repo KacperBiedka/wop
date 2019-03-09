@@ -10,6 +10,7 @@ class Navbar extends Component {
   state = {
     showAddWorkoutModal: false
   }
+
   render() {
         const logout = () => {
           firebase.auth().signOut();
@@ -43,7 +44,7 @@ class Navbar extends Component {
               </Link>
               </div>
               <div className={classes.navDiv + " " + "col-1"}></div>
-              <div className={classes.navDiv + " " + "col-2"}><button className={classes.navButton}>Settings</button></div>
+              <div className={classes.navDiv + " " + "col-2"}><button onClick={logout} className={classes.navButton}>Logout</button></div>
               <div className={classes.navDiv + " " + "col-2"}><button className={classes.navButton}>More</button></div>
           </div>
           <AddWorkout visible={this.state.showAddWorkoutModal} closeModal={closeAddWorkoutModal}/>

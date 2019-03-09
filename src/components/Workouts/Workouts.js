@@ -54,11 +54,6 @@ class Workouts extends Component {
   }
   
 
-    logout = () => {
-      firebase.auth().signOut();
-      window.location.href = "..";
-    }
-
     logData = () => {
       console.log(this.state.workouts);
       console.log(this.state.exercises);
@@ -70,11 +65,6 @@ class Workouts extends Component {
           <div className={classes.workoutsDiv}>
           <Navbar/>
               {this.state.loading ? <Loading /> : null}
-              <h1 className={classes.workoutsHeader}>
-                Workouts Screen Successfuly Loaded!
-              </h1>
-              <button onClick={this.logout} className={classes.authButton}>Log out</button>
-              <button onClick={() => this.logData()} className={classes.authButton}>Firebase!</button>
               {
                 this.state.workouts.map(w => {
                   return (
@@ -89,7 +79,11 @@ class Workouts extends Component {
                     })
                   }
                   </ul>
-                </div>
+                  <hr />
+                  <div className={classes.anchorDiv}>
+                    <a className={classes.modalAnchor} onClick={() => {}}>Choose</a>
+                  </div>
+                  </div>
                 )
                 })
               }
