@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import Redux from 'redux';
 import { connect } from 'react-redux';
 
 class Exercises extends Component {
-    reder() {
+    render() {
         return (
         <div>
+            <h1>Exercises Loaded</h1>
+            {console.log(this.props.exercises)}
             {
                 this.props.exercises.map(ex => {
                     return (
-                        <span>Exercise {ex.exercise.number}: {ex.exercise.exerciseNumber} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg</span>
+                        <span>Exercise {ex.exercise.exerciseNumber}: {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg</span>
                     );
                 })
             }

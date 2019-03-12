@@ -13,20 +13,6 @@ import Exercises from './components/Exercises/Exercises';
 
 class App extends Component {
   render() {
-    const testFirebase = (e) => {
-      e.preventDefault();
-      firebase.firestore().collection("users").doc("lmao").set({
-        first: "Ada",
-        last: "Loveblace",
-        born: 1815
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
-    }
     return (
       <div className="App">
       <Switch>

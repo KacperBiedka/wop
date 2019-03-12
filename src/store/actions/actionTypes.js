@@ -1,7 +1,11 @@
+
 export const GET_EXERCISE = "GET_EXERCISE";
 
-export const getExercise = ( exercise ) => {
+export let getExercises = ( exercises ) => {
+    let reduxExercises = [];
+    reduxExercises.push(exercises);
     return {
-        exercise: exercise
+        type: GET_EXERCISE,
+        exercises: {exercises}
     };
 };

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import firebase from '../../firebase.js';
 import classes from './Workouts.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Navbar from '../Navbar/Navbar';
 import Loading from '../Loading/Loading';
@@ -15,7 +15,8 @@ class Workouts extends Component {
     workoutNames: [],
     exercises: [],
     workoutCards: {},
-    loading: true
+    loading: true,
+    reduxExercises: []
   }
 
   componentDidMount() {
@@ -63,7 +64,6 @@ class Workouts extends Component {
     }
 
   render() {
-
         return (
           <div className={classes.workoutsDiv}>
           <Navbar/>
@@ -73,7 +73,7 @@ class Workouts extends Component {
                   return (
                     <div className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
                     <div className={classes.workoutCardHeaderDiv}>
-                    <h5 onClick={this.logData}className={classes.workoutNameHeader}>{w.name}</h5>
+                    <h5 onClick={this.logData} className={classes.workoutNameHeader}>{w.name}</h5>
                     </div>
                     <ul className={classes.workoutCardList}>
                   { 
@@ -83,11 +83,11 @@ class Workouts extends Component {
                   }
                   </ul>
                   <hr />
-                  <NavLink to="/exercises">
+                  <Link to="/exercises">
                   <div className={classes.anchorDiv}>
-                    <a onClick={() => this.props.getExercisesToRedux(this.state.exercises[w.number-1])} className={classes.modalAnchor}>choose</a>
+                    <p onClick={() => this.props.getExercisesToRedux(this.state.exercises[w.number-1])} className={classes.modalAnchor}>choose</p>
                   </div>
-                  </NavLink>
+                  </Link>
                   </div>
                 )
                 })
@@ -97,10 +97,15 @@ class Workouts extends Component {
     }
 }
 
+const mapStateToProps = state => {
+  return {
+    exercises: state.exercises
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
-    getExercisesToRedux: (exercises) => dispatch({type: actionTypes.GET_EXERCISE, exercises: exercises}),
+    getExercisesToRedux: (exercises) => dispatch(actionTypes.getExercises(exercises))
   };
 };
 
-export default connect(null, mapDispatchToProps)(Workouts);
+export default connect(mapStateToProps, mapDispatchToProps)(Workouts);
