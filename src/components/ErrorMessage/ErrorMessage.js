@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './ErrorMessage.module.css';
-import MaterialIcon, {colorPalette} from 'material-icons-react';
+import MaterialIcon from 'material-icons-react';
 
 const errorMessage = (props) => {
     return (

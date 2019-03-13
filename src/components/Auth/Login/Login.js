@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Redux from 'redux';
 import firebase from '../../../firebase.js';
 import * as firebaseui from 'firebaseui';
 import classes from './Login.module.css';
 import { Link } from 'react-router-dom';
-
-import ErrorMessage from '../../ErrorMessage/ErrorMessage';
-
 
 class Login extends Component {
   state = {

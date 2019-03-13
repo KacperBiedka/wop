@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Redux from 'redux';
 import firebase from '../../../firebase.js';
 import classes from './Signup.module.css';
 import { Link } from 'react-router-dom';
@@ -29,7 +28,6 @@ class Signup extends Component {
                 console.log(this.state.email);
                 console.log(this.state.password);
                 firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-                var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorMessage);
             })

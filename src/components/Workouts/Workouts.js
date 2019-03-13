@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Redux from 'redux';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
 import firebase from '../../firebase.js';

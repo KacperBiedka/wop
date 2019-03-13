@@ -1,0 +1,51 @@
+.exerciseCardDiv {
+    display: block;
+    margin: auto;
+    width: 50vw;
+    border: solid 1px #eee;
+    padding-bottom: 0 !important;
+    margin-bottom: 2% !important;
+}
+
+.exerciseCardHeaderDiv {
+    margin: auto;
+    text-align: left;
+    padding: 1%;
+    padding-top: 1.5%;
+    padding-bottom: 0.5%;
+    border-bottom: solid 1px #eee;
+}
+
+.exerciseCardHeader {
+    display: block;
+    margin-left: 1%;
+}
+
+.exerciseCardBodyDiv {
+    margin: auto;
+    text-align: center;
+    padding: 1%;
+}
+
+.exerciseCardSquare {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    padding: auto;
+    vertical-align: middle;
+    border: solid 1px coral;
+    border-radius: 7%;
+    background: #fff;
+    text-align: center;
+    margin: auto;
+    color: coral;
+    padding-top: 2%;
+    font-size: 120%;
+    margin: 2% 3%;
+}
+
+.exerciseCardBottomDiv {
+    margin: auto;
+    border-top: solid 1px #eee;
+    padding-top: 2%;
+}

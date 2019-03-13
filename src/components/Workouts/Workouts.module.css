@@ -38,6 +38,10 @@
   position: absolute;
 }
 
+.anchorDiv {
+  padding: 0;
+}
+
 
 .anchorDiv .modalAnchor::after {
     top: 65%;
@@ -75,6 +79,7 @@
     width: 50vw;
     margin-bottom: 2.5%;
     margin-top: 2.5%;
+    padding-bottom: 0 !important;
 }
 
 .workoutCardHeaderDiv {

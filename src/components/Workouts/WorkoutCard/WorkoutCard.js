@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './Exercises.module.css';
 
 const workoutCard = (props) => {
     <div className={classes.workoutCardDiv}>

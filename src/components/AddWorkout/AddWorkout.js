@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Modal} from 'react-bootstrap';
 import firebase from '../../firebase.js';
-import MaterialIcon, {colorPalette} from 'material-icons-react';
+import MaterialIcon from 'material-icons-react';
 
 import classes from './AddWorkout.module.css';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -43,7 +43,7 @@ class AddWorkout extends Component {
         globalWorkoutNumber = doc.data().workoutsNumber;
         return globalWorkoutNumber;
         })
-      } else if(snapshot.docs.length == false) {
+      } else if(snapshot.docs.length === false) {
         console.log("doc doesn't exist");
         globalWorkoutNumber = 0;
         console.log("globalWorkoutNumber = " + globalWorkoutNumber);
@@ -58,8 +58,6 @@ class AddWorkout extends Component {
        console.log("user not logged in");
      }
    })
-
-        let exercisesList = null;
 
         const renderNextExerciseInputs = () => {
           if (!this.state.exerciseName) {
@@ -109,11 +107,6 @@ class AddWorkout extends Component {
             weightError: null
           });
         }
-        }
-
-        const logState = () => {
-          console.log(this.state.exercises);
-          console.log(exercisesList);
         }
         
         const updateExerciseNameState = (e) => {
@@ -180,14 +173,19 @@ class AddWorkout extends Component {
           }
           }
 
+          let clickedExerciseNumber = null;
+
+          const changeExerciseNumberOnRemove = (item) => {
+            if (item.exercise.exerciseNumber > clickedExerciseNumber) {
+                item.exercise.exerciseNumber -= 1;
+             }
+          }
+          
           const removeExercise = (number) => {
+            clickedExerciseNumber = number;
             let exercisesStateCopy = this.state.exercises;
             exercisesStateCopy.splice(number, 1);
-            exercisesStateCopy.map(ex => {
-            if (ex.exercise.exerciseNumber > number) {
-                ex.exercise.exerciseNumber -= 1;
-            }
-            })
+            exercisesStateCopy.forEach(changeExerciseNumberOnRemove);
             let exerciseNumberStateCopy = this.state.exerciseNumber;
             exerciseNumberStateCopy = exerciseNumberStateCopy - 1; 
             this.setState({

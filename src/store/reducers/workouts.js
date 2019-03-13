@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-import { defaultCipherList } from 'constants';
 
 const initialState = {
     exercises: null

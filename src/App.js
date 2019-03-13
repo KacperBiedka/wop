@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import firebase from './firebase.js';
+import { Route, Switch } from 'react-router-dom';
 import 'firebase/firestore';
-import * as firebaseui from 'firebaseui';
 import './App.css';
 
 import Login from './components/Auth/Login/Login';

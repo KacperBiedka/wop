@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import ExerciseCard from './ExerciseCard/ExerciseCard';
+
 class Exercises extends Component {
     render() {
         return (
@@ -10,7 +12,14 @@ class Exercises extends Component {
             {
                 this.props.exercises.map(ex => {
                     return (
-                        <span>Exercise {ex.exercise.exerciseNumber}: {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight} kg</span>
+                        <ExerciseCard
+                        key={ex.exercise.exerciseName + ex.exercise.exerciseNumber} 
+                        name={ex.exercise.exerciseName}
+                        number={ex.exercise.exerciseNumber}
+                        sets={ex.exercise.sets}
+                        reps={ex.exercise.reps}
+                        weight={ex.exercise.weight}
+                        />
                     );
                 })
             }
