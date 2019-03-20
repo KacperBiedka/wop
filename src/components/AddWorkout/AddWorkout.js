@@ -79,7 +79,6 @@ class AddWorkout extends Component {
           } if (this.state.weight != null && !this.state.reps != null && this.state.sets != null && this.state.exerciseName != null) {
           let exercisesArray = this.state.exercises.slice();
           let exercise = {
-            workoutName: this.state.workoutName,
             exerciseNumber: this.state.exerciseNumber,
             exerciseName: this.state.exerciseName,
             sets: this.state.sets,

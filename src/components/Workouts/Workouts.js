@@ -15,8 +15,7 @@ class Workouts extends Component {
     exercises: [],
     workoutCards: {},
     loading: true,
-    reduxExercises: [],
-    removedDocId: null
+    reduxExercises: []
   }
 
   componentDidMount() {
@@ -53,6 +52,7 @@ class Workouts extends Component {
         })
       } else {
           console.log("Error getting document");
+          window.location = "..";
       }
     }.bind(this));
   }
@@ -123,6 +123,54 @@ class Workouts extends Component {
     });
     }
 
+    editWorkoutName = (event) => {
+     
+      let workoutsStateCopy = this.state.workouts;
+      let number = this.state.selectedInputNumber;
+      console.log(workoutsStateCopy);
+      let inputValue =  event.target.value;
+      workoutsStateCopy[number - 1].name = inputValue
+      this.setState({
+        workouts: workoutsStateCopy
+      })
+    }
+
+    setSelectedInputNumber = (number) => {
+      this.setState({
+        selectedInputNumber: number
+      })
+    }
+
+    addWorkoutNameToFirebase = (number) => {
+      const db = firebase.firestore();
+      const inputValue = this.state.workouts[number - 1].name; 
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+        const uid = user.uid;
+        const editWorkoutNameQuery = db.collection("workouts").where("uid", "==", uid).where("workoutNumber", "==", number).limit(1)
+        editWorkoutNameQuery.get()
+        .then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+          db.collection("workouts").doc(doc.id).update({
+            workoutName: inputValue
+          })
+          .then(() => {
+            console.log("successfuly updated the workout name with " + inputValue);
+          }) 
+          .catch((error) => {
+            console.log("error updating the workoutName with -- " + inputValue + "error : " + error);
+          })
+        })
+        })
+        .catch((error) => {
+          console.log("error getting editWorkoutName -- ", error);
+        })
+        } else {
+          console.log("user not logged in :( ");
+        }
+        })
+    }
+
   render() {
         return (
           <div className={classes.workoutsDiv}>
@@ -131,14 +179,17 @@ class Workouts extends Component {
               {
                 this.state.workouts.map(w => {
                   return (
-                    <div key={w.number + w.name} className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
+                    <div key={w.number*100} className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
                     <div className={classes.workoutCardHeaderDiv}>
-                    <h5 onClick={this.logData} className={classes.workoutNameHeader}>{w.name}</h5>
+                    {/* <h5 onClick={this.logData} className={classes.workoutNameHeader}>{this.state.workouts[w.number - 1].name}</h5> */}
+                    <input key={w.number*200} className={classes.workoutCardHeader} type="text" onBlur={() => this.addWorkoutNameToFirebase(w.number)} onClick={() => this.setSelectedInputNumber(w.number)} onChange={this.editWorkoutName} value={this.state.workouts[w.number - 1].name}/>
                     </div>
                     <ul className={classes.workoutCardList}>
                   { 
                     this.state.exercises[w.number-1].map(ex => {
-                    return <li key={ex.exercise.exerciseName + ex.exercise.exerciseNumber} className={classes.workoutCardListItem}>{ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight}kg</li>
+                    return <li key={ex.exercise.exerciseName + ex.exercise.exerciseNumber} 
+                    className={classes.workoutCardListItem}>
+                    {ex.exercise.exerciseName} {ex.exercise.sets} sets {ex.exercise.reps} reps with {ex.exercise.weight}kg</li>
                     })
                   }
                   </ul>
