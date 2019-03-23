@@ -1,0 +1,61 @@
+.exerciseHeader {
+    text-align: left;
+    display: block;
+    margin-left: 2.5%;
+}
+
+.exerciseHeaderHr {
+    border-color: coral;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.inputField {
+    display: inline-block;
+    margin: auto;
+    margin-left: 2.5%;
+    width: 50%;
+    margin-bottom: 2%;
+    border: solid 1px #eee;
+    border-radius: 4%;
+    font-size: 90%;
+    padding: 1.5%;
+    outline: none;
+}
+
+.inputFieldLable {
+    display: inline-block;
+    text-align: left;
+    margin-left: 2.5%;
+    width: 40%;
+}
+
+.modalButton {
+    display: inline-block;
+    background: #fff;
+    border: solid 1px #eee;
+    width: 125px;
+    height: 30px;
+    font-size: 80%;
+    cursor: pointer;
+}
+
+.modalButton:hover {
+    border: solid 1px coral;
+    color: coral;
+}
+
+.inputField:focus {
+    border: solid 1px coral;
+    outline: none;
+}
+
+.numberInputField {
+    -moz-appearance: textfield;
+}
+
+.numberInputField::-webkit-outer-spin-button,
+.numberInputField::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

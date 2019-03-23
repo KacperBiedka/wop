@@ -83,7 +83,8 @@ class AddWorkout extends Component {
             exerciseName: this.state.exerciseName,
             sets: this.state.sets,
             reps: this.state.reps,
-            weight: this.state.weight
+            weight: this.state.weight,
+            workoutNumber: globalWorkoutNumber
           }
           console.log(exercisesArray);
           exercisesArray.push({exercise});

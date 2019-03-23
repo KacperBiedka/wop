@@ -96,9 +96,12 @@ class Workouts extends Component {
                       console.log("successfuly changed the user workoutsNumber")
                       window.location.reload();
                     })
+                    .catch((error) => {
+                      console.log("error updating user's workoutsNumber", error);
+                    })
                   })
                   .catch((error) => {
-                    console.log("error changing user workoutsNumber : ", error);
+                    console.log("error getting user workoutsNumber : ", error);
                   })
                 })
               }
@@ -179,10 +182,10 @@ class Workouts extends Component {
               {
                 this.state.workouts.map(w => {
                   return (
-                    <div key={w.number*100} className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
+                    <div key={w.number} className={classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"}>
                     <div className={classes.workoutCardHeaderDiv}>
                     {/* <h5 onClick={this.logData} className={classes.workoutNameHeader}>{this.state.workouts[w.number - 1].name}</h5> */}
-                    <input key={w.number*200} className={classes.workoutCardHeader} type="text" onBlur={() => this.addWorkoutNameToFirebase(w.number)} onClick={() => this.setSelectedInputNumber(w.number)} onChange={this.editWorkoutName} value={this.state.workouts[w.number - 1].name}/>
+                    <input key={w.number} className={classes.workoutCardHeader} type="text" onBlur={() => this.addWorkoutNameToFirebase(w.number)} onClick={() => this.setSelectedInputNumber(w.number)} onChange={this.editWorkoutName} value={this.state.workouts[w.number - 1].name}/>
                     </div>
                     <ul className={classes.workoutCardList}>
                   { 
@@ -196,11 +199,11 @@ class Workouts extends Component {
                   <hr />
                   <Link to="/exercises">
                   <div className={classes.anchorDiv}>
-                    <p onClick={() => this.props.getExercisesToRedux(this.state.exercises[w.number-1])} className={classes.modalAnchor}>choose</p>
+                    <p onClick={() => this.props.getExercisesToRedux(this.state.exercises[w.number-1], w.number)} className={classes.modalAnchor}>choose</p>
                   </div>
                   </Link>
                   <div className={classes.deleteDiv}>
-                    <a className={classes.modalAnchor + " " + classes.deleteAnchor} onClick={() => this.removeWorkout(w.number)}>delete</a>
+                    <p className={classes.modalAnchor + " " + classes.deleteAnchor} onClick={() => this.removeWorkout(w.number)}>delete</p>
                   </div>
                   </div>
                 )
@@ -218,7 +221,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getExercisesToRedux: (exercises) => dispatch(actionTypes.getExercises(exercises))
+    getExercisesToRedux: (exercises, number) => dispatch(actionTypes.getExercises(exercises, number))
   };
 };
 

@@ -18,7 +18,8 @@
 
 .exerciseCardHeader {
     display: block;
-    margin-left: 1%;
+    margin-left: 0;
+    font-size: 90%;
 }
 
 .exerciseCardBodyDiv {
@@ -29,8 +30,8 @@
 
 .exerciseCardSquare {
     display: inline-block;
-    width: 55px;
-    height: 55px;
+    width: 7vh;
+    height: 7vh;
     padding: auto;
     vertical-align: middle;
     border: solid 1px coral;
@@ -41,7 +42,7 @@
     color: coral;
     padding-top: 1.75%;
     font-size: 120%;
-    margin: 2% 3%;
+    margin: 1% 5%;
 }
 
 .exerciseCardBottomDiv {
@@ -49,3 +50,44 @@
     border-top: solid 1px #eee;
     padding-top: 2%;
 }
+
+.modalAnchor, .modalAnchor:visited {
+    position: relative;
+    display: inline-block;
+    font-size: 95%;;
+    font-weight: 400;
+    padding-bottom: 1px;
+    margin-right: 90%;
+    color: black !important;
+    cursor: pointer
+  }
+  
+  .modalAnchor:after, .modalAnchor:visited:after {
+    content: '';
+    height: 1.1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    background: coral;
+    transition: 0.2s;
+  }
+  .modalAnchor:hover:after, .modalAnchor:visited:hover:after {
+    width: 100%;
+  }
+  
+  .deleteAnchor {
+    margin-left: 89%;
+  }
+  
+  .anchorDiv {
+    width: 50%;
+    display: inline-block;
+    text-align: left;
+  }
+  
+  .deleteDiv {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+  }
