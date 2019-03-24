@@ -71,23 +71,58 @@ class Workouts extends Component {
         console.log(user.uid);
         const uid = user.uid;
         const deleteQuery = db.collection("workouts").where("uid", "==", uid).where("workoutNumber", "==", number).limit(1);
-        const subtractNumberQuery = db.collection("workouts").where("uid", "==", uid);
+        const subtractNumberQuery = db.collection("workouts").where("uid", "==", uid).orderBy("workoutNumber", "desc");
         deleteQuery.get()
         .then((snapshot) => {
+          console.log("get doc for delete function worked");
           snapshot.docs.forEach(doc => {
-          firebase.firestore().collection("workouts").doc(doc.id).delete()
+          db.collection("workouts").doc(doc.id).delete()
           .then(function() {
+            console.log("delete firebase function worked");
             subtractNumberQuery.get()
             .then((snapshot) => {
-              snapshot.docs.forEach(doc => {
-                console.log(doc.data().workoutNumber);
-                if (doc.data().workoutNumber > number) {
-                db.collection("workouts").doc(doc.id).update({
-                  workoutNumber: doc.data().workoutNumber-1
-                })
-                .then(() => {
-                  db.collection("users").doc(uid).get()
-                  .then((doc) => {
+              if (snapshot.docs.length > 0) {
+                console.log("get function worked");
+                snapshot.docs.forEach(doc => {
+                  console.log("------workout number------");
+                  console.log(doc.data().workoutNumber);
+                  if (doc.data().workoutNumber > number) {
+                  db.collection("workouts").doc(doc.id).update({
+                    workoutNumber: doc.data().workoutNumber-1
+                  })
+                  .then(() => {
+                    db.collection("users").doc(uid).get()
+                    .then((snapshot) => {
+                      snapshot.docs.forEach(doc => {
+                        console.log("-----number-----");
+                        console.log(doc.data().workoutsNumber);
+                        db.collection("users").doc(uid).update({
+                          workoutsNumber: doc.data().workoutsNumber - 1
+                        })
+                        .then(() => {
+                          console.log("successfuly changed the user workoutsNumber")
+                          window.location.reload();
+                        })
+                        .catch((error) => {
+                          console.log("error updating user's workoutsNumber", error);
+                        })
+                      })
+                    })
+                    .catch((error) => {
+                      console.log("error getting other workoutNumbers : ", error);
+                    })
+                  })
+                  .catch(error => {
+                    console.log("error updating user workoutNumber doc ", error)
+                  })
+                }
+              })
+              } else {
+                console.log("there were no other documents");
+                db.collection("users").where("uid", "==", uid).get()
+                .then((snapshot) => {
+                  snapshot.docs.forEach(doc => {
+                    console.log("-----number-----");
                     console.log(doc.data().workoutsNumber);
                     db.collection("users").doc(uid).update({
                       workoutsNumber: doc.data().workoutsNumber - 1
@@ -100,12 +135,11 @@ class Workouts extends Component {
                       console.log("error updating user's workoutsNumber", error);
                     })
                   })
-                  .catch((error) => {
-                    console.log("error getting user workoutsNumber : ", error);
-                  })
+                })
+                .catch((error) => {
+                  console.log("error getting other workoutNumbers : ", error);
                 })
               }
-            })
             })
             .catch((error) => {
               console.log("error subtracting workoutNumbers: ", error);
