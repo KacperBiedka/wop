@@ -11,23 +11,25 @@ class Navbar extends Component {
   }
 
   render() {
-        const logout = () => {
-          firebase.auth().signOut();
-          window.location.href = "..";
-        };
-        const toggleAddWorkoutModal = () => {
-        this.setState({
-          showAddWorkoutModal: !this.state.showAddWorkoutModal
-        });
-        console.log(this.state.showAddWorkoutModal);
-        };
 
-        const closeAddWorkoutModal = () => {
-          this.setState({
-            showAddWorkoutModal: false
-          });
-          console.log(this.state.showAddWorkoutModal);
-          };
+    const logout = () => {
+      firebase.auth().signOut();
+        window.location.href = "..";
+      };
+
+    const toggleAddWorkoutModal = () => {
+      this.setState({
+        showAddWorkoutModal: !this.state.showAddWorkoutModal
+      });
+      console.log(this.state.showAddWorkoutModal);
+    };
+
+    const closeAddWorkoutModal = () => {
+      this.setState({
+        showAddWorkoutModal: false
+      });
+      console.log(this.state.showAddWorkoutModal);
+    };
 
         return (
         <div className="componentDiv">

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 
 import Navbar from '../Navbar/Navbar';
 import Loading from '../Loading/Loading';
+import WorkoutMessage from './WorkoutMessage/WorkoutMessage';
+import AddWorkout from '../AddWorkout/AddWorkout';
 
 class Workouts extends Component {
   state = {
@@ -15,6 +17,8 @@ class Workouts extends Component {
     exercises: [],
     workoutCards: {},
     loading: true,
+    displayWorkoutMessage: false,
+    showAddWorkoutModal: false,
     reduxExercises: []
   }
 
@@ -26,6 +30,7 @@ class Workouts extends Component {
         const query = db.collection("workouts").where("uid", "==", uid).orderBy("workoutNumber", "asc")
         query.get()
         .then((snapshot) => {
+            if (snapshot.docs.length > 0) {
             snapshot.docs.forEach(doc => {
             let exercisesCopy = this.state.exercises;
             exercisesCopy.push(doc.data().exercises);
@@ -43,6 +48,12 @@ class Workouts extends Component {
           this.setState({
             loading: false
           })
+        } else {
+          this.setState({
+            loading: false,
+            displayWorkoutMessage: true
+          })
+        }
         })
         .catch(function(error) {
           console.log("Error getting workoutName: " + error);
@@ -208,11 +219,27 @@ class Workouts extends Component {
         })
     }
 
+    toggleAddWorkoutModal = () => {
+      this.setState({
+        showAddWorkoutModal: !this.state.showAddWorkoutModal
+      });
+      console.log(this.state.showAddWorkoutModal);
+    };
+
+    closeAddWorkoutModal = () => {
+      this.setState({
+        showAddWorkoutModal: false
+      });
+      console.log(this.state.showAddWorkoutModal);
+    };
+
   render() {
         return (
           <div className={classes.workoutsDiv}>
           <Navbar/>
+          <AddWorkout visible={this.state.showAddWorkoutModal} closeModal={this.closeAddWorkoutModal}/>
               {this.state.loading ? <Loading /> : null}
+              {this.state.displayWorkoutMessage ? <WorkoutMessage addWorkout={this.toggleAddWorkoutModal}/> : null}
               {
                 this.state.workouts.map(w => {
                   return (

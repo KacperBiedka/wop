@@ -7,12 +7,12 @@ import classes from './AddWorkout.module.css';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 class AddWorkout extends Component {
-  state = {
+state = {
     workoutName: "",
     workoutNameError: null,
     exerciseNumber: 1,
     exerciseNumberError: null,
-    exerciseName: null,
+    exerciseName: "",
     exerciseNameError: null,
     sets: null,
     setsError: null,
@@ -22,8 +22,9 @@ class AddWorkout extends Component {
     weightError: null,
     exercises: [],
     
-  }
-      render() {
+}
+      
+render() {
   
   let db = firebase.firestore();      
   let globalWorkoutNumber = 0;      
@@ -60,23 +61,47 @@ class AddWorkout extends Component {
    })
 
         const renderNextExerciseInputs = () => {
-          if (!this.state.exerciseName) {
+          if (!this.state.exerciseName.trim()) {
             this.setState({
               exerciseNameError: <ErrorMessage text="Exercise Name field is required" />
             });
-          } if (!this.state.sets) {
+          } 
+          if (this.state.exerciseName && this.state.exerciseNameError) {
+            this.setState({
+              exerciseNameError: null
+            })
+          }
+          if (!this.state.sets) {
             this.setState({
               setsError: <ErrorMessage text="Sets field is required" />
             });
-          } if (!this.state.reps) {
+          }
+          if (this.state.sets && this.state.setsError) {
+            this.setState({
+              setsError: null
+            })
+          } 
+          if (!this.state.reps) {
             this.setState({
               repsError: <ErrorMessage text="Reps field is required" />
             });
-          } if (!this.state.weight) {
+          }
+          if (this.state.reps && this.state.repsError) {
+            this.setState({
+              repsError: null
+            })
+          }  
+          if (!this.state.weight) {
             this.setState({
               weightError: <ErrorMessage text="Weight field is required" />
             });
-          } if (this.state.weight != null && !this.state.reps != null && this.state.sets != null && this.state.exerciseName != null) {
+          }
+          if (this.state.weight && !this.state.weightError) {
+            this.setState({
+              weightError: null
+            })
+          }  
+          if (this.state.weight  && this.state.reps && this.state.sets && this.state.exerciseName) {
           let exercisesArray = this.state.exercises.slice();
           let exercise = {
             exerciseNumber: this.state.exerciseNumber,
@@ -116,17 +141,17 @@ class AddWorkout extends Component {
         }
         const updateSetsState = (e) => {
           this.setState({
-           sets: parseInt(e.target.value)
+           sets: parseInt(e.target.value.trim())
           })
         }
         const updateRepsState = (e) => {
           this.setState({
-           reps: parseInt(e.target.value)
+           reps: parseInt(e.target.value.trim())
           })
         }
         const updateWeightState = (e) => {
           this.setState({
-           weight: parseInt(e.target.value)
+           weight: parseInt(e.target.value.trim())
           })
         }
         const updateWorkoutNameState = (e) => {
@@ -137,7 +162,7 @@ class AddWorkout extends Component {
         }
 
         const submitExercisesToFirebase = () => {
-          if (!this.state.workoutName) {
+          if (!this.state.workoutName.trim()) {
             console.log("there is no workout name :( pepehands");
             this.setState({
               workoutNameError: <ErrorMessage text="Workout Name is required" />
@@ -242,8 +267,8 @@ class AddWorkout extends Component {
               </Modal.Footer>
             </Modal>
           </>
-        );
-      }
-    }
+    );
+  }
+}
 
 export default AddWorkout;

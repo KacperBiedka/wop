@@ -38,11 +38,11 @@ class ExerciseCard extends Component {
         let exercisesCopy = this.state.exercisesState;
         console.log(exercisesCopy);
         exercisesCopy.splice(this.props.exerciseNumber - 1, 1);
-        exercisesCopy.map(ex => {
+        exercisesCopy.map((ex, index) => {
             console.log(ex.exercise.exerciseNumber);
             console.log(ex);
             if (ex.exercise.exerciseNumber > this.props.exerciseNumber) {
-                exercisesCopy[ex.exercise.exerciseNumber - 1].exercise.exerciseNumber = ex.exercise.exerciseNumber - 1;
+                exercisesCopy[index].exercise.exerciseNumber = ex.exercise.exerciseNumber - 1;
             }
         });
         console.log(exercisesCopy);

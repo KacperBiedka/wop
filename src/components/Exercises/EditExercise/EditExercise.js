@@ -48,20 +48,66 @@ render() {
 
    const updateSetsState = (e) => {
         this.setState({
-            sets: e.target.value
+            sets: parseInt(e.target.value.trim())
         })
     }
 
     const updateRepsState = (e) => {
         this.setState({
-            reps: e.target.value
+            reps: parseInt(e.target.value.trim())
         })
     }
 
     const updateWeightState = (e) => {
         this.setState({
-            weight: e.target.value
+            weight: parseInt(e.target.value.trim())
         })
+    }
+
+    const submitEdit = () => {
+      if (!this.state.exerciseName.trim()) {
+        this.setState({
+          exerciseNameError: <ErrorMessage text="Exercise Name field is required" />
+        });
+      } 
+      if (this.state.exerciseName && this.state.exerciseNameError) {
+        this.setState({
+          exerciseNameError: null
+        })
+      }
+      if (!this.state.sets) {
+        this.setState({
+          setsError: <ErrorMessage text="Sets field is required" />
+        });
+      }
+      if (this.state.sets && this.state.setsError) {
+        this.setState({
+          setsError: null
+        })
+      } 
+      if (!this.state.reps) {
+        this.setState({
+          repsError: <ErrorMessage text="Reps field is required" />
+        });
+      }
+      if (this.state.reps && this.state.repsError) {
+        this.setState({
+          repsError: null
+        })
+      }  
+      if (!this.state.weight) {
+        this.setState({
+          weightError: <ErrorMessage text="Weight field is required" />
+        });
+      }
+      if (this.state.weight && !this.state.weightError) {
+        this.setState({
+          weightError: null
+        })
+      }   
+      if (this.state.weight && this.state.reps && this.state.sets && this.state.exerciseName) {
+      editExercise();
+      }
     }
 
     const editExercise = () => {
@@ -135,7 +181,7 @@ render() {
               <button className={classes.modalButton} onClick={this.props.closeModal}>
                 Cancel
               </button>
-              <button className={classes.modalButton} onClick={editExercise}>
+              <button className={classes.modalButton} onClick={submitEdit}>
                 Edit
               </button>
             </Modal.Footer>

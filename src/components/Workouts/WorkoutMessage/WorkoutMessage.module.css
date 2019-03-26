@@ -1,0 +1,31 @@
+.workoutMessageDiv {
+    display: block;
+    margin: auto;
+    text-align: center;
+    border-bottom: solid 1px #eee;
+    width: 70%;
+    padding-bottom: 2%;
+    color: #C7C7C7;
+}
+
+.messageHeader {
+    display: block;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
+.addWorkoutButton {
+    border: none;
+    display: block;
+    margin: auto;
+    margin-top: 1%;
+    width: 10%;
+    padding-top: 0.5%;
+    background: white;
+    cursor: pointer;
+}
+
+.addWorkoutButton:focus {
+    outline: none;
+    
+}
