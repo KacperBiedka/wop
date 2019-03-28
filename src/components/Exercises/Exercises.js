@@ -36,6 +36,10 @@ class Exercises extends Component {
         }
         console.log(this.state.exercises);   
     }
+
+    componentDidMount = () => {
+        console.log(this.state);
+    }
   
     logData = () => {
         console.log(this.state.exercises);
@@ -54,7 +58,7 @@ class Exercises extends Component {
     render() {
         return (
         <div>
-            <NavBar/>
+            <NavBar workoutNumber={this.state.number} location="exercises" exercises={this.state.exercises}/>
             {console.log(this.props.exercises)}
             {  
                 this.state.exercises.map(ex => {

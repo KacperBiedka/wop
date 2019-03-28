@@ -3,11 +3,27 @@ import {Link} from 'react-router-dom';
 import firebase from '../../firebase.js';
 import classes from './Navbar.module.css';
 import AddWorkout from '../AddWorkout/AddWorkout';
+import AddExercise from '../AddExercise/AddExercise';
+
 
 
 class Navbar extends Component {
   state = {
-    showAddWorkoutModal: false
+    showAddWorkoutModal: false,
+    showEditExerciseModal: false,
+    currentLocation: null,
+    workoutNumber: null,
+    exercises: []
+  }
+
+  componentWillMount = () => {
+    this.setState({
+      currentLocation: this.props.location,
+      exercises: this.props.exercises,
+      workoutNumber: this.props.workoutNumber
+    })
+    console.log(this.props.location);
+    console.log(this.props.exercises)
   }
 
   render() {
@@ -24,6 +40,19 @@ class Navbar extends Component {
       console.log(this.state.showAddWorkoutModal);
     };
 
+    const closeAddExerciseModal = () => {
+      this.setState({
+        showAddExerciseModal: false
+      })
+    }
+
+    const toggleAddExerciseModal = () => {
+      this.setState({
+        showAddExerciseModal: !this.state.showAddExerciseModal
+      });
+      console.log(this.state.showAddExerciseModal);
+    }
+
     const closeAddWorkoutModal = () => {
       this.setState({
         showAddWorkoutModal: false
@@ -34,7 +63,10 @@ class Navbar extends Component {
         return (
         <div className="componentDiv">
           <div className={classes.navbarDiv + " row shadow p-3 mb-5"}>
-              <div className={classes.navDiv + " col-2"}><button onClick={toggleAddWorkoutModal} className={classes.navButton}>Add Workout</button></div>
+              {(this.props.location === "workouts") ? <div className={classes.navDiv + " col-2"}><button onClick={toggleAddWorkoutModal} className={classes.navButton}>Add Workout</button></div> :
+               (this.props.location === "exercises") ? <div className={classes.navDiv + " col-2"}><button onClick={toggleAddExerciseModal} className={classes.navButton}>Add Exercise</button></div> : 
+               null
+              } 
               <div className={classes.navDiv + " col-2"}><button className={classes.navButton}>Timers</button></div>
               <div className={classes.navDiv + " col-1"}></div>
               <div className={classes.navDiv + " col-2"}>
@@ -48,6 +80,7 @@ class Navbar extends Component {
               <div className={classes.navDiv + " col-2"}><button onClick={logout} className={classes.navButton}>Logout</button></div>
               <div className={classes.navDiv + " col-2"}><button className={classes.navButton}>More</button></div>
           </div>
+          <AddExercise workoutNumber={this.state.workoutNumber} exercisesCopy={this.props.exercises} visible={this.state.showAddExerciseModal} closeModal={closeAddExerciseModal}/>
           <AddWorkout visible={this.state.showAddWorkoutModal} closeModal={closeAddWorkoutModal}/>
         </div>
         )

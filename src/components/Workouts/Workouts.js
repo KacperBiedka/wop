@@ -236,7 +236,7 @@ class Workouts extends Component {
   render() {
         return (
           <div className={classes.workoutsDiv}>
-          <Navbar/>
+          <Navbar location="workouts" exercises={null} />
           <AddWorkout visible={this.state.showAddWorkoutModal} closeModal={this.closeAddWorkoutModal}/>
               {this.state.loading ? <Loading /> : null}
               {this.state.displayWorkoutMessage ? <WorkoutMessage addWorkout={this.toggleAddWorkoutModal}/> : null}
