@@ -44,6 +44,7 @@ class ExerciseCard extends Component {
             if (ex.exercise.exerciseNumber > this.props.exerciseNumber) {
                 exercisesCopy[index].exercise.exerciseNumber = ex.exercise.exerciseNumber - 1;
             }
+            return null;
         });
         console.log(exercisesCopy);
         const uid = user.uid;

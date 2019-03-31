@@ -9,6 +9,7 @@
     "firebaseui": "^3.5.2",
     "material-icons-react": "^1.0.4",
     "next": "^7.0.2",
+    "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.7.0",

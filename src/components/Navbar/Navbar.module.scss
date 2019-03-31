@@ -1,0 +1,138 @@
+$white:#fff;
+@mixin transition($in) {
+	transition:$in;
+	-webkit-transition:$in;
+	-moz-transition:$in;
+	-o-transition:$in;
+	-ms-transition:$in;
+}
+@mixin transform($in) {
+	transform:$in;
+	-webkit-transform:$in;
+	-moz-transform:$in;
+	-o-transform:$in;
+	-ms-transform:$in;
+}
+@mixin animation($in) {
+	animation:$in;
+	-webkit-animation:$in;
+	-moz-animation:$in;
+	-o-animation:$in;
+	-ms-animation:$in;
+}
+
+// .myButt {
+// 	outline:none;
+// 	border:none;
+// 	padding:0;
+// 	display:block;
+// 	margin: 0;
+// 	cursor:pointer;
+// 	background-color:transparent;
+// 	position:relative;
+// 	border:2px solid #fff;
+
+// 	@include transition(all 0.5s ease);
+// }
+
+.three {
+	color:#fff;
+	border-color:transparent;
+
+	&:before {
+		width:0;
+		height:1px;
+		content:" ";
+		background-color:$white;
+		position:absolute;
+		top:0;
+		left:50%;
+
+		@include transition(all 0.3s ease);
+	}
+
+	&:after {
+		@extend .three:before;
+		top:100%;
+	}
+
+	&:hover {
+		color:$white;
+
+		&:before {
+			width:100%;
+			left:0;
+		}
+		&:after {
+			width:100%;
+			left:0;
+		}
+	}
+}
+
+.iconPath {
+    fill: white;
+    stroke: red;
+    stroke-width: 1px;
+    stroke-dasharray: 10;
+    stroke-dashoffset: -10;
+    stroke-linecap: butt;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+  
+.iconPath:hover {
+    fill: rgb(211, 105, 67);
+    stroke-dashoffset: 0;
+    stroke-dasharray: 10;
+}
+
+.navbarDiv {
+    width: 100vw;
+    height: 40px;
+    background-color: coral;
+    margin: 0;
+    padding-bottom: 3%;
+    margin-bottom: 1%;
+    
+}
+
+.navUl {
+    list-style: none;
+    text-align: center;
+    font-size: 125%;
+}
+
+.navDiv {
+    text-align: center;
+    margin-top: -0.6%;
+    color: white;
+}
+
+.dbIcon {
+    display:block;
+    margin: auto;
+    width: 15vw;
+    height: 50px;
+    margin-top: -5.5%;
+    fill: white;
+}
+
+.dbIcon:hover { 
+    fill: yellow;
+    cursor: pointer;
+}
+
+.navButton {
+    background: transparent;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    @include transition(all 0.5s ease);
+}
+
+
