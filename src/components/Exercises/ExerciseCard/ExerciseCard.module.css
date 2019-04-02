@@ -2,9 +2,10 @@
     display: block;
     margin: auto;
     width: 50vw;
+    margin-top: 2.5%;
     border: solid 1px #eee;
     padding-bottom: 0 !important;
-    margin-bottom: 2% !important;
+    margin-bottom: 1% !important;
 }
 
 .exerciseCardHeaderDiv {
@@ -26,23 +27,6 @@
     margin: auto;
     text-align: center;
     padding: 1%;
-}
-
-.exerciseCardSquare {
-    display: inline-block;
-    width: 7vh;
-    height: 7vh;
-    padding: auto;
-    vertical-align: middle;
-    border: solid 1px coral;
-    border-radius: 7%;
-    background: #fff;
-    text-align: center;
-    margin: auto;
-    color: coral;
-    padding-top: 1.75%;
-    font-size: 120%;
-    margin: 1% 5%;
 }
 
 .exerciseCardBottomDiv {

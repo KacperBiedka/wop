@@ -54,6 +54,9 @@ class Exercises extends Component {
         console.log(this.state.showEditModal);
     };
 
+    toggleTimer = () => {
+        console.log("functionWorked");
+    }
 
     render() {
         return (
@@ -72,6 +75,7 @@ class Exercises extends Component {
                         reps={ex.exercise.reps}
                         weight={ex.exercise.weight}
                         workoutNumber={this.state.number}
+                        toggleTimer={this.toggleTimer}
                         />
                     );
                 })

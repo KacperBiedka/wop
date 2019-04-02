@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import firebase from '../../../firebase.js';
 import classes from './ExerciseCard.module.css';
 import EditExercise from '../EditExercise/EditExercise';
+import ExerciseSquare from './ExerciseSquare/ExerciseSquare';
 import * as actionTypes from '../../../store/actions/actionTypes';
+
 
 class ExerciseCard extends Component {
    state = {
     exercisesState: [],
-    showEditModal: false
+    showEditModal: false,
    }
 
    componentWillMount = () => {
@@ -83,9 +85,8 @@ class ExerciseCard extends Component {
             let exerciseSquaresTable = [];
             for (let x = 0; x < this.props.sets; x++) {
                 exerciseSquaresTable.push(
-                <div key={x + this.props.exerciseName + this.props.sets} className={classes.exerciseCardSquare}>
-                    <p>{this.props.reps}</p>
-                </div>)
+                <ExerciseSquare toggleTimer={this.props.toggleTimer} key={x + this.props.exerciseName + this.props.sets} reps={this.props.reps} number={x} exerciseName={this.props.exerciseName}  sets={this.props.sets}/>
+                )
             }
             return exerciseSquaresTable;
         }
