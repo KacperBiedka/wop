@@ -85,7 +85,7 @@ class ExerciseCard extends Component {
             let exerciseSquaresTable = [];
             for (let x = 0; x < this.props.sets; x++) {
                 exerciseSquaresTable.push(
-                <ExerciseSquare toggleTimer={this.props.toggleTimer} key={x + this.props.exerciseName + this.props.sets} reps={this.props.reps} number={x} exerciseName={this.props.exerciseName}  sets={this.props.sets}/>
+                <ExerciseSquare closeTimer={this.props.closeTimer} toggleTimer={this.props.toggleTimer} key={x + this.props.exerciseName + this.props.sets} reps={this.props.reps} number={x} exerciseName={this.props.exerciseName}  sets={this.props.sets}/>
                 )
             }
             return exerciseSquaresTable;

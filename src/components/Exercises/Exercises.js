@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import ExerciseCard from './ExerciseCard/ExerciseCard';
 import NavBar from '../Navbar/Navbar';
+import Timer from './Timer/Timer';
 
 
 class Exercises extends Component {
     state = {
         exercises: [],
         number: null,
-
+        showTimer: false
     }
 
     componentWillMount() {
@@ -55,7 +56,17 @@ class Exercises extends Component {
     };
 
     toggleTimer = () => {
-        console.log("functionWorked");
+        console.log("----- Displayed Timer ;---D -----");
+        this.setState({
+            showTimer: true
+        })
+    }
+
+    closeTimer = () => {
+        console.log("----- Timer Closed XD -----");
+        this.setState({
+            showTimer: false
+        })
     }
 
     render() {
@@ -76,10 +87,12 @@ class Exercises extends Component {
                         weight={ex.exercise.weight}
                         workoutNumber={this.state.number}
                         toggleTimer={this.toggleTimer}
+                        closeTimer={this.closeTimer}
                         />
                     );
                 })
             }
+            <Timer visible={this.state.showTimer} />
         </div>
         )
     }

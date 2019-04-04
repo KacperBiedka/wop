@@ -13,6 +13,7 @@
     font-size: 120%;
     margin: 1% 5%;
     cursor: pointer;
+    transition: background-color 0.4s ease-out;
 }
 
 .exerciseClickedSquare {
@@ -31,4 +32,5 @@
     font-size: 120%;
     margin: 1% 5%;
     cursor: pointer;
+    transition: background-color 0.4s ease-out;
 }

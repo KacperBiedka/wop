@@ -19,6 +19,7 @@ const toggleSquare = () => {
         this.setState({
             class: classes.exerciseCardSquare
         })
+        this.props.closeTimer()
     }
 }
 return (
