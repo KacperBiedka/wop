@@ -10,7 +10,9 @@ class Exercises extends Component {
     state = {
         exercises: [],
         number: null,
-        showTimer: false
+        showTimer: false,
+        duration: 0,
+        timerMessage: "0:00"
     }
 
     componentWillMount() {
@@ -40,6 +42,7 @@ class Exercises extends Component {
 
     componentDidMount = () => {
         console.log(this.state);
+        this.startTimer();
     }
   
     logData = () => {
@@ -58,16 +61,49 @@ class Exercises extends Component {
     toggleTimer = () => {
         console.log("----- Displayed Timer ;---D -----");
         this.setState({
-            showTimer: true
+            showTimer: true,
+            duration: 0
         })
     }
 
     closeTimer = () => {
         console.log("----- Timer Closed XD -----");
         this.setState({
-            showTimer: false
+            showTimer: false,
+            duration: 0
         })
     }
+
+    startTimer = () => {
+            setInterval(function () {
+                if (this.state.showTimer) {
+                console.log(this.state.duration);
+                let minutes = parseInt(this.state.duration / 60);
+                let seconds = this.state.duration - minutes*60;
+                if (seconds >= 10) {
+                    this.setState({
+                        timerMessage: minutes + ":" + seconds
+                    })
+                } else if (seconds < 10) {
+                    this.setState({
+                        timerMessage: minutes + ":0" + seconds  
+                    }) 
+                }
+                this.setState({
+                    duration: this.state.duration + 1
+                })
+                if (this.state.duration === 30) {
+                    console.log("loop finished");
+                }
+                } else {
+                    this.setState({
+                        duration: 0
+                    })
+                    console.log(this.state.duration);
+            }
+    }
+    .bind(this), 1000);   
+}
 
     render() {
         return (
@@ -92,7 +128,7 @@ class Exercises extends Component {
                     );
                 })
             }
-            <Timer visible={this.state.showTimer} />
+            <Timer visible={this.state.showTimer} timerMessage={this.state.timerMessage}/>
         </div>
         )
     }
