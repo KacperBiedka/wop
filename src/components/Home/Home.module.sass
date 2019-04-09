@@ -1,0 +1,63 @@
+$input-active-color: lighten(#c58e7f, 15%)
+    
+.mainDiv
+    margin-top: -2%
+    display: block
+    width: 100vw
+    height: 100vh
+    background-color: #dfa375
+    background-image: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+    padding-top: 5%
+
+.authDiv
+    width: 50vw
+    background: white
+    padding-bottom: 1%
+    margin: auto
+    border: solid 1px #fff
+    box-shadow: 0px 0px 10px #999
+
+.loginButton
+    background-color: #dfa375
+    background-image: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+    border: solid 1px #dfa375
+    width: 160px
+    height: 40px
+    margin-top: 2.5%
+    color: white
+    font-size: 125%
+    border-radius: 3%
+    cursor: pointer
+    
+
+.mainHeader
+    color: darken($input-active-color, 10%)
+    padding-top: 1%
+    padding-bottom: 1%
+    font-size: 190%
+    text-align: center
+    display: block
+    margin: auto
+    border-bottom: solid 1px #c58e7f
+    width: 90%
+    font-weight: 500
+
+.inputParagraph
+    color: #BDBDBD
+    padding-bottom: 0
+    margin-bottom: 0
+    margin-top: 1%
+    text-align: left
+    margin-left: 27.5%
+
+.inputField
+    border: none
+    border-bottom: solid 1px #eee
+    margin: auto
+    width: 45%
+    display: block
+    font-size: 100%
+    color: black
+    &:focus
+        outline: none
+        border-bottom: solid 1px $input-active-color
