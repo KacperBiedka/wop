@@ -1,63 +1,142 @@
-$input-active-color: lighten(#c58e7f, 15%)
-    
 .mainDiv
-    margin-top: -2%
-    display: block
+    background-color: #555
+    background-image: url(../../assets/websitebarbell.png)
+    background-size: cover
+    background-repeat: no-repeat
     width: 100vw
     height: 100vh
-    background-color: #dfa375
-    background-image: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
-    padding-top: 5%
+    margin-top: -2%
 
-.authDiv
-    width: 50vw
-    background: white
-    padding-bottom: 1%
+.contentDiv
+    display: block
     margin: auto
-    border: solid 1px #fff
-    box-shadow: 0px 0px 10px #999
-
-.loginButton
-    background-color: #dfa375
-    background-image: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
-    border: solid 1px #dfa375
-    width: 160px
-    height: 40px
-    margin-top: 2.5%
-    color: white
-    font-size: 125%
-    border-radius: 3%
-    cursor: pointer
-    
+    vertical-align: middle
+    padding-top: 10%
+    height: 5vh
+    color: whitesmoke
+    font-family: 'Open Sans'
+    @media (max-width: 1224px)
+        padding-top: 15%
+    @media (max-width: 1024px)
+        margin-left: 4%
+        margin-right: 4%
+    @media (max-width: 768px)
+        margin-left: 6%
+        margin-right: 6%
+        padding-top: 20%
 
 .mainHeader
-    color: darken($input-active-color, 10%)
-    padding-top: 1%
-    padding-bottom: 1%
-    font-size: 190%
-    text-align: center
-    display: block
-    margin: auto
-    border-bottom: solid 1px #c58e7f
-    width: 90%
-    font-weight: 500
+    margin-bottom: 1%
+    @media (max-width: 1224px)
+        margin-bottom: 2.5%
+    @media (max-width: 1024px)
+        margin-bottom: 3%
+    @media (max-width: 768px)
+        margin-bottom: 7%
 
-.inputParagraph
-    color: #BDBDBD
-    padding-bottom: 0
-    margin-bottom: 0
-    margin-top: 1%
+.describtionHeader
+    margin-bottom: 1%
+    @media (max-width: 1224px)
+        margin-bottom: 2.5%
+    @media (max-width: 1024px)
+        margin-bottom: 3%
+    @media (max-width: 768px)
+        margin-bottom: 7%
+        font-size: 145%
+
+.getStartedButton
+    position: relative
+    height: 45px
+    width: 150px
+    margin: 10px 7px
+    padding: 5px 5px
+    font-weight: 700
+    font-size: 15px
+    letter-spacing: 2px
+    color: whitesmoke
+    border: 1px whitesmoke solid
+    border-radius: 4px
+    text-transform: uppercase
+    outline: 0
+    overflow:hidden
+    background: none
+    z-index: 1
+    cursor: pointer
     text-align: left
-    margin-left: 27.5%
-
-.inputField
-    border: none
-    border-bottom: solid 1px #eee
-    margin: auto
-    width: 45%
-    display: block
-    font-size: 100%
-    color: black
+    padding-left: 17px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
     &:focus
-        outline: none
-        border-bottom: solid 1px $input-active-color
+        outline: 0
+    &:before
+        content: "→"
+        position: absolute
+        color: whitesmoke
+        left: 83%
+        opacity: 0
+        -webkit-transition: all 250ms cubic-bezier(0.680, -0.550, 0.265, 1.550)
+    &:hover
+        width: 170px
+        &:before
+            left: 84%
+            opacity: 1
+
+.choiceDiv
+    display: block
+    margin: auto
+    vertical-align: middle
+    padding-top: 10%
+    color: whitesmoke
+    font-family: 'Open Sans'
+
+.choiceHeader
+    display: block
+    margin: auto
+    margin-bottom: 2%
+
+.choiceButton
+    background: transparent
+    display: block
+    border: solid 1px whitesmoke
+    letter-spacing: 1px
+    width: 200px
+    height: 50px
+    color: whitesmoke
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    margin: auto
+    margin-bottom: 1%
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.1s ease-in
+    &:hover
+        color: #fff
+        &:before
+            top: 0
+
+.choiceText
+    font-size: 100%
+    display: block
+    margin: auto
+    color: whitesmoke
+    margin-bottom: 1%

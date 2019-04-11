@@ -1,0 +1,221 @@
+$input-active-color: lighten(#c58e7f, 15%)
+    
+.mainDiv
+    margin-top: -2%
+    display: block
+    width: 100vw
+    height: 100vh
+    background-color: #dfa375
+    background-image: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+    padding-top: 5%
+
+.authDiv
+    width: 50vw
+    background: white
+    padding-bottom: 1%
+    margin: auto
+    border: solid 1px #fff
+    box-shadow: 0px 0px 10px #f6c3ab
+
+.forgotPassword
+    display: inline-block
+    margin-left: 15%
+    font-size: 90%
+    color: #dfa375
+    cursor: pointer
+    border-bottom: solid 1px #fff
+    transition: border-color 0.08s ease-in
+    &:hover
+        border-color: #dfa375
+        color: coral
+        
+        
+
+.loginButton
+    background: #fff
+    display: inline-block
+    border: solid 2px #c58e7f
+    letter-spacing: 1px
+    width: 160px
+    height: 40px
+    color: #c58e7f
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    margin-left: -3%
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.09s ease-in
+    &:hover
+        color: #fff
+        &:before
+            top: 0
+    
+
+.mainHeader
+    color: #444
+    padding-top: 1.25%
+    padding-bottom: 1.5%
+    font-size: 140%
+    text-align: left
+    padding-left: 2.5%
+    display: block
+    margin: auto
+    border-bottom: solid 1px #eee
+    width: 100%
+    font-weight: 500
+    margin-bottom: 2%
+    font-family: 'Open Sans', sans-serif
+
+.inputParagraph
+    color: #BDBDBD
+    padding-bottom: 0
+    margin-bottom: 0
+    margin-top: 2%
+    text-align: left
+    margin-left: 2.5%
+
+
+.inputField
+    border: none
+    border-bottom: solid 1px #eee
+    margin: auto
+    width: 90%
+    display: block
+    font-size: 100%
+    color: black
+    padding: 1%
+    padding-left: 0
+    margin-bottom: 5%
+    margin-left: 2.5%
+    &:focus
+        outline: none
+        border-bottom: solid 1px $input-active-color
+
+.googleAuthButton
+    background: #fff
+    display: block
+    border: solid 2px #ea384d
+    width: 200px
+    margin: auto
+    margin-top: 2%
+    height: 40px
+    color: #ea384d
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: linear-gradient(315deg, #d31027 0%, #ea384d 74%)
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.09s ease-in
+    &:hover
+        color: #fff
+        &:before
+            top: 0
+
+.buttonIcon
+    margin-right: 2.5%
+    vertical-align: center
+
+.facebookAuthButton
+    background: #fff
+    display: block
+    border: solid 2px #3b5998
+    width: 200px
+    margin: auto
+    margin-top: 2%
+    height: 40px
+    color: #3b5998
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: linear-gradient(315deg, #3b5998 0%, #2b4170 74%)
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.09s ease-in
+    &:hover
+        color: #fff
+        &:before
+            top: 0
+
+.twitterAuthButton
+    background: #fff
+    display: block
+    border: solid 2px #61A3EB
+    width: 200px
+    margin: auto
+    margin-top: 2%
+    height: 40px
+    color: #61A3EB
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: #61A3EB
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.09s ease-in
+    &:hover
+        color: #fff
+        &:before
+            top: 0

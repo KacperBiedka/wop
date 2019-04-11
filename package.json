@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.7.0",
     "babel-loader": "^8.0.5",
     "bootstrap": "^4.2.1",
     "firebase": "^5.8.2",
