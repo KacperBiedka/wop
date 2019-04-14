@@ -1,3 +1,5 @@
+// Home Screen
+
 .mainDiv
     background-color: #555
     background-image: url(../../assets/websitebarbell.png)
@@ -33,6 +35,12 @@
         margin-bottom: 3%
     @media (max-width: 768px)
         margin-bottom: 7%
+    @media (min-width: 2048px)
+        font-size: 250%
+    @media (min-width: 2560px)
+        font-size: 300%
+    @media (min-width: 3840px)
+        font-size: 350%
 
 .describtionHeader
     margin-bottom: 1%
@@ -43,6 +51,12 @@
     @media (max-width: 768px)
         margin-bottom: 7%
         font-size: 145%
+    @media (min-width: 2048px)
+        font-size: 150%
+    @media (min-width: 2560px)
+        font-size: 218%
+    @media (min-width: 3840px)
+        font-size: 250%
 
 .getStartedButton
     position: relative
@@ -83,6 +97,28 @@
         &:before
             left: 84%
             opacity: 1
+    @media (min-width: 2560px)
+        height: 67.5px
+        width: 225px
+        margin: 15px 10.5px
+        padding: 7.5px 7.5px
+        font-size: 22.5px
+        border: solid 1.5px whitesmoke
+        padding-left: 25.5px
+        &:hover
+            width: 255px
+    @media (min-width: 3840px)
+        height: 81px
+        width: 270px
+        margin: 18px 12.6px
+        padding: 9px 9px
+        font-size: 27px
+        border: solid 1.8px whitesmoke
+        padding-left: 30.6px
+        &:hover
+            width: 306px
+
+// Choice Div 
 
 .choiceDiv
     display: block
@@ -91,11 +127,23 @@
     padding-top: 10%
     color: whitesmoke
     font-family: 'Open Sans'
+    @media (max-width: 768px)
+        margin-left: 5%
+        margin-right: 5%
 
 .choiceHeader
     display: block
     margin: auto
     margin-bottom: 2%
+    @media (max-width: 768px)
+        margin-bottom: 5%
+    @media (min-width: 2048px)
+        font-size: 250%
+    @media (min-width: 2560px)
+        font-size: 300%
+    @media (min-width: 3840px)
+        font-size: 400%
+
 
 .choiceButton
     background: transparent
@@ -131,8 +179,25 @@
         -webkit-transition: top 0.1s ease-in
     &:hover
         color: #fff
+        border: solid 1px #dfa375
         &:before
             top: 0
+    @media (max-width: 768px)
+        margin-bottom: 3%
+    @media (min-width: 2560px)
+        height: 75px
+        width: 300px
+        border: solid 1.75px whitesmoke
+        font-size: 150%
+        &:hover
+            border: solid 1.75px #dfa375
+    @media (min-width: 3840px)
+        height: 90px
+        width: 360px
+        border: solid 2px whitesmoke
+        font-size: 200%
+        &:hover
+            border: solid 2px #dfa375 
 
 .choiceText
     font-size: 100%
@@ -140,3 +205,11 @@
     margin: auto
     color: whitesmoke
     margin-bottom: 1%
+    @media (max-width: 768px)
+        margin-bottom: 3%
+    @media (min-width: 2048px)
+        font-size: 125%
+    @media (min-width: 2560px)
+        font-size: 150%
+    @media (min-width: 3840px)
+        font-size: 175%

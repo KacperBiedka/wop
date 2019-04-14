@@ -7,10 +7,11 @@ class Login extends Component {
 state = {
     email: '',
     password: '',
-    loginError: null
+    loginError: null,
+    column: ' col-6'
 }
 
-componentDidMount = () => {
+componentWillMount = () => {
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       window.location.href = '/workouts';
@@ -101,25 +102,32 @@ render() {
 
 
        return (
-        <div className={classes.mainDiv + " shadow p-3 mb-1 bg-white rounded"}>
-          <div className={classes.authDiv + " row"}>
+         <div className={classes.mainLoginDiv}>
+          <div className={classes.authDiv + " animated zoomIn"}>
             <h1 className={classes.mainHeader}>Login</h1>
-            <div className={classes.standardloginDiv + " col-6"}>
+            <div className={classes.standardLoginDiv}>
               <p className={classes.inputParagraph}>Email</p>
               <input className={classes.inputField}  onChange={updateEmailState} type="email" placeholder=""/>
               <p className={classes.inputParagraph}>Password</p>
               <input className={classes.inputField} onChange={updatePasswordState} type="password" placeholder=""/>
-              <button className={classes.loginButton} onClick={loginWithEmailAndPassword}>LOGIN</button>
-              <p className={classes.forgotPassword}>Forgot password ?</p>
+              <div className="row">
+              <div className={classes.loginButtonDiv}>
+                 <button className={classes.loginButton} onClick={loginWithEmailAndPassword}>LOGIN</button>
+              </div>
+              <div className={classes.forgotPasswordDiv}>
+                <p className={classes.forgotPassword}>Forgot password ?</p>
+              </div>
+              </div>
             </div>
-            <div className="col-6">
+            <div className={classes.loginOptionsDiv}>
+              <h2 className={classes.loginOptionsHeader}>Different login options</h2>
               <button className={classes.googleAuthButton} onClick={loginWithGoogle}><i className={classes.buttonIcon + " fab fa-google"}></i>Login with Google</button>
               <button className={classes.twitterAuthButton} onClick={loginWithTwitter}><i className={classes.buttonIcon + " fab fa-twitter"}></i>Login with Twitter</button>
               <button className={classes.facebookAuthButton} onClick={loginWithFacebook}><i className={classes.buttonIcon + " fab fa-facebook"}></i>Login with Facebook</button>  
             </div>
+            {this.state.loginError}
           </div>
-          {this.state.loginError}
-         </div>
+          </div>
         )
     }
 }
