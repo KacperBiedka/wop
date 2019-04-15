@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../../firebase.js";
-import classes from "./Signup.module.css";
+import classes from "./Signup.module.sass";
 import { Link } from "react-router-dom";
 
 class Signup extends Component {
@@ -62,43 +62,41 @@ class Signup extends Component {
     };
 
     return (
-      <div className={"shadow p-3 mb-5 bg-white rounded " + classes.mainDiv}>
-        <h2 className={classes.loginHeader}>Signup</h2>
-        <div className={classes.emailAuthContainer}>
-          <input
-            value={this.state.email}
-            onChange={updateEmailState}
-            className={classes.inputField}
-            type="email"
-            placeholder="email"
-          />
-          <input
-            value={this.state.password}
-            onChange={updatePasswordState}
-            className={classes.inputField + " " + classes.passwordInput}
-            type="password"
-            placeholder="password"
-          />
-          <input
-            value={this.state.repeatPassword}
-            onChange={updateRepeatPasswordState}
-            className={classes.inputField + " " + classes.passwordInput}
-            type="password"
-            placeholder="repeat password"
-          />
-          <button
-            onClick={createFirebaseUser}
-            className={classes.authButton + " " + classes.loginButton}
-          >
-            Sign up
-          </button>
-          <Link to="/">
-            <button className={classes.authButton + " " + classes.signupButton}>
-              Back
+      <div className={classes.signupDiv}>
+        <div
+          className={
+            "  animated zoomIn shadow p-3 mb-5 bg-white rounded " +
+            classes.mainDiv
+          }
+        >
+          <h2 className={classes.loginHeader}>Signup</h2>
+          <div className={classes.emailAuthContainer}>
+            <p className={classes.inputParagraph}>Email</p>
+            <input
+              value={this.state.email}
+              onChange={updateEmailState}
+              className={classes.inputField}
+              type="email"
+            />
+            <p className={classes.inputParagraph}>Password</p>
+            <input
+              value={this.state.password}
+              onChange={updatePasswordState}
+              className={classes.inputField + " " + classes.passwordInput}
+              type="password"
+            />
+            <p className={classes.inputParagraph}>Repeat Password</p>
+            <input
+              value={this.state.repeatPassword}
+              onChange={updateRepeatPasswordState}
+              className={classes.inputField + " " + classes.passwordInput}
+              type="password"
+            />
+            <button onClick={createFirebaseUser} className={classes.authButton}>
+              Sign up
             </button>
-          </Link>
+          </div>
         </div>
-        <div id="firebaseui-auth-container" className={classes.firebaseuiDiv} />
       </div>
     );
   }

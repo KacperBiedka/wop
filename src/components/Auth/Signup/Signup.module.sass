@@ -1,0 +1,156 @@
+$input-active-color: lighten(#c58e7f, 15%)
+
+.signupDiv
+    padding-top: 5%
+
+.mainDiv
+    width: 40%
+    display: block
+    margin: auto
+    padding-bottom: 2%
+    border-top: solid 1px #eee
+    @media (max-width: 1400px)
+        width: 70%
+    @media (max-width: 1224px)
+        width: 90%
+
+
+.loginHeader
+    border-bottom: solid 1px coral
+    width: 90%
+    font-size: 175%
+    color: #444
+    display: block
+    margin: auto
+    padding-bottom: 1.5%
+    margin-bottom: 3%
+    text-align: left
+    font-family: 'Open Sans', sans-serif
+    @media (min-width: 3840px)
+        font-size: 250%
+    @media (max-width: 768px)
+        padding-bottom: 3%
+        margin-bottom: 5%
+    @media (max-width: 500px)
+        padding-bottom: 4%
+        margin-bottom: 10%
+
+
+.inputParagraph
+    color: #BDBDBD
+    padding-bottom: 0
+    margin-bottom: 0
+    margin-top: 5%
+    text-align: left
+    margin-left: 15%
+    font-size: 110%
+    @media (max-width: 1400px)
+        margin-left: 10%
+    @media (max-width: 768px)
+        margin-left: 5%
+    @media (min-width: 2560px)
+        font-size: 120%
+        margin-left: 5%
+    @media (min-width: 3840px)
+        font-size: 175%  
+
+.inputField
+    border: none
+    border-bottom: solid 1px #eee
+    margin: auto
+    width: 70%
+    display: block
+    font-size: 100%
+    color: black
+    padding: 1%
+    padding-left: 0
+    margin-bottom: 5%
+    &:focus
+        outline: none
+        border-bottom: solid 1px $input-active-color
+    @media (max-width: 1400px)
+        width: 80%
+    @media (max-width: 768px)
+        width: 90%
+        font-size: 110%
+    @media (min-width: 2560px)
+        font-size: 120%
+        margin-left: 5%
+    @media (min-width: 3840px)
+        font-size: 175%
+
+.authButton 
+    background: #fff
+    display: block
+    border: solid 2px #999
+    letter-spacing: 1px
+    margin-left: 15%
+    margin-top: 5%
+    margin-bottom: 3%
+    width: 160px
+    height: 40px
+    color: #888
+    font-size: 110%
+    cursor: pointer
+    position: relative
+    z-index: 1
+    outline: 0
+    overflow: hidden
+    border-radius: 2px
+    transition:         0.08s ease-in
+    -o-transition:      0.08s ease-in
+    -ms-transition:     0.08s ease-in
+    -moz-transition:    0.08s ease-in
+    -webkit-transition: 0.08s ease-in
+    &:before
+        background: linear-gradient(315deg, #dfa375 0%, #c58e7f 74%)
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        top: 100%
+        z-index: -1
+        -webkit-transition: top 0.09s ease-in
+    &:hover
+        color: #fff
+        border: solid 2px #dfa375
+        &:before
+            top: 0
+    @media (max-width: 1400px)
+        margin-left: 10%
+    @media (max-width: 768px)
+        margin-left: 5%
+    @media (min-width: 2560px)
+        width: 192px
+        height: 48px
+        font-size: 110%
+        margin-left: 5%
+        border: solid 2.5px #999
+        &:hover
+            border: solid 2.5px #dfa375
+    @media (min-width: 3840px)
+        width: 230.4px
+        height: 57.6px
+        font-size: 150%
+        &:hover
+            border: solid 3px #dfa375
+
+
+.passwordInput 
+    margin-bottom: 2%
+
+
+.signupButton 
+    margin-left: 10%
+
+
+.dividingParagraph 
+    color: #777
+    padding-top: 1%
+
+
+a 
+    text-decoration: none
+    color: coral !important
+

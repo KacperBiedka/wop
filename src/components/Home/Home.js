@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import firebase from "../../firebase";
 import classes from "./Home.module.sass";
+
 import Login from "../Auth/Login/Login";
+import Signup from "../Auth/Signup/Signup";
 
 class Home extends Component {
   state = {
@@ -30,7 +32,10 @@ class Home extends Component {
                 Login
               </button>
               <p className={classes.choiceText + " animated fadeInUp"}>or</p>
-              <button className={classes.choiceButton + " animated fadeInUp"}>
+              <button
+                onClick={switchToSignupDiv}
+                className={classes.choiceButton + " animated fadeInUp"}
+              >
                 Sign Up
               </button>
             </div>
@@ -53,7 +58,10 @@ class Home extends Component {
               Login
             </button>
             <p className={classes.choiceText + " animated zoomOut"}>or</p>
-            <button className={classes.choiceButton + " animated zoomOut"}>
+            <button
+              onClick={switchToSignupDiv}
+              className={classes.choiceButton + " animated zoomOut"}
+            >
               Sign Up
             </button>
           </div>
@@ -62,6 +70,36 @@ class Home extends Component {
       setTimeout(() => {
         this.setState({
           displayedContent: <Login />
+        });
+      }, 1000);
+    };
+
+    const switchToSignupDiv = () => {
+      this.setState({
+        displayedContent: (
+          <div className={classes.choiceDiv + this.state.choiceDivClass}>
+            <h1 className={classes.choiceHeader + " animated zoomOut"}>
+              Welcome to Workout Planner
+            </h1>
+            <button
+              onClick={switchToLoginDiv}
+              className={classes.choiceButton + " animated zoomOut"}
+            >
+              Login
+            </button>
+            <p className={classes.choiceText + " animated zoomOut"}>or</p>
+            <button
+              onClick={switchToSignupDiv}
+              className={classes.choiceButton + " animated zoomOut"}
+            >
+              Sign Up
+            </button>
+          </div>
+        )
+      });
+      setTimeout(() => {
+        this.setState({
+          displayedContent: <Signup />
         });
       }, 1000);
     };
