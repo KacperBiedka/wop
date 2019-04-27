@@ -22,6 +22,8 @@
     font-family: $fira
     font-weight: 100
     margin-bottom: 7%
+    @media (min-width: 2560px)
+        font-size: 250%
 
 .inputField
     font-family: $noto
@@ -39,6 +41,10 @@
         color: #777
     &:focus
         outline: none
+    @media (min-width: 2560px)
+        font-size: 150%
+    @media (min-width: 3840px)
+        font-size: 200%
 
 .passwordInputField
     margin-bottom: 7%
@@ -59,9 +65,8 @@
         color: $cyan
         transition: color 0.25s ease-in
         transition-delay: 0.25s
-
     @media (min-width: 2560px)
-        font-size: 27px
+        font-size: 25px
     @media (min-width: 3840px)
         font-size: 36px
     
@@ -77,15 +82,125 @@
     border: solid 1px #fff
     @media (min-width: 2560px)
         padding: 22.5px  67.5px
+        padding-top: 2.5%
     @media (min-width: 3840px)
-        padding: 30px 90px   
+        padding: 30px 90px
+        padding-top: 2.5%   
 
 
 .forgotPassword
+    text-decoration: none
     font-family: $noto
     color: $light-grey
     text-align: right
     margin-top: 5%
+    margin-left: 70%
+    position: relative
+    width: 30%
+    cursor: pointer
+    &:after
+        content: ''
+        display: block
+        border-bottom: 1px solid $cyan
+        width: 0
+        position: absolute
+        left: 0
+        -webkit-transiton: 0.5s ease
+        transition: 0.5s ease
+    &:hover::after
+        width: 100%
+    @media (min-width: 2560px)
+        font-size: 125%
+        &:after
+            border-bottom: 2px solid $cyan
+    @media (min-width: 3840px)
+        font-size: 200%
+
+.standardLoginDiv
+    margin-bottom: 15%
+
+.differentOptionsDiv
+    width: 40%
+    text-align: left
+    display: inline-block
+    margin-right: 10%
+
+.differentOptionsHeader
+    color: $light-grey
+    text-align: left
+    font-size: 110%
+    @media (min-width: 2560px)
+        font-size: 150%
+    @media (min-width: 3840px)
+        font-size: 200%
+    
+.googleIcon
+    color: #fff
+    font-size: 150%
+    margin-right: 10%
+    cursor: pointer
+    &:hover
+        color: $cyan
+        transition: 0.25s ease
+    @media (min-width: 2560px)
+        font-size: 200%
+    @media (min-width: 3840px)
+        font-size: 250%
+
+.facebookIcon
+    color: #fff
+    font-size: 150%
+    cursor: pointer
+    &:hover
+        color: $cyan
+        transition: 0.25s ease
+    @media (min-width: 2560px)
+        font-size: 200%
+    @media (min-width: 3840px)
+        font-size: 250%
+        margin-top: 2%
+
+.signUpDiv
+    width: 40%
+    display: inline-block
+    text-align: right
+    margin-left: 10%
+
+.signUpHeader
+    color: $light-grey
+    text-align: right
+    font-size: 110%
+    @media (min-width: 2560px)
+        font-size: 150%
+        padding-bottom: 2%
+    @media (min-width: 3840px)
+        font-size: 200%
+        padding-bottom: 0
+
+.signUpAnchor
+    color: #fff
+    text-align: right
+    font-size: 120%
+    position: relative
+    width: 40%
+    margin-left: 60%
+    cursor: pointer
+    &:after
+        content: ''
+        display: block
+        border-bottom: 1px solid $cyan
+        width: 0
+        position: absolute
+        left: 0
+        -webkit-transiton: 0.5s ease
+        transition: 0.5s ease
+    &:hover::after
+        width: 100%
+    @media (min-width: 2560px)
+        font-size: 160%
+    @media (min-width: 3840px)
+        font-size: 260%
+
 
 // login button animation
 
