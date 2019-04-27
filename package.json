@@ -8,8 +8,7 @@
     "bootstrap": "^4.2.1",
     "firebase": "^5.8.2",
     "firebaseui": "^3.5.2",
-    "material-icons-react": "^1.0.4",
-    "next": "^7.0.2",
+    "node-gyp": "^4.0.0",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-bootstrap": "^1.0.0-beta.5",
@@ -21,7 +20,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "tar": "^4.4.8"
   },
   "scripts": {
     "dev": "next",
@@ -38,5 +38,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3"
+  }
 }

@@ -1,8 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  padding-top: 2%;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

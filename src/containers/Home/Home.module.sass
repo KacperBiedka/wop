@@ -1,0 +1,149 @@
+@import '../../_variables.sass'
+
+.mainDiv
+    background-color: #555
+    background-image: url(../../assets/websitebarbell.png)
+    background-size: cover
+    background-repeat: no-repeat
+    width: 100vw
+    height: 100vh
+    margin-top: -2%
+
+
+.contentDiv
+    display: block
+    margin: auto
+    vertical-align: middle
+    padding-top: 10%
+    height: 5vh
+    color: whitesmoke
+    @media (max-width: 1224px)
+        padding-top: 15%
+    @media (max-width: 1024px)
+        margin-left: 4%
+        margin-right: 4%
+    @media (max-width: 768px)
+        margin-left: 6%
+        margin-right: 6%
+        padding-top: 20%
+
+.mainHeader
+    margin-bottom: 1%
+    font-family: $fira
+    font-weight: 200
+    @media (max-width: 1224px)
+        margin-bottom: 2.5%
+    @media (max-width: 1024px)
+        margin-bottom: 3%
+    @media (max-width: 768px)
+        margin-bottom: 7%
+    @media (min-width: 2048px)
+        font-size: 250%
+    @media (min-width: 2560px)
+        font-size: 300%
+    @media (min-width: 3840px)
+        font-size: 350%
+
+.describtionHeader
+    font-family: $fira
+    margin-bottom: 1%
+    @media (max-width: 1224px)
+        margin-bottom: 2.5%
+    @media (max-width: 1024px)
+        margin-bottom: 3%
+    @media (max-width: 768px)
+        margin-bottom: 7%
+        font-size: 145%
+    @media (min-width: 2048px)
+        font-size: 150%
+    @media (min-width: 2560px)
+        font-size: 218%
+    @media (min-width: 3840px)
+        font-size: 250%
+
+button.getStartedButton
+    border: none
+    &:focus
+        outline: none
+    &:hover
+        color: $cyan
+        transition: color 0.25s ease-in
+        transition-delay: 0.25s
+
+
+.getStartedButton
+    display: block
+    position: relative
+    background: none
+    color: #ffffff
+    font-size: 18px
+    margin: auto
+    cursor: pointer
+    @media (min-width: 2560px)
+        font-size: 27px
+    @media (min-width: 3840px)
+        font-size: 36px
+    
+.getStartedSpan
+    display: block
+    padding: 15px 45px
+    @media (min-width: 2560px)
+        padding: 22.5px  67.5px
+    @media (min-width: 3840px)
+        padding: 30px 90px   
+
+span.getStartedSpan
+    font-family: $noto
+    border-bottom: solid 2px $cyan
+
+.getStartedButton::before, .getStartedButton::after 
+	content: "" 
+	width: 0 
+	height: 2px 
+	position: absolute 
+	transition: all 0.2s 
+	background: $cyan
+    
+
+.getStartedSpan::before, .getStartedSpan::after 
+	content: "" 
+	width: 2px 
+	height: 0 
+	position: absolute 
+	transition: all 0.2s linear 
+	background: $cyan
+    
+
+.getStartedButton:hover::before, .getStartedButton:hover::after 
+	width: 100% 
+
+.getStartedButton:hover span::before, .getStartedButton:hover span::after 
+	height: 100% 
+
+
+.buttonAnimation::before, .buttonAnimation::after 
+	transition-delay: 0s 
+
+.buttonAnimation .getStartedSpan::before, .buttonAnimation .getStartedSpan::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation 
+	&::before 
+		right: 0 
+		top: 0
+	&::after 
+		left: 0 
+		bottom: 0
+	.getStartedSpan 
+		&::before 
+			left: 0 
+			top: 0
+		&::after 
+			right: 0 
+			bottom: 0
+
+.buttonAnimation:hover::before, .buttonAnimation:hover::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation:hover .getStartedSpan::before, .buttonAnimation:hover .getStartedSpan::after 
+	transition-delay: 0s 

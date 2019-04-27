@@ -1,0 +1,142 @@
+@import '../../_variables.sass'
+
+.mainLoginDiv
+    background-color: #555
+    background-image: url(../../assets/websitebarbell.png)
+    background-size: cover
+    background-repeat: no-repeat
+    width: 100vw
+    height: 100vh
+    padding-top: 2.5%
+
+.authDiv
+    background: $background-black
+    width: 30%
+    margin: auto
+    border: solid 1px $cyan
+    padding: 1% 2%
+
+.mainHeader
+    color: #ffffff
+    text-align: left
+    font-family: $fira
+    font-weight: 100
+    margin-bottom: 7%
+
+.inputField
+    font-family: $noto
+    width: 100%
+    display: block
+    height: 5vh
+    border: none
+    margin-bottom: 6%
+    background: $dark-grey
+    color: $light-grey
+    padding: 6% 4%
+    font-size: 110%
+    border-bottom: solid 2.5px $light-grey
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+
+.passwordInputField
+    margin-bottom: 7%
+
+.loginButton
+    display: block
+    position: relative
+    background: none
+    color: #ffffff
+    font-size: 18px
+    margin: auto
+    cursor: pointer
+    border: none
+    width: 100%
+    &:focus
+        outline: none
+    &:hover
+        color: $cyan
+        transition: color 0.25s ease-in
+        transition-delay: 0.25s
+
+    @media (min-width: 2560px)
+        font-size: 27px
+    @media (min-width: 3840px)
+        font-size: 36px
+    
+.loginSpan
+    display: block
+    width: 100%
+    height: 6vh
+    vertical-align: middle
+    text-align: center
+    padding-top: 2.5%
+    font-family: $noto
+    font-size: 115%
+    border: solid 1px #fff
+    @media (min-width: 2560px)
+        padding: 22.5px  67.5px
+    @media (min-width: 3840px)
+        padding: 30px 90px   
+
+
+.forgotPassword
+    font-family: $noto
+    color: $light-grey
+    text-align: right
+    margin-top: 5%
+
+// login button animation
+
+.loginButton::before, .loginButton::after 
+	content: "" 
+	width: 0 
+	height: 2px 
+	position: absolute 
+	transition: all 0.2s 
+	background: $cyan
+    
+
+.loginSpan::before, .loginSpan::after 
+	content: "" 
+	width: 2px 
+	height: 0 
+	position: absolute 
+	transition: all 0.2s linear 
+	background: $cyan
+    
+
+.loginButton:hover::before, .loginButton:hover::after 
+	width: 100% 
+
+.loginButton:hover span::before, .loginButton:hover span::after 
+	height: 100% 
+
+
+.buttonAnimation::before, .buttonAnimation::after 
+	transition-delay: 0s 
+
+.buttonAnimation .loginSpan::before, .buttonAnimation .loginSpan::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation 
+	&::before 
+		right: 0 
+		top: 0
+	&::after 
+		left: 0 
+		bottom: 0
+	.loginSpan 
+		&::before 
+			left: 0 
+			top: 0
+		&::after 
+			right: 0 
+			bottom: 0
+
+.buttonAnimation:hover::before, .buttonAnimation:hover::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation:hover .loginSpan::before, .buttonAnimation:hover .loginSpan::after 
+	transition-delay: 0s 
