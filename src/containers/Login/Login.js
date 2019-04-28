@@ -7,8 +7,10 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
-    loginError: null,
-    column: " col-6"
+    emailError: null,
+    passwordError: null,
+    emailClass: classes.inputField,
+    passwordClass: classes.inputField + " " + classes.passwordInput
   };
 
   componentWillMount = () => {
@@ -21,30 +23,50 @@ class Login extends Component {
     });
   };
 
-  loginWithTwitter = () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function(result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        console.log("login info: ", token, user);
-        window.location.href = "/workouts";
-      })
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        alert("There is no twitter user signed in");
-      });
-  };
-
   updateEmailState = e => {
     this.setState({
       email: e.target.value
     });
+  };
+
+  checkForEmailError = () => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!this.state.email.trim()) {
+      this.setState({
+        emailError: (
+          <p className={classes.errorMessage}>Email field can't be empty</p>
+        ),
+        emailClass: classes.inputFieldError
+      });
+    } else if (!re.test(String(this.state.email).toLowerCase())) {
+      this.setState({
+        emailError: (
+          <p className={classes.errorMessage}>Invalid Email format</p>
+        ),
+        emailClass: classes.inputFieldError
+      });
+    } else {
+      this.setState({
+        emailClass: classes.inputField,
+        emailError: null
+      });
+    }
+  };
+
+  checkForPasswordError = () => {
+    if (!this.state.password.trim()) {
+      this.setState({
+        passwordError: (
+          <p className={classes.errorMessage}>Password field can't be empty</p>
+        ),
+        passwordClass: classes.inputFieldError
+      });
+    } else {
+      this.setState({
+        passwordClass: classes.inputField + " " + classes.passwordInput,
+        passwordError: null
+      });
+    }
   };
 
   updatePasswordState = e => {
@@ -54,23 +76,27 @@ class Login extends Component {
   };
 
   loginWithEmailAndPassword = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(function() {
-        window.location.href = "/workouts";
-      })
-      .catch(error => {
-        var errorComponent = null;
-        var errorMessage = error.message;
-        console.log(errorMessage);
-        errorComponent = (
-          <div className={classes.loginErrorDiv}>{error.message}</div>
-        );
-        this.setState({
-          loginError: errorComponent
+    if (this.state.passwordError || this.state.emailError) {
+      alert("Input valid email and password before pressing Sign In");
+    } else {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(function() {
+          window.location.href = "/workouts";
+        })
+        .catch(error => {
+          var errorComponent = null;
+          var errorMessage = error.message;
+          console.log(errorMessage);
+          errorComponent = (
+            <div className={classes.loginErrorDiv}>{error.message}</div>
+          );
+          this.setState({
+            loginError: errorComponent
+          });
         });
-      });
+    }
   };
 
   loginWithGoogle = () => {
@@ -113,8 +139,6 @@ class Login extends Component {
       });
   };
 
-  redirectToSignUp = () => {};
-
   render() {
     return (
       <div className={classes.mainLoginDiv}>
@@ -122,17 +146,21 @@ class Login extends Component {
           <h1 className={classes.mainHeader}>Sign In</h1>
           <div className={classes.standardLoginDiv}>
             <input
-              className={classes.inputField}
+              className={this.state.emailClass}
               onChange={this.updateEmailState}
+              onBlur={this.checkForEmailError}
               type="email"
               placeholder="Email"
             />
+            {this.state.emailError}
             <input
-              className={classes.inputField + " " + classes.passwordInputField}
+              className={this.state.passwordClass}
               onChange={this.updatePasswordState}
+              onBlur={this.checkForPasswordError}
               type="password"
               placeholder="Password"
             />
+            {this.state.passwordError}
             <button
               className={classes.loginButton + " " + classes.buttonAnimation}
               onClick={this.loginWithEmailAndPassword}

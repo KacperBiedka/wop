@@ -16,7 +16,12 @@ class Home extends Component {
     });
     setTimeout(() => {
       this.setState({
-        displayedContent: <Login />
+        displayedContent: (
+          <Login
+            goToSignUp={this.switchToSignUp}
+            class={this.state.loginDivClass}
+          />
+        )
       });
     }, 1000);
   };

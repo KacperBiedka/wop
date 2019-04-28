@@ -1,5 +1,24 @@
 @import '../../_variables.sass'
 
+.goBackChevron
+    color: white
+    font-size: 150%
+    text-align: left
+    margin-right: 90%
+    cursor: pointer
+    &:hover
+        color: $cyan
+        transition: 0.3s ease-in 
+    @media (max-width: 768px)
+        margin-bottom: 5%
+        margin-left: 7%
+    @media (max-width: 600px)
+        margin-top: 5%
+        margin-bottom: 5%
+        margin-left: 0%
+
+
+
 .mainLoginDiv
     background-color: #555
     background-image: url(../../assets/websitebarbell.png)
@@ -8,6 +27,14 @@
     width: 100vw
     height: 100vh
     padding-top: 2.5%
+    @media (max-width: 1224px)
+        padding-top: 4%
+    @media (max-width: 600px)
+        background: $background-black
+        padding: 0
+        margin: 0
+        width: 100vw
+        height: 100vh
 
 .authDiv
     background: $background-black
@@ -15,6 +42,22 @@
     margin: auto
     border: solid 1px $cyan
     padding: 1% 2%
+    @media (max-width: 1700px)
+        width: 32.5%
+    @media (max-width: 1440px)
+        width: 37.5%
+    @media (max-width: 1224px)
+        width: 50%
+    @media (max-width: 1024px)
+        width: 60%
+    @media (max-width: 768px)
+        width: 80%
+    @media (max-width: 600px)
+        border: none
+        padding: 0%
+        width: 100vw
+        padding: 0%
+        height: 100vh
 
 .mainHeader
     color: #ffffff
@@ -24,6 +67,9 @@
     margin-bottom: 7%
     @media (min-width: 2560px)
         font-size: 250%
+    @media (max-width: 600px)
+        padding-left: 5%
+
 
 .inputField
     font-family: $noto
@@ -45,9 +91,51 @@
         font-size: 150%
     @media (min-width: 3840px)
         font-size: 200%
+    @media (max-width: 1024px)
+        padding: 5% 3%
+    @media (max-width: 600px)
+        padding: 8% 6%
+        width: 95%
+        margin: auto
+        margin-bottom: 8%
 
-.passwordInputField
+.inputFieldError
+    font-family: $noto
+    width: 100%
+    display: block
+    height: 5vh
+    border: none
+    margin-bottom: 0%
+    background: $dark-grey
+    color: $light-grey
+    padding: 6% 4%
+    font-size: 110%
+    border-bottom: solid 2.5px $red
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (min-width: 2560px)
+        font-size: 150%
+    @media (min-width: 3840px)
+        font-size: 200%
+    @media (max-width: 1024px)
+        padding: 5% 3%
+    @media (max-width: 600px)
+        padding: 8% 6%
+        width: 95%
+        margin: auto
+        margin-bottom: 8%
+
+.errorMessage
+    text-align: left
+    margin-bottom: 5%
+    color: $red
+    
+.passwordInput
     margin-bottom: 7%
+    @media (max-width: 600px)
+        margin-bottom: 10%
 
 .loginButton
     display: block
@@ -69,6 +157,9 @@
         font-size: 25px
     @media (min-width: 3840px)
         font-size: 36px
+    @media (max-width: 600px)
+        width: 95%
+    
     
 .loginSpan
     display: block
@@ -85,7 +176,12 @@
         padding-top: 2.5%
     @media (min-width: 3840px)
         padding: 30px 90px
-        padding-top: 2.5%   
+        padding-top: 2.5%
+    @media (max-width: 1024px)
+        height: 65px
+    @media (max-width: 600px)
+        height: 50px
+        width: 100%   
 
 
 .forgotPassword
@@ -98,6 +194,7 @@
     position: relative
     width: 30%
     cursor: pointer
+    white-space: nowrap
     &:after
         content: ''
         display: block
@@ -115,15 +212,29 @@
             border-bottom: 2px solid $cyan
     @media (min-width: 3840px)
         font-size: 200%
+    @media (max-width: 600px)
+        margin-left: 57.5%
+        width: 40%
+    @media (max-width: 400px)
+        margin-left: 53%
 
 .standardLoginDiv
     margin-bottom: 15%
+    @media (max-width: 600px)
+        margin-bottom: 10%
 
 .differentOptionsDiv
     width: 40%
     text-align: left
     display: inline-block
     margin-right: 10%
+    white-space: nowrap
+    @media (max-width: 600px)
+        display: block
+        margin: auto
+        margin-bottom: 5%
+        text-align: center
+        width: 100%
 
 .differentOptionsHeader
     color: $light-grey
@@ -133,6 +244,8 @@
         font-size: 150%
     @media (min-width: 3840px)
         font-size: 200%
+    @media (max-width: 600px)
+        text-align: center
     
 .googleIcon
     color: #fff
@@ -141,11 +254,14 @@
     cursor: pointer
     &:hover
         color: $cyan
-        transition: 0.25s ease
+        transition: 0.3s ease-in
     @media (min-width: 2560px)
         font-size: 200%
     @media (min-width: 3840px)
         font-size: 250%
+    @media (max-width: 600px)
+        text-align: center
+        font-size: 200%
 
 .facebookIcon
     color: #fff
@@ -153,18 +269,29 @@
     cursor: pointer
     &:hover
         color: $cyan
-        transition: 0.25s ease
+        transition: 0.3s ease-in
     @media (min-width: 2560px)
         font-size: 200%
     @media (min-width: 3840px)
         font-size: 250%
         margin-top: 2%
+    @media (max-width: 600px)
+        text-align: center
+        font-size: 200%
+    
 
 .signUpDiv
     width: 40%
     display: inline-block
     text-align: right
     margin-left: 10%
+    white-space: nowrap
+    @media (max-width: 600px)
+        display: block
+        margin: auto
+        text-align: center
+        width: 100%
+        margin-top: 10%
 
 .signUpHeader
     color: $light-grey
@@ -176,14 +303,19 @@
     @media (min-width: 3840px)
         font-size: 200%
         padding-bottom: 0
+    @media (max-width: 600px)
+        width: 100%
+        text-align: center
+        display: block
+        margin:
 
 .signUpAnchor
     color: #fff
     text-align: right
     font-size: 120%
     position: relative
-    width: 40%
-    margin-left: 60%
+    width: 30%
+    margin-left: 67.5%
     cursor: pointer
     &:after
         content: ''
@@ -200,6 +332,13 @@
         font-size: 160%
     @media (min-width: 3840px)
         font-size: 260%
+    @media (max-width: 600px)
+        width: 50%
+        text-align: center
+        margin: auto
+        font-size: 150%
+    @media (max-width: 400px)
+        width: 40%
 
 
 // login button animation

@@ -5,10 +5,25 @@
 
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover,
+input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active 
-    -webkit-box-shadow: 0 0 0 30px #333 inset !important
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+    -webkit-box-shadow: 0 0 0 100px $dark-grey inset !important
     -webkit-text-fill-color: $light-grey
+    background: $dark-grey
+
+input:-internal-autofill-previewed, 
+input:-internal-autofill-selected, 
+textarea:-internal-autofill-previewed, 
+textarea:-internal-autofill-selected, 
+select:-internal-autofill-previewed, 
+select:-internal-autofill-selected
+    background-color: $dark-grey !important
+    color: $red
 
 
