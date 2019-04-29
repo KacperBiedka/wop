@@ -9,6 +9,7 @@ class Login extends Component {
     password: "",
     emailError: null,
     passwordError: null,
+    mainClass: " animated zoomIn",
     emailClass: classes.inputField,
     passwordClass: classes.inputField + " " + classes.passwordInput
   };
@@ -21,6 +22,14 @@ class Login extends Component {
         console.log("User not logged in");
       }
     });
+  };
+
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.setState({
+        mainClass: " "
+      });
+    }, 1000);
   };
 
   updateEmailState = e => {
@@ -47,7 +56,7 @@ class Login extends Component {
       });
     } else {
       this.setState({
-        emailClass: classes.inputField,
+        emailClass: classes.inputFieldSuccess,
         emailError: null
       });
     }
@@ -63,7 +72,7 @@ class Login extends Component {
       });
     } else {
       this.setState({
-        passwordClass: classes.inputField + " " + classes.passwordInput,
+        passwordClass: classes.inputFieldSuccess + " " + classes.passwordInput,
         passwordError: null
       });
     }
@@ -111,11 +120,7 @@ class Login extends Component {
         window.location.href = "/workouts";
       })
       .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        alert("Error logging in: " + error.message);
+        console.log("Error logging in: " + error.message);
       });
   };
 
@@ -131,18 +136,23 @@ class Login extends Component {
         window.location.href = "/workouts";
       })
       .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        alert("Error logging in: " + error.message);
+        console.log("Error logging in: " + error.message);
       });
+  };
+
+  switchToSignUp = () => {
+    this.setState({
+      mainClass: " animated fadeOutUp"
+    });
+    setTimeout(() => {
+      this.props.switchToSignUpDiv();
+    }, 1000);
   };
 
   render() {
     return (
       <div className={classes.mainLoginDiv}>
-        <div className={classes.authDiv + " animated zoomIn"}>
+        <div className={classes.authDiv + this.state.mainClass}>
           <h1 className={classes.mainHeader}>Sign In</h1>
           <div className={classes.standardLoginDiv}>
             <input
@@ -188,7 +198,9 @@ class Login extends Component {
             <p onClick={this.redirectToSignUp} className={classes.signUpHeader}>
               Don't have an account ?
             </p>
-            <p className={classes.signUpAnchor}>Sign Up</p>
+            <p onClick={this.switchToSignUp} className={classes.signUpAnchor}>
+              Sign Up
+            </p>
           </div>
         </div>
       </div>

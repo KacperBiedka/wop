@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classes from "./Home.module.sass";
 
 import Login from "../Login/Login";
+import Signup from "../Signup/Signup";
 
 class Home extends Component {
   state = {
@@ -16,14 +17,23 @@ class Home extends Component {
     });
     setTimeout(() => {
       this.setState({
-        displayedContent: (
-          <Login
-            goToSignUp={this.switchToSignUp}
-            class={this.state.loginDivClass}
-          />
-        )
+        displayedContent: <Login switchToSignUpDiv={this.switchToSignUpDiv} />
       });
     }, 1000);
+  };
+
+  moveFromSignUpToLoginDiv = () => {
+    this.setState({
+      displayedContent: <Login switchToSignUpDiv={this.switchToSignUpDiv} />
+    });
+  };
+
+  switchToSignUpDiv = () => {
+    this.setState({
+      displayedContent: (
+        <Signup switchToLoginDiv={this.moveFromSignUpToLoginDiv} />
+      )
+    });
   };
 
   render() {

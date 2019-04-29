@@ -1,24 +1,5 @@
 @import '../../_variables.sass'
 
-.goBackChevron
-    color: white
-    font-size: 150%
-    text-align: left
-    margin-right: 90%
-    cursor: pointer
-    &:hover
-        color: $cyan
-        transition: 0.3s ease-in 
-    @media (max-width: 768px)
-        margin-bottom: 5%
-        margin-left: 7%
-    @media (max-width: 600px)
-        margin-top: 5%
-        margin-bottom: 5%
-        margin-left: 0%
-
-
-
 .mainLoginDiv
     background-color: #555
     background-image: url(../../assets/websitebarbell.png)
@@ -67,6 +48,8 @@
     margin-bottom: 7%
     @media (min-width: 2560px)
         font-size: 250%
+    @media (min-width: 3840px)
+        font-size: 400%
     @media (max-width: 600px)
         padding-left: 5%
 
@@ -83,6 +66,34 @@
     padding: 6% 4%
     font-size: 110%
     border-bottom: solid 2.5px $light-grey
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (min-width: 2560px)
+        font-size: 150%
+    @media (min-width: 3840px)
+        font-size: 200%
+    @media (max-width: 1024px)
+        padding: 5% 3%
+    @media (max-width: 600px)
+        padding: 8% 6%
+        width: 95%
+        margin: auto
+        margin-bottom: 8%
+
+.inputFieldSuccess
+    font-family: $noto
+    width: 100%
+    display: block
+    height: 5vh
+    border: none
+    margin-bottom: 6%
+    background: $dark-grey
+    color: $light-grey
+    padding: 6% 4%
+    font-size: 110%
+    border-bottom: solid 2.5px $cyan
     &:placeholder
         color: #777
     &:focus
@@ -164,13 +175,14 @@
 .loginSpan
     display: block
     width: 100%
-    height: 6vh
+    height: 60px
     vertical-align: middle
     text-align: center
     padding-top: 2.5%
     font-family: $noto
     font-size: 115%
     border: solid 1px #fff
+    cursor: pointer
     @media (min-width: 2560px)
         padding: 22.5px  67.5px
         padding-top: 2.5%
