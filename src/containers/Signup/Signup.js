@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../firebase.js";
 import classes from "./Signup.module.sass";
+import { runInThisContext } from "vm";
 
 class Signup extends Component {
   state = {
@@ -13,7 +14,8 @@ class Signup extends Component {
     mainClass: " animated zoomIn",
     emailClass: classes.inputField,
     passwordClass: classes.inputField,
-    repeatPasswordClass: classes.inputField
+    repeatPasswordClass: classes.inputField,
+    loader: null
   };
 
   componentWillMount = () => {
@@ -36,20 +38,58 @@ class Signup extends Component {
     }, 1000);
   };
 
-  createFirebaseUser = () => {
-    if (this.state.repeatPassword === this.state.password) {
-      console.log(this.state.email);
-      console.log(this.state.password);
+  checkForAllErrors = () => {
+    this.checkForEmailError();
+    this.checkForPasswordError();
+    this.checkForRepeatPasswordError();
+  };
+
+  validateErrorCode = (code, message) => {
+    if (code === "auth/email-already-in-use") {
+      this.setState({
+        loader: null,
+        emailError: <p className={classes.errorMessage}>{message}</p>,
+        emailClass: classes.inputFieldError
+      });
+    } else if (code === "auth/invalid-email") {
+      this.setState({
+        loader: null,
+        emailError: <p className={classes.errorMessage}>{message}</p>,
+        emailClass: classes.inputFieldError
+      });
+    }
+    if (code === "auth/weak-password") {
+      this.setState({
+        loader: null,
+        passwordError: <p className={classes.errorMessage}>{message}</p>,
+        passwordClass: classes.inputFieldError
+      });
+    }
+  };
+
+  createNewUser = () => {
+    if (
+      !this.state.emailError &&
+      !this.state.passwordError &&
+      !this.state.repeatPasswordError
+    ) {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .catch(function(error) {
-          var errorMessage = error.message;
-          console.log(errorMessage);
+        .catch(error => {
+          this.validateErrorCode(error.code, error.message);
         });
     } else {
-      alert("Passwords don't match!");
+      console.log("error logging in");
     }
+  };
+
+  submitUserToFirebase = async () => {
+    await this.checkForAllErrors();
+    this.createNewUser();
   };
 
   updateEmailState = e => {
@@ -105,6 +145,15 @@ class Signup extends Component {
       this.setState({
         passwordError: (
           <p className={classes.errorMessage}>Password field can't be empty</p>
+        ),
+        passwordClass: classes.inputFieldError
+      });
+    } else if (this.state.password.length < 6) {
+      this.setState({
+        passwordError: (
+          <p className={classes.errorMessage}>
+            Password should be at least 6 characters
+          </p>
         ),
         passwordClass: classes.inputFieldError
       });
@@ -216,7 +265,7 @@ class Signup extends Component {
             />
             {this.state.repeatPasswordError}
             <button
-              onClick={this.createFirebaseUser}
+              onClick={this.submitUserToFirebase}
               className={classes.loginButton + " " + classes.buttonAnimation}
             >
               <span className={classes.loginSpan}>Sign up</span>
@@ -243,6 +292,7 @@ class Signup extends Component {
               Sign In
             </p>
           </div>
+          {this.state.loader}
         </div>
       </div>
     );

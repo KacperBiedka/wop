@@ -74,11 +74,10 @@ button.getStartedButton
     display: block
     position: relative
     background: none
-    color: #ffffff
+    color: lighten($light-grey, 15)
     font-size: 18px
     margin: auto
     cursor: pointer
-    color: #fff
     @media (min-width: 2560px)
         font-size: 27px
     @media (min-width: 3840px)
@@ -95,7 +94,7 @@ button.getStartedButton
 span.getStartedSpan
     font-family: $fira
     font-weight: 600
-    border: solid 2px $light-grey
+    border: solid 2px darken($light-grey, 25)
 
 .getStartedButton::before, .getStartedButton::after 
 	content: "" 

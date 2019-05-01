@@ -11,7 +11,8 @@ class Login extends Component {
     passwordError: null,
     mainClass: " animated zoomIn",
     emailClass: classes.inputField,
-    passwordClass: classes.inputField + " " + classes.passwordInput
+    passwordClass: classes.inputField + " " + classes.passwordInput,
+    loader: null
   };
 
   componentWillMount = () => {
@@ -70,6 +71,15 @@ class Login extends Component {
         ),
         passwordClass: classes.inputFieldError
       });
+    } else if (this.state.password.length < 6) {
+      this.setState({
+        passwordError: (
+          <p className={classes.errorMessage}>
+            Password should be at least 6 characters
+          </p>
+        ),
+        passwordClass: classes.inputFieldError
+      });
     } else {
       this.setState({
         passwordClass: classes.inputFieldSuccess + " " + classes.passwordInput,
@@ -84,10 +94,54 @@ class Login extends Component {
     });
   };
 
-  loginWithEmailAndPassword = () => {
+  checkForAllErrors = () => {
+    this.checkForEmailError();
+    this.checkForPasswordError();
+  };
+
+  validateErrorCode = (code, message) => {
+    if (code === "auth/user-disabled") {
+      this.setState({
+        loader: null,
+        emailError: <p className={classes.errorMessage}>{message}</p>,
+        emailClass: classes.inputFieldError
+      });
+    } else if (code === "auth/invalid-email") {
+      this.setState({
+        loader: null,
+        emailError: <p className={classes.errorMessage}>{message}</p>,
+        emailClass: classes.inputFieldError
+      });
+    } else if (code === "auth/user-not-found") {
+      this.setState({
+        loader: null,
+        emailError: (
+          <p className={classes.errorMessage}>
+            There is no user with such email
+          </p>
+        ),
+        emailClass: classes.inputFieldError
+      });
+    }
+    if (code === "auth/wrong-password") {
+      this.setState({
+        loader: null,
+        passwordError: (
+          <p className={classes.errorMessage}>The password is invalid</p>
+        ),
+        passwordClass: classes.inputFieldError
+      });
+    }
+  };
+
+  loginWithEmailAndPassword = async () => {
+    await this.checkForAllErrors();
     if (this.state.passwordError || this.state.emailError) {
-      alert("Input valid email and password before pressing Sign In");
+      console.log("Input valid email and password before pressing Sign In");
     } else {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
       firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -95,15 +149,7 @@ class Login extends Component {
           window.location.href = "/workouts";
         })
         .catch(error => {
-          var errorComponent = null;
-          var errorMessage = error.message;
-          console.log(errorMessage);
-          errorComponent = (
-            <div className={classes.loginErrorDiv}>{error.message}</div>
-          );
-          this.setState({
-            loginError: errorComponent
-          });
+          this.validateErrorCode(error.code, error.message);
         });
     }
   };
@@ -202,6 +248,7 @@ class Login extends Component {
               Sign Up
             </p>
           </div>
+          {this.state.loader}
         </div>
       </div>
     );
