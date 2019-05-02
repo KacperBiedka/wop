@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import firebase from '../../firebase.js';
-import classes from './Navbar.module.scss';
-import AddWorkout from '../AddWorkout/AddWorkout';
-import AddExercise from '../AddExercise/AddExercise';
-
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import firebase from "../../firebase.js";
+import classes from "./Navbar.module.sass";
+import AddWorkout from "../AddWorkout/AddWorkout";
+import AddExercise from "../AddExercise/AddExercise";
 
 class Navbar extends Component {
   state = {
@@ -14,79 +12,116 @@ class Navbar extends Component {
     currentLocation: null,
     workoutNumber: null,
     exercises: []
-  }
+  };
 
   componentWillMount = () => {
     this.setState({
       currentLocation: this.props.location,
       exercises: this.props.exercises,
       workoutNumber: this.props.workoutNumber
-    })
+    });
     console.log(this.props.location);
-    console.log(this.props.exercises)
-  }
+    console.log(this.props.exercises);
+  };
+
+  logout = () => {
+    firebase.auth().signOut();
+    window.location.href = "..";
+  };
+
+  toggleAddWorkoutModal = () => {
+    this.setState({
+      showAddWorkoutModal: !this.state.showAddWorkoutModal
+    });
+    console.log(this.state.showAddWorkoutModal);
+  };
+
+  closeAddExerciseModal = () => {
+    this.setState({
+      showAddExerciseModal: false
+    });
+  };
+
+  toggleAddExerciseModal = () => {
+    this.setState({
+      showAddExerciseModal: !this.state.showAddExerciseModal
+    });
+    console.log(this.state.showAddExerciseModal);
+  };
+
+  closeAddWorkoutModal = () => {
+    this.setState({
+      showAddWorkoutModal: false
+    });
+    console.log(this.state.showAddWorkoutModal);
+  };
+
+  goBackToWorkouts = () => {
+    window.location.href = "../workouts";
+  };
 
   render() {
-
-    const logout = () => {
-      firebase.auth().signOut();
-        window.location.href = "..";
-      };
-
-    const toggleAddWorkoutModal = () => {
-      this.setState({
-        showAddWorkoutModal: !this.state.showAddWorkoutModal
-      });
-      console.log(this.state.showAddWorkoutModal);
-    };
-
-    const closeAddExerciseModal = () => {
-      this.setState({
-        showAddExerciseModal: false
-      })
-    }
-
-    const toggleAddExerciseModal = () => {
-      this.setState({
-        showAddExerciseModal: !this.state.showAddExerciseModal
-      });
-      console.log(this.state.showAddExerciseModal);
-    }
-
-    const closeAddWorkoutModal = () => {
-      this.setState({
-        showAddWorkoutModal: false
-      });
-      console.log(this.state.showAddWorkoutModal);
-    };
-
+    {
+      if (this.props.location === "workouts") {
         return (
-        <div className="componentDiv">
-          <div className={classes.navbarDiv + " row shadow p-3 mb-5"}>
-              {(this.props.location === "workouts") ? <div className={classes.navDiv + " col-2"}><button onClick={toggleAddWorkoutModal} className={classes.navButton + " " + classes.three}>Add Workout</button></div> :
-               (this.props.location === "exercises") ? <div className={classes.navDiv + " col-2"}><button onClick={toggleAddExerciseModal} className={classes.navButton + " " + classes.three}>Add Exercise</button></div> : 
-               null
-              } 
-              <div className={classes.navDiv + " col-2"}><button className={classes.navButton + " " + classes.three}>Timers</button></div>
-              <div className={classes.navDiv + " col-1"}></div>
-              <div className={classes.navDiv + " col-2"}>
-              <Link to="/workouts">
-              <svg className={classes.dbIcon} height="480pt" viewBox="0 -116 480 480" width="480pt" xmlns="http://www.w3.org/2000/svg">
-              <path d="m472 80h-32v-24c0-13.253906-10.746094-24-24-24h-16c-2.730469.027344-5.4375.523438-8 1.472656v-9.472656c0-13.253906-10.746094-24-24-24h-16c-13.253906 0-24 10.746094-24 24v56h-176v-48c0-13.253906-10.746094-24-24-24h-16c-13.253906 0-24 10.746094-24 24v9.472656c-2.5625-.949218-5.269531-1.445312-8-1.472656h-16c-13.253906 0-24 10.746094-24 24v16h-32c-4.417969 0-8 3.582031-8 8v80c0 4.417969 3.582031 8 8 8h32v24c0 13.253906 10.746094 24 24 24h16c2.730469-.027344 5.4375-.523438 8-1.472656v1.472656c0 13.253906 10.746094 24 24 24h16c13.253906 0 24-10.746094 24-24v-48h176v40c0 13.253906 10.746094 24 24 24h16c13.253906 0 24-10.746094 24-24v-1.472656c2.5625.949218 5.269531 1.445312 8 1.472656h16c13.253906 0 24-10.746094 24-24v-16h32c4.417969 0 8-3.582031 8-8v-80c0-4.417969-3.582031-8-8-8zm-456 80v-64h24v64zm64 48h-16c-4.417969 0-8-3.582031-8-8v-136c0-4.417969 3.582031-8 8-8h16c4.417969 0 8 3.582031 8 8v136c0 4.417969-3.582031 8-8 8zm56 16c0 4.417969-3.582031 8-8 8h-16c-4.417969 0-8-3.582031-8-8v-192c0-4.417969 3.582031-8 8-8h16c4.417969 0 8 3.582031 8 8zm16-64v-64h176v64zm224 56c0 4.417969-3.582031 8-8 8h-16c-4.417969 0-8-3.582031-8-8v-192c0-4.417969 3.582031-8 8-8h16c4.417969 0 8 3.582031 8 8zm48-24c0 4.417969-3.582031 8-8 8h-16c-4.417969 0-8-3.582031-8-8v-136c0-4.417969 3.582031-8 8-8h16c4.417969 0 8 3.582031 8 8zm40-32h-24v-64h24zm0 0"/>
-              </svg>
-              </Link>
-              </div>
-              <div className={classes.navDiv + " col-1"}></div>
-              <div className={classes.navDiv + " col-2"}><button onClick={logout} className={classes.navButton + " " + classes.three}>Logout</button></div>
-              <div className={classes.navDiv + " col-2"}><button className={classes.navButton + " " + classes.three}>More</button></div>
+          <div className={classes.componentDiv}>
+            <nav className={classes.navBar}>
+              <i
+                onClick={this.toggleAddWorkoutModal}
+                className={"material-icons " + classes.workoutsAddIcon}
+              >
+                add
+              </i>
+              <h1
+                onClick={this.logout}
+                className={classes.sectionHeader + " " + classes.workoutsHeader}
+              >
+                Workouts
+              </h1>
+              <i className={"material-icons " + classes.menuIcon}>menu</i>
+            </nav>
+            <AddWorkout
+              visible={this.state.showAddWorkoutModal}
+              closeModal={this.closeAddWorkoutModal}
+            />
           </div>
-          <AddExercise workoutNumber={this.state.workoutNumber} exercisesCopy={this.props.exercises} visible={this.state.showAddExerciseModal} closeModal={closeAddExerciseModal}/>
-          <AddWorkout visible={this.state.showAddWorkoutModal} closeModal={closeAddWorkoutModal}/>
-        </div>
-        )
+        );
+      } else if (this.props.location === "exercises") {
+        return (
+          <div className={classes.componentDiv}>
+            <nav className={classes.navBar}>
+              <Link to="/workouts">
+                <i className={"material-icons " + classes.chevronIcon}>
+                  chevron_left
+                </i>
+              </Link>
+              <i
+                onClick={this.toggleAddExerciseModal}
+                className={"material-icons " + classes.exercisesAddIcon}
+              >
+                add
+              </i>
+              <i className={"material-icons " + classes.timerIcon}>timer</i>
+              <h1
+                className={
+                  classes.sectionHeader + " " + classes.exercisesHeader
+                }
+              >
+                Exercises
+              </h1>
+              <i className={"material-icons " + classes.menuIcon}>menu</i>
+            </nav>
+            <AddExercise
+              workoutNumber={this.state.workoutNumber}
+              exercisesCopy={this.props.exercises}
+              visible={this.state.showAddExerciseModal}
+              closeModal={this.closeAddExerciseModal}
+            />
+          </div>
+        );
+      }
+    }
+  }
 }
-} 
-    
-      
 
 export default Navbar;

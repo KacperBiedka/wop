@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../firebase.js";
 import classes from "./Signup.module.sass";
-import { runInThisContext } from "vm";
 
 class Signup extends Component {
   state = {
@@ -117,6 +116,7 @@ class Signup extends Component {
   };
 
   checkForEmailError = () => {
+    // eslint-disable-next-line
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!this.state.email.trim()) {
       this.setState({
@@ -175,7 +175,7 @@ class Signup extends Component {
         ),
         repeatPasswordClass: classes.inputFieldError
       });
-    } else if (this.state.repeatPassword != this.state.password) {
+    } else if (this.state.repeatPassword !== this.state.password) {
       this.setState({
         repeatPasswordError: (
           <p className={classes.errorMessage}>Passwords don't match</p>

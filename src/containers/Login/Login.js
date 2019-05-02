@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import firebase from "../../firebase.js";
-import * as firebaseui from "firebaseui";
 import classes from "./Login.module.sass";
 
 class Login extends Component {
@@ -40,6 +39,7 @@ class Login extends Component {
   };
 
   checkForEmailError = () => {
+    // eslint-disable-next-line
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!this.state.email.trim()) {
       this.setState({
