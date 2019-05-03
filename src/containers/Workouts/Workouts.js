@@ -9,6 +9,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Loading from "../../components/Loading/Loading";
 import WorkoutMessage from "../../components/WorkoutMessage/WorkoutMessage";
 import AddWorkout from "../../components/AddWorkout/AddWorkout";
+import Sidenav from "../../components/Sidenav/Sidenav";
 
 class Workouts extends Component {
   state = {
@@ -296,6 +297,7 @@ class Workouts extends Component {
     return (
       <div className={classes.workoutsDiv}>
         <Navbar location="workouts" exercises={null} />
+        <Sidenav />
         <AddWorkout
           visible={this.state.showAddWorkoutModal}
           closeModal={this.closeAddWorkoutModal}

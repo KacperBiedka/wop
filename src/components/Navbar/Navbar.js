@@ -61,65 +61,61 @@ class Navbar extends Component {
   };
 
   render() {
-    {
-      if (this.props.location === "workouts") {
-        return (
-          <div className={classes.componentDiv}>
-            <nav className={classes.navBar}>
-              <i
-                onClick={this.toggleAddWorkoutModal}
-                className={"material-icons " + classes.workoutsAddIcon}
-              >
-                add
+    if (this.props.location === "workouts") {
+      return (
+        <div className={classes.componentDiv}>
+          <nav className={classes.navBar}>
+            <i
+              onClick={this.toggleAddWorkoutModal}
+              className={"material-icons " + classes.workoutsAddIcon}
+            >
+              add
+            </i>
+            <h1
+              onClick={this.logout}
+              className={classes.sectionHeader + " " + classes.workoutsHeader}
+            >
+              Workouts
+            </h1>
+            <i className={"material-icons " + classes.menuIcon}>menu</i>
+          </nav>
+          <AddWorkout
+            visible={this.state.showAddWorkoutModal}
+            closeModal={this.closeAddWorkoutModal}
+          />
+        </div>
+      );
+    } else if (this.props.location === "exercises") {
+      return (
+        <div className={classes.componentDiv}>
+          <nav className={classes.navBar}>
+            <Link to="/workouts">
+              <i className={"material-icons " + classes.chevronIcon}>
+                chevron_left
               </i>
-              <h1
-                onClick={this.logout}
-                className={classes.sectionHeader + " " + classes.workoutsHeader}
-              >
-                Workouts
-              </h1>
-              <i className={"material-icons " + classes.menuIcon}>menu</i>
-            </nav>
-            <AddWorkout
-              visible={this.state.showAddWorkoutModal}
-              closeModal={this.closeAddWorkoutModal}
-            />
-          </div>
-        );
-      } else if (this.props.location === "exercises") {
-        return (
-          <div className={classes.componentDiv}>
-            <nav className={classes.navBar}>
-              <Link to="/workouts">
-                <i className={"material-icons " + classes.chevronIcon}>
-                  chevron_left
-                </i>
-              </Link>
-              <i
-                onClick={this.toggleAddExerciseModal}
-                className={"material-icons " + classes.exercisesAddIcon}
-              >
-                add
-              </i>
-              <i className={"material-icons " + classes.timerIcon}>timer</i>
-              <h1
-                className={
-                  classes.sectionHeader + " " + classes.exercisesHeader
-                }
-              >
-                Exercises
-              </h1>
-              <i className={"material-icons " + classes.menuIcon}>menu</i>
-            </nav>
-            <AddExercise
-              workoutNumber={this.state.workoutNumber}
-              exercisesCopy={this.props.exercises}
-              visible={this.state.showAddExerciseModal}
-              closeModal={this.closeAddExerciseModal}
-            />
-          </div>
-        );
-      }
+            </Link>
+            <i
+              onClick={this.toggleAddExerciseModal}
+              className={"material-icons " + classes.exercisesAddIcon}
+            >
+              add
+            </i>
+            <i className={"material-icons " + classes.timerIcon}>timer</i>
+            <h1
+              className={classes.sectionHeader + " " + classes.exercisesHeader}
+            >
+              Exercises
+            </h1>
+            <i className={"material-icons " + classes.menuIcon}>menu</i>
+          </nav>
+          <AddExercise
+            workoutNumber={this.state.workoutNumber}
+            exercisesCopy={this.props.exercises}
+            visible={this.state.showAddExerciseModal}
+            closeModal={this.closeAddExerciseModal}
+          />
+        </div>
+      );
     }
   }
 }
