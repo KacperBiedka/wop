@@ -2,29 +2,34 @@
     
     
 .sidenavDiv
+    width: 0px
     height: 1000px
-    width: 200px
     margin-top: 60px
     position: fixed
     z-index: 1
     top: 0
     right: 0
     background-color: $dark-grey
-    border-left: solid 1px $light-grey
     overflow-x: hidden
-    padding-top: 60px
     text-align: left
-    padding-left: 25px
-    padding-top: 125px
-    transition: 0.5s
+    padding-top: 25px
+    transition: width 0.5s
 
 .iconDiv
-    color: $light-grey
+    visibility: hidden
+    opacity: 0
+    transition-delay: 0.3s
+    transition: visibility 0s, opacity 0.5s linear
+    color: #fff
     margin: auto
+    margin-bottom: 7px
+    cursor: pointer
+    &:hover
+        color: $cyan
 
 .navIcon
     display: inline-block
-    margin-right: 25px
+    margin-right: 10px
 
 .iconText
     display: inline-block

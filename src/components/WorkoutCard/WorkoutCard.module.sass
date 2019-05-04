@@ -1,0 +1,115 @@
+@import '../../_variables.sass'
+
+
+.workoutCardDiv
+    display: inline-block
+    margin-top: 3%
+    vertical-align: middle
+    text-align: center
+    background: $dark-grey
+    color: #ffffff
+    width: 775px
+    height: 400px
+    margin: 50px
+    @media (max-width: 900px)
+        width: 90vw
+        margin-left: 4%
+        margin-right: 4%
+        margin-bottom: 3%
+
+.workoutCardHeaderDiv
+    width: 100%
+    text-align: left
+    border-bottom: solid 1px $border-grey
+
+.workoutCardHeader
+    width: 95%
+    background: none
+    border: none
+    color: #ffffff
+    text-align: left
+    padding: 1%
+    padding-left: 2%
+    font-size: 25px
+    font-family: $fira
+    font-weight: 200
+    margin-left: 0
+    cursor: pointer
+    &:focus
+        border: none
+        outline: none
+        cursor: text
+        background: darken($dark-grey, 1)
+    @media (max-width: 600px)
+        width: 90%
+        
+
+.deleteIcon
+    font-size: 175%
+    vertical-align: middle
+    margin-top: -1%
+    cursor: pointer
+    &:hover
+        color: $red
+        transition: color 0.2s ease-in
+
+.workoutCardList
+    display: block
+    text-align: center
+    font-family: $source
+    font-size: 25px
+    color: $light-grey
+    font-weight: 200
+    list-style: none
+    height: 275px
+    margin-top: 25px
+    overflow: -moz-scrollbars-none
+    overflow-y: scroll
+    -ms-overflow-style: none
+    &::-webkit-scrollbar
+         width: 0 !important
+
+
+.workoutCardListItem
+    display: inline-block
+    margin: auto
+    padding: 2%
+    width: 300px
+    margin-bottom: 25px
+    text-align: center
+    @media (max-width: 600px)
+        width: 250px
+
+.exerciseNameSpan
+    display: block
+    border-bottom: solid 1px $cyan
+
+.modalFooter
+    border-top: solid 1px $border-grey
+    height: 50px
+    background: $dark-grey
+
+.modalAnchor
+    float: left
+    font-size: 20px
+    font-family: $source
+    text-decoration: none
+    color: #ffffff
+    margin-bottom: 0
+    vertical-align: middle
+    text-align: left
+    padding-top: 1%
+    margin-left: 1%
+    font-weight: 200
+    position: relative
+    &:after
+        content: ''
+        display: block
+        border-bottom: 1px solid $cyan
+        width: 0
+        position: absolute
+        left: 0
+        -webkit-transiton: 0.5s ease
+        transition: 0.5s ease
+    &:hover::after
+        width: 100%

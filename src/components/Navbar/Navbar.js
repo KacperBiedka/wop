@@ -77,7 +77,12 @@ class Navbar extends Component {
             >
               Workouts
             </h1>
-            <i className={"material-icons " + classes.menuIcon}>menu</i>
+            <i
+              onClick={this.props.toggleSidenav}
+              className={"material-icons " + classes.menuIcon}
+            >
+              menu
+            </i>
           </nav>
           <AddWorkout
             visible={this.state.showAddWorkoutModal}

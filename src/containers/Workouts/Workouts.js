@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions/actionTypes";
 import firebase from "../../firebase.js";
-import classes from "./Workouts.module.css";
-import { Link } from "react-router-dom";
+import classes from "./Workouts.module.sass";
 
 import Navbar from "../../components/Navbar/Navbar";
 import Loading from "../../components/Loading/Loading";
 import WorkoutMessage from "../../components/WorkoutMessage/WorkoutMessage";
 import AddWorkout from "../../components/AddWorkout/AddWorkout";
 import Sidenav from "../../components/Sidenav/Sidenav";
+import WorkoutCard from "../../components/WorkoutCard/WorkoutCard";
 
 class Workouts extends Component {
   state = {
@@ -20,7 +20,13 @@ class Workouts extends Component {
     loading: true,
     displayWorkoutMessage: false,
     showAddWorkoutModal: false,
-    reduxExercises: []
+    reduxExercises: [],
+    sidenavStyles: {
+      width: "0px",
+      borderLeft: "none",
+      paddingLeft: "0px"
+    },
+    sidenavVisible: false
   };
 
   componentDidMount() {
@@ -293,11 +299,50 @@ class Workouts extends Component {
     console.log(this.state.showAddWorkoutModal);
   };
 
+  toggleSidenav = () => {
+    if (this.state.sidenavVisible) {
+      this.setState({
+        sidenavStyles: {
+          sideNavDiv: {
+            paddingLeft: "0px",
+            width: "0px",
+            borderLeft: "none"
+          },
+          iconDiv: {
+            visibility: "hidden",
+            opacity: "0"
+          }
+        },
+        sidenavVisible: false
+      });
+    } else {
+      this.setState({
+        sidenavStyles: {
+          sideNavDiv: {
+            paddingLeft: "30px",
+            width: "200px",
+            borderLeft: "solid 1px #707070"
+          },
+          iconDiv: {
+            transitionDelay: "0.3s",
+            visibility: "visible",
+            opacity: "1"
+          }
+        },
+        sidenavVisible: true
+      });
+    }
+  };
+
   render() {
     return (
       <div className={classes.workoutsDiv}>
-        <Navbar location="workouts" exercises={null} />
-        <Sidenav />
+        <Navbar
+          toggleSidenav={this.toggleSidenav}
+          location="workouts"
+          exercises={null}
+        />
+        <Sidenav styles={this.state.sidenavStyles} />
         <AddWorkout
           visible={this.state.showAddWorkoutModal}
           closeModal={this.closeAddWorkoutModal}
@@ -308,64 +353,22 @@ class Workouts extends Component {
         ) : null}
         {this.state.workouts.map(w => {
           return (
-            <div
+            <WorkoutCard
               key={w.number}
-              className={
-                classes.workoutCardDiv + " shadow p-3 mb-1 bg-white rounded"
+              number={w.number}
+              addWorkout={() => this.addWorkoutNameToFirebase(w.number)}
+              setInputNumber={() => this.setSelectedInputNumber(w.number)}
+              editWorkoutName={this.editWorkoutName}
+              name={this.state.workouts[w.number - 1].name}
+              exercises={this.state.exercises}
+              getExercisesToRedux={() =>
+                this.props.getExercisesToRedux(
+                  this.state.exercises[w.number - 1],
+                  w.number
+                )
               }
-            >
-              <div className={classes.workoutCardHeaderDiv}>
-                {/* <h5 onClick={this.logData} className={classes.workoutNameHeader}>{this.state.workouts[w.number - 1].name}</h5> */}
-                <input
-                  key={w.number}
-                  className={classes.workoutCardHeader}
-                  type="text"
-                  onBlur={() => this.addWorkoutNameToFirebase(w.number)}
-                  onClick={() => this.setSelectedInputNumber(w.number)}
-                  onChange={this.editWorkoutName}
-                  value={this.state.workouts[w.number - 1].name}
-                />
-              </div>
-              <ul className={classes.workoutCardList}>
-                {this.state.exercises[w.number - 1].map(ex => {
-                  return (
-                    <li
-                      key={
-                        ex.exercise.exerciseName + ex.exercise.exerciseNumber
-                      }
-                      className={classes.workoutCardListItem}
-                    >
-                      {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
-                      {ex.exercise.reps} reps with {ex.exercise.weight}kg
-                    </li>
-                  );
-                })}
-              </ul>
-              <hr />
-              <Link to="/exercises">
-                <div className={classes.anchorDiv}>
-                  <p
-                    onClick={() =>
-                      this.props.getExercisesToRedux(
-                        this.state.exercises[w.number - 1],
-                        w.number
-                      )
-                    }
-                    className={classes.modalAnchor}
-                  >
-                    choose
-                  </p>
-                </div>
-              </Link>
-              <div className={classes.deleteDiv}>
-                <p
-                  className={classes.modalAnchor + " " + classes.deleteAnchor}
-                  onClick={() => this.removeWorkout(w.number)}
-                >
-                  delete
-                </p>
-              </div>
-            </div>
+              removeWorkout={() => this.removeWorkout(w.number)}
+            />
           );
         })}
       </div>
