@@ -21,7 +21,7 @@ class AddWorkout extends Component {
     exercises: [],
     globalWorkoutNumber: 0,
     clickedExerciseNumber: null,
-    display: "none"
+    class: " "
   };
 
   componentDidMount = () => {
@@ -169,7 +169,7 @@ class AddWorkout extends Component {
 
   updateWeightState = e => {
     this.setState({
-      weight: parseInt(e.target.value.trim())
+      weight: parseFloat(e.target.value)
     });
   };
 
@@ -247,111 +247,121 @@ class AddWorkout extends Component {
     console.log(this.state.exercises);
   };
 
+  closeModal = () => {
+    this.setState({
+      class: "animated fadeOutUp fast "
+    });
+    setTimeout(() => {
+      this.props.closeModal();
+    }, 1000);
+  };
+
   render() {
     return (
-      <div
-        className={classes.mainModalDiv}
-        style={{ display: this.props.display }}
-      >
-        <div className={classes.modalHeaderMainDiv}>
-          <h5 className={classes.modalHeader}>Add workout</h5>
-          <i
-            onClick={this.props.closeModal}
-            className={"material-icons " + classes.closeIcon}
-          >
-            close
-          </i>
-        </div>
-        <div className={classes.workoutNameDiv}>
-          <input
-            onChange={this.updateWorkoutNameState}
-            className={classes.workoutNameInput + " " + classes.inputField}
-            type="text"
-            placeholder="Workout Name"
-            value={this.state.workoutName}
-          />
-          {this.state.workoutNameError}
-        </div>
-        <div className={classes.modalBodyDiv}>
-          <h5 className={classes.exercisesHeader}>
-            Exercise {this.state.exerciseNumber}
-          </h5>
-          <input
-            onChange={this.updateExerciseNameState}
-            className={classes.inputField}
-            type="text"
-            placeholder="Exercise Name"
-            value={this.state.exerciseName}
-          />
-          {this.state.exerciseNameError}
-          <input
-            onChange={this.updateSetsState}
-            className={classes.inputField + " " + classes.numberInputField}
-            type="number"
-            placeholder="Sets"
-            value={this.state.sets}
-          />
-          {this.state.setsError}
-          <input
-            onChange={this.updateRepsState}
-            className={classes.inputField + " " + classes.numberInputField}
-            type="number"
-            placeholder="Reps"
-            value={this.state.reps}
-          />
-          {this.state.repsError}
-          <input
-            onChange={this.updateWeightState}
-            className={classes.inputField + " " + classes.numberInputField}
-            type="number"
-            placeholder="Weight (kg)"
-            value={this.state.weight}
-          />
-          {this.state.weightError}
-          <div className={classes.addExerciseButtonContainer}>
-            <button
-              onClick={this.renderNextExerciseInputs}
-              className={classes.addExerciseButton}
+      <div className={this.state.class + classes.opacityLayerDiv}>
+        <div className={"animated fadeInDown faster " + classes.mainModalDiv}>
+          <div className={classes.modalHeaderMainDiv}>
+            <h5 className={classes.modalHeader}>Add workout</h5>
+            <i
+              onClick={this.closeModal}
+              className={"material-icons " + classes.closeIcon}
             >
-              <span className={classes.addExerciseButtonText}>
-                Add exercise
-              </span>
-              <i className={"material-icons " + classes.plusIcon}>add</i>
+              close
+            </i>
+          </div>
+          <div className={classes.workoutNameDiv}>
+            <input
+              onChange={this.updateWorkoutNameState}
+              className={classes.workoutNameInput + " " + classes.inputField}
+              type="text"
+              placeholder="Workout Name"
+              value={this.state.workoutName}
+            />
+            {this.state.workoutNameError}
+          </div>
+          <div className={classes.modalBodyDiv}>
+            <h5 className={classes.exercisesHeader}>
+              Exercise {this.state.exerciseNumber}
+            </h5>
+            <input
+              onChange={this.updateExerciseNameState}
+              className={classes.inputField}
+              type="text"
+              placeholder="Exercise Name"
+              value={this.state.exerciseName}
+            />
+            {this.state.exerciseNameError}
+            <input
+              onChange={this.updateSetsState}
+              className={classes.inputField + " " + classes.numberInputField}
+              type="number"
+              placeholder="Sets"
+              value={this.state.sets}
+            />
+            {this.state.setsError}
+            <input
+              onChange={this.updateRepsState}
+              className={classes.inputField + " " + classes.numberInputField}
+              type="number"
+              placeholder="Reps"
+              value={this.state.reps}
+            />
+            {this.state.repsError}
+            <input
+              onChange={this.updateWeightState}
+              className={classes.inputField + " " + classes.numberInputField}
+              type="number"
+              placeholder="Weight (kg)"
+              value={this.state.weight}
+            />
+            {this.state.weightError}
+            <div className={classes.addExerciseButtonContainer}>
+              <button
+                onClick={this.renderNextExerciseInputs}
+                className={classes.addExerciseButton}
+              >
+                <span className={classes.addExerciseButtonText}>
+                  Add exercise
+                </span>
+                <i className={"material-icons " + classes.plusIcon}>add</i>
+              </button>
+            </div>
+            <div className={classes.exerciseListDiv}>
+              {this.state.exercises.map(ex => {
+                return (
+                  <span
+                    number={ex.exercise.exerciseNumber}
+                    className={classes.exerciseListSpan}
+                    key={
+                      ex.exercise.exerciseName +
+                      ex.exercise.exerciseNumber +
+                      ex.exercise.weight
+                    }
+                  >
+                    Exercise {ex.exercise.exerciseNumber} -{" "}
+                    {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
+                    {ex.exercise.reps} reps with {ex.exercise.weight} kg
+                    <i
+                      onClick={() =>
+                        this.removeExercise(ex.exercise.exerciseNumber - 1)
+                      }
+                      className={"material-icons " + classes.iconSpan}
+                    >
+                      close
+                    </i>
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+          <div className={classes.bottomModalDiv}>
+            <button
+              className={classes.submitButton + " " + classes.buttonAnimation}
+              onClick={this.submitExercisesToFirebase}
+            >
+              <span className={classes.submitSpan}>Submit Workout</span>
             </button>
           </div>
-          <div className={classes.exerciseListDiv}>
-            {this.state.exercises.map(ex => {
-              return (
-                <span
-                  number={ex.exercise.exerciseNumber}
-                  className={classes.exerciseListSpan}
-                  key={
-                    ex.exercise.exerciseName +
-                    ex.exercise.exerciseNumber +
-                    ex.exercise.weight
-                  }
-                >
-                  Exercise {ex.exercise.exerciseNumber} -{" "}
-                  {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
-                  {ex.exercise.reps} reps with {ex.exercise.weight} kg
-                  <span
-                    onClick={() =>
-                      this.removeExercise(ex.exercise.exerciseNumber - 1)
-                    }
-                    className={classes.iconSpan}
-                  />
-                </span>
-              );
-            })}
-          </div>
-        </div>
-        <div className={classes.bottomModalDiv}>
-          <button
-            className={classes.submitButton + " " + classes.buttonAnimation}
-            onClick={this.submitExercisesToFirebase}
-          >
-            <span className={classes.submitSpan}>Submit Workout</span>
-          </button>
         </div>
       </div>
     );

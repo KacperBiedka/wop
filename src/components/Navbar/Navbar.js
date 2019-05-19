@@ -7,7 +7,7 @@ import AddExercise from "../AddExercise/AddExercise";
 
 class Navbar extends Component {
   state = {
-    addWorkoutDisplay: "none",
+    displayAddWorkoutModal: null,
     showEditExerciseModal: false,
     currentLocation: null,
     workoutNumber: null,
@@ -30,15 +30,23 @@ class Navbar extends Component {
   };
 
   toggleAddWorkoutModal = () => {
-    if (this.state.addWorkoutDisplay === "none") {
+    if (this.state.displayAddWorkoutModal) {
       this.setState({
-        addWorkoutDisplay: "block"
+        displayAddWorkoutModal: null
       });
     } else {
       this.setState({
-        addWorkoutDisplay: "none"
+        displayAddWorkoutModal: (
+          <AddWorkout closeModal={this.closeAddWorkoutModal} />
+        )
       });
     }
+  };
+
+  closeAddWorkoutModal = () => {
+    this.setState({
+      displayAddWorkoutModal: null
+    });
   };
 
   closeAddExerciseModal = () => {
@@ -54,15 +62,23 @@ class Navbar extends Component {
     console.log(this.state.showAddExerciseModal);
   };
 
-  closeAddWorkoutModal = () => {
-    this.setState({
-      addWorkoutDisplay: "none"
-    });
-  };
-
   goBackToWorkouts = () => {
     window.location.href = "../workouts";
   };
+
+  // displayAddWorkoutModal = () => {
+  //   if (this.state.displayAddWorkoutModal) {
+  //     this.setState({
+  //       displayAddWorkoutModal: (
+  //         <AddWorkout closeModal={this.closeAddWorkoutModal} />
+  //       )
+  //     });
+  //   } else {
+  //     this.setState({
+  //       displayAddWorkoutModal: null
+  //     });
+  //   }
+  // };
 
   render() {
     if (this.props.location === "workouts") {
@@ -88,10 +104,7 @@ class Navbar extends Component {
               menu
             </i>
           </nav>
-          <AddWorkout
-            display={this.state.addWorkoutDisplay}
-            closeModal={this.closeAddWorkoutModal}
-          />
+          {this.state.displayAddWorkoutModal}
         </div>
       );
     } else if (this.props.location === "exercises") {

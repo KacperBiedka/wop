@@ -347,10 +347,10 @@ class Workouts extends Component {
           exercises={null}
         />
         <Sidenav styles={this.state.sidenavStyles} />
-        <AddWorkout
+        {/* <AddWorkout
           display={this.state.addWorkoutDisplay}
           closeModal={this.closeAddWorkoutModal}
-        />
+        /> */}
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
           <WorkoutMessage addWorkout={this.toggleAddWorkoutModal} />
