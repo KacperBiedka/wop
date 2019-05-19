@@ -19,7 +19,12 @@ const WorkoutCard = props => {
           onChange={props.editWorkoutName}
           value={props.name}
         />
-        <i className={"material-icons " + classes.deleteIcon}>close</i>
+        <i
+          onClick={props.removeWorkout}
+          className={"material-icons " + classes.deleteIcon}
+        >
+          close
+        </i>
       </div>
       <ul className={classes.workoutCardList}>
         {props.exercises[props.number - 1].map(ex => {

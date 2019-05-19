@@ -21,6 +21,8 @@
     width: 100%
     text-align: left
     border-bottom: solid 1px $border-grey
+    &:hover
+        background: lighten($dark-grey, 1)
 
 .workoutCardHeader
     width: 95%
@@ -39,7 +41,6 @@
         border: none
         outline: none
         cursor: text
-        background: darken($dark-grey, 1)
     @media (max-width: 600px)
         width: 90%
         
@@ -113,3 +114,5 @@
         transition: 0.5s ease
     &:hover::after
         width: 100%
+
+

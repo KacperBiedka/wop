@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Home.module.sass";
+import firebase from "../../firebase";
 
 import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
@@ -9,6 +10,16 @@ class Home extends Component {
     homeDivClass: "",
     displayedContent: null,
     choiceDivClass: ""
+  };
+
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        window.location.href = "workouts";
+      } else {
+        console.log("not logged in");
+      }
+    });
   };
 
   switchToLoginDiv = () => {

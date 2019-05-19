@@ -14,7 +14,7 @@ class Login extends Component {
     loader: null
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         window.location.href = "/workouts";
@@ -22,9 +22,6 @@ class Login extends Component {
         console.log("User not logged in");
       }
     });
-  };
-
-  componentDidMount = () => {
     setTimeout(() => {
       this.setState({
         mainClass: " "

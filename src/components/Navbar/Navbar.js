@@ -7,7 +7,7 @@ import AddExercise from "../AddExercise/AddExercise";
 
 class Navbar extends Component {
   state = {
-    showAddWorkoutModal: false,
+    addWorkoutDisplay: "none",
     showEditExerciseModal: false,
     currentLocation: null,
     workoutNumber: null,
@@ -30,10 +30,15 @@ class Navbar extends Component {
   };
 
   toggleAddWorkoutModal = () => {
-    this.setState({
-      showAddWorkoutModal: !this.state.showAddWorkoutModal
-    });
-    console.log(this.state.showAddWorkoutModal);
+    if (this.state.addWorkoutDisplay === "none") {
+      this.setState({
+        addWorkoutDisplay: "block"
+      });
+    } else {
+      this.setState({
+        addWorkoutDisplay: "none"
+      });
+    }
   };
 
   closeAddExerciseModal = () => {
@@ -51,9 +56,8 @@ class Navbar extends Component {
 
   closeAddWorkoutModal = () => {
     this.setState({
-      showAddWorkoutModal: false
+      addWorkoutDisplay: "none"
     });
-    console.log(this.state.showAddWorkoutModal);
   };
 
   goBackToWorkouts = () => {
@@ -85,7 +89,7 @@ class Navbar extends Component {
             </i>
           </nav>
           <AddWorkout
-            visible={this.state.showAddWorkoutModal}
+            display={this.state.addWorkoutDisplay}
             closeModal={this.closeAddWorkoutModal}
           />
         </div>

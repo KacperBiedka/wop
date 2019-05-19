@@ -19,7 +19,7 @@ class Workouts extends Component {
     workoutCards: {},
     loading: true,
     displayWorkoutMessage: false,
-    showAddWorkoutModal: false,
+    addWorkoutDisplay: "none",
     reduxExercises: [],
     sidenavStyles: {
       width: "0px",
@@ -286,17 +286,21 @@ class Workouts extends Component {
   };
 
   toggleAddWorkoutModal = () => {
-    this.setState({
-      showAddWorkoutModal: !this.state.showAddWorkoutModal
-    });
-    console.log(this.state.showAddWorkoutModal);
+    if (this.state.addWorkoutDisplay === "none") {
+      this.setState({
+        addWorkoutDisplay: "block"
+      });
+    } else {
+      this.setState({
+        addWorkoutDisplay: "none"
+      });
+    }
   };
 
   closeAddWorkoutModal = () => {
     this.setState({
-      showAddWorkoutModal: false
+      addWorkoutDisplay: "none"
     });
-    console.log(this.state.showAddWorkoutModal);
   };
 
   toggleSidenav = () => {
@@ -344,33 +348,35 @@ class Workouts extends Component {
         />
         <Sidenav styles={this.state.sidenavStyles} />
         <AddWorkout
-          visible={this.state.showAddWorkoutModal}
+          display={this.state.addWorkoutDisplay}
           closeModal={this.closeAddWorkoutModal}
         />
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
           <WorkoutMessage addWorkout={this.toggleAddWorkoutModal} />
         ) : null}
-        {this.state.workouts.map(w => {
-          return (
-            <WorkoutCard
-              key={w.number}
-              number={w.number}
-              addWorkout={() => this.addWorkoutNameToFirebase(w.number)}
-              setInputNumber={() => this.setSelectedInputNumber(w.number)}
-              editWorkoutName={this.editWorkoutName}
-              name={this.state.workouts[w.number - 1].name}
-              exercises={this.state.exercises}
-              getExercisesToRedux={() =>
-                this.props.getExercisesToRedux(
-                  this.state.exercises[w.number - 1],
-                  w.number
-                )
-              }
-              removeWorkout={() => this.removeWorkout(w.number)}
-            />
-          );
-        })}
+        <div className={classes.workoutCardsDiv}>
+          {this.state.workouts.map(w => {
+            return (
+              <WorkoutCard
+                key={w.number}
+                number={w.number}
+                addWorkout={() => this.addWorkoutNameToFirebase(w.number)}
+                setInputNumber={() => this.setSelectedInputNumber(w.number)}
+                editWorkoutName={this.editWorkoutName}
+                name={this.state.workouts[w.number - 1].name}
+                exercises={this.state.exercises}
+                getExercisesToRedux={() =>
+                  this.props.getExercisesToRedux(
+                    this.state.exercises[w.number - 1],
+                    w.number
+                  )
+                }
+                removeWorkout={() => this.removeWorkout(w.number)}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }

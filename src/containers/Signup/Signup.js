@@ -17,19 +17,14 @@ class Signup extends Component {
     loader: null
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
         window.location.href = "workouts";
       } else {
-        // No user is signed in.
         console.log("not logged in");
       }
     });
-  };
-
-  componentDidMount = () => {
     setTimeout(() => {
       this.setState({
         mainClass: " "
