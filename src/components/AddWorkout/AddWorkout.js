@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import firebase from "../../firebase.js";
 
 import classes from "./AddWorkout.module.sass";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 class AddWorkout extends Component {
   state = {
@@ -30,44 +30,9 @@ class AddWorkout extends Component {
   };
 
   componentDidMount = () => {
-    const db = firebase.firestore();
-    let globalWorkoutNumber = 0;
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const uid = user.uid;
-        const usersCollection = db.collection("users");
-        usersCollection
-          .where("uid", "==", uid)
-          .orderBy("workoutsNumber", "desc")
-          .limit(1)
-          .get()
-          .then(snapshot => {
-            if (snapshot.docs.length > 0) {
-              console.log("snapshot docs length: " + snapshot.docs.length);
-              console.log("doc exists");
-              snapshot.docs.forEach(doc => {
-                console.log(doc.data().uid);
-                console.log(doc.data().workoutsNumber);
-                globalWorkoutNumber = doc.data().workoutsNumber;
-                this.setState({
-                  globalWorkoutNumber: globalWorkoutNumber
-                });
-              });
-            } else if (snapshot.docs.length === false) {
-              console.log("doc doesn't exist");
-              globalWorkoutNumber = 0;
-              console.log("globalWorkoutNumber = " + globalWorkoutNumber);
-              this.setState({
-                globalWorkoutNumber: globalWorkoutNumber
-              });
-            }
-          })
-          .catch(function(error) {
-            console.log("Error getting workoutNumber data: ", error);
-          });
-      } else {
-        console.log("user not logged in");
-      }
+    console.log(this.props.workoutsNumber);
+    this.setState({
+      globalWorkoutNumber: this.props.workoutsNumber
     });
   };
 
@@ -419,4 +384,13 @@ class AddWorkout extends Component {
   }
 }
 
-export default AddWorkout;
+const mapStateToProps = state => {
+  return {
+    workoutsNumber: state.workoutsNumber
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(AddWorkout);

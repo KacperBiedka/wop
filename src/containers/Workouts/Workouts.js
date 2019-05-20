@@ -7,7 +7,7 @@ import classes from "./Workouts.module.sass";
 import Navbar from "../../components/Navbar/Navbar";
 import Loading from "../../components/Loading/Loading";
 import WorkoutMessage from "../../components/WorkoutMessage/WorkoutMessage";
-import AddWorkout from "../../components/AddWorkout/AddWorkout";
+// import AddWorkout from "../../components/AddWorkout/AddWorkout";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import WorkoutCard from "../../components/WorkoutCard/WorkoutCard";
 
@@ -30,60 +30,101 @@ class Workouts extends Component {
   };
 
   componentDidMount() {
-    const db = firebase.firestore();
-    firebase.auth().onAuthStateChanged(
-      function(user) {
-        if (user) {
-          const uid = user.uid;
-          const query = db
-            .collection("workouts")
-            .where("uid", "==", uid)
-            .orderBy("workoutNumber", "asc");
-          query
-            .get()
-            .then(snapshot => {
-              if (snapshot.docs.length > 0) {
-                snapshot.docs.forEach(doc => {
-                  let exercisesCopy = this.state.exercises;
-                  exercisesCopy.push(doc.data().exercises);
-                  let workoutsCopy = this.state.workouts;
-                  let workoutObject = {
-                    name: doc.data().workoutName,
-                    number: doc.data().workoutNumber
-                  };
-                  workoutsCopy.push(workoutObject);
-                  this.setState({
-                    exercises: exercisesCopy,
-                    workouts: workoutsCopy
-                  });
-                });
-                this.setState({
-                  loading: false
-                });
-              } else {
-                this.setState({
-                  loading: false,
-                  displayWorkoutMessage: true
-                });
-              }
-            })
-            .catch(function(error) {
-              console.log("Error getting workoutName: " + error);
-              this.setState({
-                loading: false
-              });
-            });
-        } else {
-          console.log("Error getting document");
-          window.location = "..";
-        }
-      }.bind(this)
-    );
+    this.getAllWorkoutsFromFirebase();
+    this.getNumberOfUserWorkouts();
   }
 
   logData = () => {
     console.log(this.state.workouts);
     console.log(this.state.exercises);
+  };
+
+  getAllWorkoutsFromFirebase = () => {
+    const db = firebase.firestore();
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+        const query = db
+          .collection("workouts")
+          .where("uid", "==", uid)
+          .orderBy("workoutNumber", "asc");
+        query
+          .get()
+          .then(snapshot => {
+            if (snapshot.docs.length > 0) {
+              snapshot.docs.forEach(doc => {
+                let exercisesCopy = this.state.exercises;
+                exercisesCopy.push(doc.data().exercises);
+                let workoutsCopy = this.state.workouts;
+                let workoutObject = {
+                  name: doc.data().workoutName,
+                  number: doc.data().workoutNumber
+                };
+                workoutsCopy.push(workoutObject);
+                this.setState({
+                  exercises: exercisesCopy,
+                  workouts: workoutsCopy
+                });
+              });
+              this.setState({
+                loading: false
+              });
+            } else {
+              this.setState({
+                loading: false,
+                displayWorkoutMessage: true
+              });
+            }
+          })
+          .catch(error => {
+            console.log("Error getting workoutName: " + error);
+            this.setState({
+              loading: false
+            });
+          });
+      } else {
+        console.log("Error getting document");
+        window.location = "..";
+      }
+    });
+  };
+
+  getNumberOfUserWorkouts = () => {
+    const db = firebase.firestore();
+    let globalWorkoutNumber = 0;
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+        const usersCollection = db.collection("users");
+        usersCollection
+          .where("uid", "==", uid)
+          .orderBy("workoutsNumber", "desc")
+          .limit(1)
+          .get()
+          .then(snapshot => {
+            if (snapshot.docs.length > 0) {
+              console.log("snapshot docs length: " + snapshot.docs.length);
+              console.log("doc exists");
+              snapshot.docs.forEach(doc => {
+                console.log(doc.data().uid);
+                console.log(doc.data().workoutsNumber);
+                globalWorkoutNumber = doc.data().workoutsNumber;
+                this.props.getWorkoutsNumber(globalWorkoutNumber);
+              });
+            } else if (snapshot.docs.length === false) {
+              console.log("doc doesn't exist");
+              globalWorkoutNumber = 0;
+              console.log("globalWorkoutNumber = " + globalWorkoutNumber);
+              this.props.getWorkoutsNumber(globalWorkoutNumber);
+            }
+          })
+          .catch(function(error) {
+            console.log("Error getting workoutNumber data: ", error);
+          });
+      } else {
+        console.log("user not logged in");
+      }
+    });
   };
 
   removeWorkout = number => {
@@ -384,13 +425,15 @@ class Workouts extends Component {
 
 const mapStateToProps = state => {
   return {
-    exercises: state.exercises
+    exercises: state.exercises,
+    workoutsNumber: state.workoutsNumber
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getExercisesToRedux: (exercises, number) =>
-      dispatch(actionTypes.getExercises(exercises, number))
+      dispatch(actionTypes.getExercises(exercises, number)),
+    getWorkoutsNumber: number => dispatch(actionTypes.getWorkoutsNumber(number))
   };
 };
 

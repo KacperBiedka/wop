@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
 import firebase from "../../firebase";
 import classes from "./EditExercise.module.css";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import * as actionTypes from "../../store/actions/actionTypes";
 
 class EditExercise extends Component {
@@ -65,9 +64,7 @@ class EditExercise extends Component {
     const submitEdit = () => {
       if (!this.state.exerciseName.trim()) {
         this.setState({
-          exerciseNameError: (
-            <ErrorMessage text="Exercise Name field is required" />
-          )
+          exerciseNameError: null
         });
       }
       if (this.state.exerciseName && this.state.exerciseNameError) {
@@ -77,7 +74,7 @@ class EditExercise extends Component {
       }
       if (!this.state.sets) {
         this.setState({
-          setsError: <ErrorMessage text="Sets field is required" />
+          setsError: null
         });
       }
       if (this.state.sets && this.state.setsError) {
@@ -87,7 +84,7 @@ class EditExercise extends Component {
       }
       if (!this.state.reps) {
         this.setState({
-          repsError: <ErrorMessage text="Reps field is required" />
+          repsError: null
         });
       }
       if (this.state.reps && this.state.repsError) {
@@ -97,7 +94,7 @@ class EditExercise extends Component {
       }
       if (!this.state.weight) {
         this.setState({
-          weightError: <ErrorMessage text="Weight field is required" />
+          weightError: null
         });
       }
       if (this.state.weight && !this.state.weightError) {
