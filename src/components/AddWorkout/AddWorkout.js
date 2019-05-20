@@ -8,16 +8,21 @@ class AddWorkout extends Component {
   state = {
     workoutName: "",
     workoutNameError: null,
+    workoutNameClass: classes.inputField,
     exerciseNumber: 1,
-    exerciseNumberError: null,
     exerciseName: "",
     exerciseNameError: null,
+    exerciseNameClass: classes.inputField,
     sets: null,
     setsError: null,
+    setsClass: classes.inputField,
     reps: null,
     repsError: null,
+    repsClass: classes.inputField,
     weight: null,
     weightError: null,
+    weightClass: classes.inputField,
+    exerciseListClass: classes.exerciseList,
     exercises: [],
     globalWorkoutNumber: 0,
     clickedExerciseNumber: null,
@@ -25,9 +30,6 @@ class AddWorkout extends Component {
   };
 
   componentDidMount = () => {
-    this.setState({
-      display: this.props.display
-    });
     const db = firebase.firestore();
     let globalWorkoutNumber = 0;
     firebase.auth().onAuthStateChanged(user => {
@@ -72,43 +74,67 @@ class AddWorkout extends Component {
   renderNextExerciseInputs = () => {
     if (!this.state.exerciseName.trim()) {
       this.setState({
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
         exerciseNameError: (
-          <ErrorMessage text="Exercise Name field is required" />
+          <p className={classes.errorMessage}>
+            Exercise Name field can't be empty
+          </p>
         )
       });
     }
-    if (this.state.exerciseName && this.state.exerciseNameError) {
+    if (this.state.exerciseName.trim()) {
       this.setState({
+        exerciseNameClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
         exerciseNameError: null
       });
     }
     if (!this.state.sets) {
       this.setState({
-        setsError: <ErrorMessage text="Sets field is required" />
+        setsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        setsError: (
+          <p className={classes.errorMessage}>Sets field can't be empty</p>
+        )
       });
     }
-    if (this.state.sets && this.state.setsError) {
+    if (this.state.sets) {
       this.setState({
+        setsClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
         setsError: null
       });
     }
     if (!this.state.reps) {
       this.setState({
-        repsError: <ErrorMessage text="Reps field is required" />
+        repsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        repsError: (
+          <p className={classes.errorMessage}>Reps field can't be empty</p>
+        )
       });
     }
-    if (this.state.reps && this.state.repsError) {
+    if (this.state.reps) {
       this.setState({
+        repsClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
         repsError: null
       });
     }
     if (!this.state.weight) {
       this.setState({
-        weightError: <ErrorMessage text="Weight field is required" />
+        weightClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        weightError: (
+          <p className={classes.errorMessage}>Weight field can't be empty</p>
+        )
       });
     }
-    if (this.state.weight && !this.state.weightError) {
+    if (this.state.weight) {
       this.setState({
+        weightClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
         weightError: null
       });
     }
@@ -137,6 +163,11 @@ class AddWorkout extends Component {
       });
       console.log(this.state.exercises);
       this.setState({
+        exerciseNameClass: classes.inputField,
+        setsClass: classes.inputField,
+        repsClass: classes.inputField,
+        weightClass: classes.inputField,
+        exerciseListClass: classes.exerciseList,
         exerciseName: "",
         sets: "",
         reps: "",
@@ -182,43 +213,54 @@ class AddWorkout extends Component {
 
   submitExercisesToFirebase = () => {
     const db = firebase.firestore();
+    if (this.state.workoutName.trim()) {
+      this.setState({
+        workoutNameClass: classes.inputFieldSuccess,
+        workoutNameError: null
+      });
+    }
     if (!this.state.workoutName.trim()) {
       console.log("there is no workout name :( pepehands");
       this.setState({
-        workoutNameError: <ErrorMessage text="Workout Name is required" />
+        workoutNameClass: classes.inputFieldError,
+        workoutNameError: (
+          <p className={classes.errorMessage}>
+            Workout Name field can't be empty
+          </p>
+        )
       });
-    } else if (this.state.workoutName != null) {
-      firebase.auth().onAuthStateChanged(
-        function(user) {
-          if (user) {
-            const uid = user.uid;
-            db.collection("users")
-              .doc(uid)
-              .set({
-                uid: uid,
-                email: user.email,
-                workoutsNumber: this.state.globalWorkoutNumber + 1
-              });
-            // let exercisesStateCopy = this.state.exercises;
-            // let workoutNameStateCopy = this.state.workoutName
-            db.collection("workouts")
-              .add({
-                uid: uid,
-                exercises: this.state.exercises,
-                workoutName: this.state.workoutName,
-                workoutNumber: this.state.globalWorkoutNumber + 1
-              })
-              .then(function() {
-                window.location.href = "/workouts";
-              })
-              .catch(function(error) {
-                console.error("Error adding workout: ", error);
-              });
-          } else {
-            console.log("user not logged in");
-          }
-        }.bind(this)
-      );
+    }
+    if (!(this.state.exercises.length > 0)) {
+      alert("You need to add at least one exercise!");
+    }
+    if (this.state.workoutName.trim() && this.state.exercises.length > 0) {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          const uid = user.uid;
+          db.collection("users")
+            .doc(uid)
+            .set({
+              uid: uid,
+              email: user.email,
+              workoutsNumber: this.state.globalWorkoutNumber + 1
+            });
+          db.collection("workouts")
+            .add({
+              uid: uid,
+              exercises: this.state.exercises,
+              workoutName: this.state.workoutName,
+              workoutNumber: this.state.globalWorkoutNumber + 1
+            })
+            .then(() => {
+              window.location.href = "/workouts";
+            })
+            .catch(error => {
+              console.error("Error adding workout: ", error);
+            });
+        } else {
+          console.log("user not logged in");
+        }
+      });
     }
   };
 
@@ -272,7 +314,10 @@ class AddWorkout extends Component {
           <div className={classes.workoutNameDiv}>
             <input
               onChange={this.updateWorkoutNameState}
-              className={classes.workoutNameInput + " " + classes.inputField}
+              onBlur={this.checkWorkoutNameError}
+              className={
+                classes.workoutNameInput + " " + this.state.workoutNameClass
+              }
               type="text"
               placeholder="Workout Name"
               value={this.state.workoutName}
@@ -285,7 +330,8 @@ class AddWorkout extends Component {
             </h5>
             <input
               onChange={this.updateExerciseNameState}
-              className={classes.inputField}
+              className={this.state.exerciseNameClass}
+              onBlur={this.checkExerciseNameError}
               type="text"
               placeholder="Exercise Name"
               value={this.state.exerciseName}
@@ -293,7 +339,8 @@ class AddWorkout extends Component {
             {this.state.exerciseNameError}
             <input
               onChange={this.updateSetsState}
-              className={classes.inputField + " " + classes.numberInputField}
+              onBlur={this.checkSetsError}
+              className={this.state.setsClass + " " + classes.numberInputField}
               type="number"
               placeholder="Sets"
               value={this.state.sets}
@@ -301,7 +348,8 @@ class AddWorkout extends Component {
             {this.state.setsError}
             <input
               onChange={this.updateRepsState}
-              className={classes.inputField + " " + classes.numberInputField}
+              onBlur={this.checkRepsError}
+              className={this.state.repsClass + " " + classes.numberInputField}
               type="number"
               placeholder="Reps"
               value={this.state.reps}
@@ -309,7 +357,10 @@ class AddWorkout extends Component {
             {this.state.repsError}
             <input
               onChange={this.updateWeightState}
-              className={classes.inputField + " " + classes.numberInputField}
+              onBlur={this.checkWeightError}
+              className={
+                this.state.weightClass + " " + classes.numberInputField
+              }
               type="number"
               placeholder="Weight (kg)"
               value={this.state.weight}
@@ -326,7 +377,7 @@ class AddWorkout extends Component {
                 <i className={"material-icons " + classes.plusIcon}>add</i>
               </button>
             </div>
-            <div className={classes.exerciseListDiv}>
+            <div className={this.state.exerciseListClass}>
               {this.state.exercises.map(ex => {
                 return (
                   <span

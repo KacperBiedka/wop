@@ -66,20 +66,6 @@ class Navbar extends Component {
     window.location.href = "../workouts";
   };
 
-  // displayAddWorkoutModal = () => {
-  //   if (this.state.displayAddWorkoutModal) {
-  //     this.setState({
-  //       displayAddWorkoutModal: (
-  //         <AddWorkout closeModal={this.closeAddWorkoutModal} />
-  //       )
-  //     });
-  //   } else {
-  //     this.setState({
-  //       displayAddWorkoutModal: null
-  //     });
-  //   }
-  // };
-
   render() {
     if (this.props.location === "workouts") {
       return (

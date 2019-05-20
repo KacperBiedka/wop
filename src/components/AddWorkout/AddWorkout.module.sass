@@ -20,10 +20,17 @@
     z-index: 2
     transition: all 0.3s ease-out
     text-align: left
+    overflow: -moz-scrollbars-none
+    overflow-y: scroll
+    -ms-overflow-style: none
+    &::-webkit-scrollbar
+         width: 0 !important
     @media (max-width: 800px)
         width: 100vw
         height: 100vh
         margin-top: 0
+    // @media (max-height: 600px)
+    //     overflow-y: scroll
 
 .modalHeaderMainDiv
     width: 100%
@@ -78,6 +85,53 @@
     @media (max-width: 600px)
         width: 95%
 
+.inputFieldSuccess
+    font-family: $noto
+    width: 530px
+    display: block
+    height: 50px
+    border: none
+    margin-bottom: 3%
+    background: #333
+    color: $light-grey
+    font-size: 20px
+    padding-left: 2%
+    font-weight: 200
+    border-bottom: solid 2px $cyan
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (max-width: 600px)
+        width: 95%
+
+
+.inputFieldError
+    font-family: $noto
+    width: 530px
+    display: block
+    height: 50px
+    border: none
+    margin-bottom: 1%
+    background: #333
+    color: $light-grey
+    font-size: 20px
+    padding-left: 2%
+    font-weight: 200
+    border-bottom: solid 2px $red
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (max-width: 600px)
+        width: 95%
+
+
+.errorMessage
+    text-align: left
+    margin-bottom: 1%
+    color: $red
+
 .workoutNameInput
     margin-bottom: 0%
 
@@ -118,7 +172,7 @@
     display: inline-block
     font-size: 30px
 
-.exerciseListDiv
+.exerciseList
     height: 120px
     overflow: -moz-scrollbars-none
     overflow-y: scroll
@@ -128,16 +182,34 @@
     @media (max-width: 800px)
         height: 280px
     @media (max-height: 820px) 
-        height: 250px
+        height: 80px
     @media (max-height: 750px)
-        height: 100px
-    @media (max-height: 600px)
         height: 40px
+    @media (max-height: 600px)
+        height: 20px
 
-
+.exerciseListError
+    height: 55px
+    overflow: -moz-scrollbars-none
+    overflow-y: scroll
+    -ms-overflow-style: none
+    &::-webkit-scrollbar
+         width: 0 !important
+    @media (max-width: 800px)
+        height: 200px
+    @media (max-height: 950px)
+        height: 150px
+    @media (max-height: 900px)
+        height: 100px
+    @media (max-height: 850px) 
+        height: 50px
+    @media (max-height: 800px)
+        height: 20px
+    @media (max-height: 600px)
+        height: 10px
 
 .exerciseListSpan
-    display: block
+    display: inline-block
     width: 85%
     margin-bottom: 2%
     color: #fff
@@ -145,6 +217,17 @@
     font-size: 25px
     font-weight: 200
     border-bottom: solid 1px $cyan
+    vertical-align: middle
+
+.iconSpan
+    display: inline-block
+    float: right
+    vertical-align: middle
+    padding-top: 1%
+    cursor: pointer
+    &:hover
+        color: $red
+        transition: color 0.2s ease
 
 .bottomModalDiv
     border-top: solid 1px $border-grey
