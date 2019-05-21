@@ -26,7 +26,8 @@ class AddWorkout extends Component {
     exercises: [],
     globalWorkoutNumber: 0,
     clickedExerciseNumber: null,
-    class: " "
+    class: " ",
+    loader: null
   };
 
   componentDidMount = () => {
@@ -178,6 +179,9 @@ class AddWorkout extends Component {
 
   submitExercisesToFirebase = () => {
     const db = firebase.firestore();
+    this.setState({
+      loader: <div className={classes.loader} />
+    });
     if (this.state.workoutName.trim()) {
       this.setState({
         workoutNameClass: classes.inputFieldSuccess,
@@ -192,11 +196,15 @@ class AddWorkout extends Component {
           <p className={classes.errorMessage}>
             Workout Name field can't be empty
           </p>
-        )
+        ),
+        loader: null
       });
     }
     if (!(this.state.exercises.length > 0)) {
       alert("You need to add at least one exercise!");
+      this.setState({
+        loader: null
+      });
     }
     if (this.state.workoutName.trim() && this.state.exercises.length > 0) {
       firebase.auth().onAuthStateChanged(user => {
@@ -217,10 +225,16 @@ class AddWorkout extends Component {
               workoutNumber: this.state.globalWorkoutNumber + 1
             })
             .then(() => {
+              this.setState({
+                loader: null
+              });
               window.location.href = "/workouts";
             })
             .catch(error => {
               console.error("Error adding workout: ", error);
+              this.setState({
+                loader: null
+              });
             });
         } else {
           console.log("user not logged in");
@@ -279,7 +293,6 @@ class AddWorkout extends Component {
           <div className={classes.workoutNameDiv}>
             <input
               onChange={this.updateWorkoutNameState}
-              onBlur={this.checkWorkoutNameError}
               className={
                 classes.workoutNameInput + " " + this.state.workoutNameClass
               }
@@ -296,7 +309,6 @@ class AddWorkout extends Component {
             <input
               onChange={this.updateExerciseNameState}
               className={this.state.exerciseNameClass}
-              onBlur={this.checkExerciseNameError}
               type="text"
               placeholder="Exercise Name"
               value={this.state.exerciseName}
@@ -304,7 +316,6 @@ class AddWorkout extends Component {
             {this.state.exerciseNameError}
             <input
               onChange={this.updateSetsState}
-              onBlur={this.checkSetsError}
               className={this.state.setsClass + " " + classes.numberInputField}
               type="number"
               placeholder="Sets"
@@ -313,7 +324,6 @@ class AddWorkout extends Component {
             {this.state.setsError}
             <input
               onChange={this.updateRepsState}
-              onBlur={this.checkRepsError}
               className={this.state.repsClass + " " + classes.numberInputField}
               type="number"
               placeholder="Reps"
@@ -322,7 +332,6 @@ class AddWorkout extends Component {
             {this.state.repsError}
             <input
               onChange={this.updateWeightState}
-              onBlur={this.checkWeightError}
               className={
                 this.state.weightClass + " " + classes.numberInputField
               }
@@ -371,6 +380,7 @@ class AddWorkout extends Component {
             </div>
           </div>
           <div className={classes.bottomModalDiv}>
+            {this.state.loader}
             <button
               className={classes.submitButton + " " + classes.buttonAnimation}
               onClick={this.submitExercisesToFirebase}
