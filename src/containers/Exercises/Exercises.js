@@ -5,6 +5,8 @@ import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
 import NavBar from "../../components/Navbar/Navbar";
 import Timer from "../../components/Timer/Timer";
 
+import classes from "./Exercises.module.sass";
+
 class Exercises extends Component {
   state = {
     exercises: [],
@@ -112,29 +114,31 @@ class Exercises extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.mainDiv}>
         <NavBar
           workoutNumber={this.state.number}
           location="exercises"
           exercises={this.state.exercises}
         />
-        {console.log(this.props.exercises)}
-        {this.state.exercises.map(ex => {
-          return (
-            <ExerciseCard
-              key={ex.exercise.exerciseName + ex.exercise.exerciseNumber}
-              exerciseName={ex.exercise.exerciseName}
-              exercisesState={this.state.exercises}
-              exerciseNumber={ex.exercise.exerciseNumber}
-              sets={ex.exercise.sets}
-              reps={ex.exercise.reps}
-              weight={ex.exercise.weight}
-              workoutNumber={this.state.number}
-              toggleTimer={this.toggleTimer}
-              closeTimer={this.closeTimer}
-            />
-          );
-        })}
+        <div className={classes.exerciseCardsDiv}>
+          {console.log(this.props.exercises)}
+          {this.state.exercises.map(ex => {
+            return (
+              <ExerciseCard
+                key={ex.exercise.exerciseName + ex.exercise.exerciseNumber}
+                exerciseName={ex.exercise.exerciseName}
+                exercisesState={this.state.exercises}
+                exerciseNumber={ex.exercise.exerciseNumber}
+                sets={ex.exercise.sets}
+                reps={ex.exercise.reps}
+                weight={ex.exercise.weight}
+                workoutNumber={this.state.number}
+                toggleTimer={this.toggleTimer}
+                closeTimer={this.closeTimer}
+              />
+            );
+          })}
+        </div>
         <Timer
           visible={this.state.showTimer}
           timerMessage={this.state.timerMessage}

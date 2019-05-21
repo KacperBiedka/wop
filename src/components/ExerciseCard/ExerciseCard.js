@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import firebase from "../../firebase.js";
-import classes from "./ExerciseCard.module.css";
+import classes from "./ExerciseCard.module.sass";
 import EditExercise from "../EditExercise/EditExercise";
 import ExerciseSquare from "./ExerciseSquare/ExerciseSquare";
 import * as actionTypes from "../../store/actions/actionTypes";
@@ -98,49 +98,48 @@ class ExerciseCard extends Component {
     );
   };
 
+  renderSquares = () => {
+    let exerciseSquaresTable = [];
+    for (let x = 0; x < this.props.sets; x++) {
+      exerciseSquaresTable.push(
+        <ExerciseSquare
+          closeTimer={this.props.closeTimer}
+          toggleTimer={this.props.toggleTimer}
+          key={x + this.props.exerciseName + this.props.sets}
+          reps={this.props.reps}
+          number={x}
+          exerciseName={this.props.exerciseName}
+          sets={this.props.sets}
+        />
+      );
+    }
+    return exerciseSquaresTable;
+  };
+
   render() {
-    const renderSquares = () => {
-      let exerciseSquaresTable = [];
-      for (let x = 0; x < this.props.sets; x++) {
-        exerciseSquaresTable.push(
-          <ExerciseSquare
-            closeTimer={this.props.closeTimer}
-            toggleTimer={this.props.toggleTimer}
-            key={x + this.props.exerciseName + this.props.sets}
-            reps={this.props.reps}
-            number={x}
-            exerciseName={this.props.exerciseName}
-            sets={this.props.sets}
-          />
-        );
-      }
-      return exerciseSquaresTable;
-    };
     return (
       <div
         key={this.props.exerciseName + this.props.exerciseNumber}
-        className={
-          classes.exerciseCardDiv + " shadow p-3 mb-1 bg-white rounded"
-        }
+        className={"animated zoomIn " + classes.exerciseCardDiv}
       >
         <div className={classes.exerciseCardHeaderDiv}>
           <h5 className={classes.exerciseCardHeader}>
             {this.props.exerciseName} with {this.props.weight} kg
           </h5>
+          <i
+            className={"material-icons " + classes.deleteIcon}
+            onClick={this.removeExercise}
+          >
+            close
+          </i>
         </div>
-        <div className={classes.exerciseCardBodyDiv}>{renderSquares()}</div>
+        <div className={classes.exerciseCardBodyDiv}>
+          {this.renderSquares()}
+        </div>
         <div className={classes.exerciseCardBottomDiv}>
           <div className={classes.anchorDiv}>
             <p className={classes.modalAnchor} onClick={this.toggleEditModal}>
-              edit
-            </p>
-          </div>
-          <div className={classes.deleteDiv}>
-            <p
-              onClick={this.removeExercise}
-              className={classes.modalAnchor + " " + classes.deleteAnchor}
-            >
-              delete
+              Edit
             </p>
           </div>
         </div>
