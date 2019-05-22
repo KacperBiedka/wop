@@ -8,22 +8,19 @@ class ExerciseSquare extends Component {
   };
 
   toggleSquare = () => {
+    console.log(this.props.toggleTimer);
     if (this.state.class === classes.exerciseCardSquare) {
-      this.setState(
-        {
-          class: classes.exerciseClickedSquare,
-          textClass: classes.clickedSquareText
-        },
-        () => {
-          this.props.toggleTimer();
-        }
-      );
+      this.setState({
+        class: classes.exerciseClickedSquare,
+        textClass: classes.clickedSquareText
+      });
+      this.props.toggleTimer("active");
     } else {
       this.setState({
         class: classes.exerciseCardSquare,
         textClass: classes.squareText
       });
-      this.props.closeTimer();
+      this.props.toggleTimer("closed");
     }
   };
 

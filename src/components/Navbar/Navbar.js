@@ -114,7 +114,12 @@ class Navbar extends Component {
             >
               Exercises
             </h1>
-            <i className={"material-icons " + classes.menuIcon}>menu</i>
+            <i
+              onClick={this.props.toggleSidenav}
+              className={"material-icons " + classes.menuIcon}
+            >
+              menu
+            </i>
           </nav>
           <AddExercise
             workoutNumber={this.state.workoutNumber}

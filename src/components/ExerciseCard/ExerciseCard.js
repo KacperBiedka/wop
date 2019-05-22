@@ -103,7 +103,6 @@ class ExerciseCard extends Component {
     for (let x = 0; x < this.props.sets; x++) {
       exerciseSquaresTable.push(
         <ExerciseSquare
-          closeTimer={this.props.closeTimer}
           toggleTimer={this.props.toggleTimer}
           key={x + this.props.exerciseName + this.props.sets}
           reps={this.props.reps}
@@ -120,7 +119,7 @@ class ExerciseCard extends Component {
     return (
       <div
         key={this.props.exerciseName + this.props.exerciseNumber}
-        className={"animated zoomIn " + classes.exerciseCardDiv}
+        className={"animated zoomIn faster " + classes.exerciseCardDiv}
       >
         <div className={classes.exerciseCardHeaderDiv}>
           <h5 className={classes.exerciseCardHeader}>

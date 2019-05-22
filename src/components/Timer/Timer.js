@@ -1,29 +1,12 @@
-import React, { Component } from 'react';
-import classes from './Timer.module.css';
+import React from "react";
+import classes from "./Timer.module.sass";
 
-
-class Timer extends Component {
-state = {
-    visible: false,
-    timerMessage: null
-}
-componentDidMount = () => {
-    this.setState({
-        visible: this.props.visible
-    })  
-}
-
-render() {
-if (this.props.visible) {
-    return (
-        <div className={classes.timerDiv}>
-            <h5 className={classes.timerMessage}>{this.props.timerMessage}</h5>
-        </div>
-     )
-   } else {
-      return null;
-  }
- }
-}
+const Timer = props => {
+  return (
+    <div className={classes.timerDiv}>
+      <p className={classes.timerMessage}>{props.timerMessage}</p>
+    </div>
+  );
+};
 
 export default Timer;
