@@ -108,7 +108,12 @@ class Navbar extends Component {
             >
               add
             </i>
-            <i className={"material-icons " + classes.timerIcon}>timer</i>
+            <i
+              onClick={this.props.toggleTimer}
+              className={"material-icons " + classes.timerIcon}
+            >
+              timer
+            </i>
             <h1
               className={classes.sectionHeader + " " + classes.exercisesHeader}
             >

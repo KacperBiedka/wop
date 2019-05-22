@@ -3,11 +3,15 @@
 body
     margin: 0
     padding: 0
-    padding-bottom: 3%
+    padding-bottom: 75px
+    @media (min-width: 3840px)
+        padding-bottom: 150px
 
 .exerciseCardsDiv
     padding-top: 75px
     text-align: center
+    @media (min-width: 3840px)
+        padding-top: 150px
 
 .timerContainer
     position: fixed
@@ -17,9 +21,10 @@ body
     z-index: 1
     background: $dark-grey
     color: white
-    height: 6vh
     vertical-align: middle
     text-align: center
     margin: auto
     padding-top: 0.75%
     transition: background-color 0.4s ease-out
+    @media (min-width: 3840px)
+        height: 120px

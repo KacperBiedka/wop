@@ -16,6 +16,10 @@
         margin-left: 4%
         margin-right: 4%
         margin-bottom: 3%
+    @media (min-width: 3840px)
+        width: 1550px
+        height: 800px
+        margin: 100px
 
 .workoutCardHeaderDiv
     width: 100%
@@ -43,6 +47,8 @@
         cursor: text
     @media (max-width: 600px)
         width: 90%
+    @media (min-width: 3840px)
+        font-size: 50px
         
 
 .deleteIcon
@@ -53,6 +59,8 @@
     &:hover
         color: $red
         transition: color 0.2s ease-in
+    @media (min-width: 3840px)
+        font-size: 350%
 
 .workoutCardList
     display: block
@@ -69,6 +77,10 @@
     -ms-overflow-style: none
     &::-webkit-scrollbar
          width: 0 !important
+    @media (min-width: 3840px)
+        font-size: 50px
+        height: 550px
+        margin-top: 50px
 
 
 .workoutCardListItem
@@ -80,6 +92,9 @@
     text-align: center
     @media (max-width: 600px)
         width: 250px
+    @media (min-width: 3840px)
+        width: 600px
+        margin-bottom: 50px
 
 .exerciseNameSpan
     display: block
@@ -89,6 +104,8 @@
     border-top: solid 1px $border-grey
     height: 50px
     background: $dark-grey
+    @media (min-width: 3840px)
+        height: 100px
 
 .modalAnchor
     float: left
@@ -114,5 +131,18 @@
         transition: 0.5s ease
     &:hover::after
         width: 100%
+    @media (min-width: 3840px)
+        font-size: 40px
+        &:after
+            content: ''
+            display: block
+            border-bottom: 2px solid $cyan
+            width: 0
+            position: absolute
+            left: 0
+            -webkit-transiton: 0.5s ease
+            transition: 0.5s ease
+        &:hover::after
+            width: 100%
 
 

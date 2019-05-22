@@ -141,8 +141,34 @@ class Exercises extends Component {
           duration: 0,
           displayTimer: false
         });
-      }, 100);
+      }, 500);
     } else if (name === "active") {
+      this.setState({
+        duration: 0
+      });
+      this.setState({
+        timerClass: "animated fadeInUp faster "
+      });
+      setTimeout(() => {
+        this.setState({
+          displayTimer: true
+        });
+      }, 500);
+    }
+  };
+
+  toggleTimerFromNavbar = () => {
+    if (this.state.displayTimer) {
+      this.setState({
+        timerClass: "animated fadeOutDown faster "
+      });
+      setTimeout(() => {
+        this.setState({
+          duration: 0,
+          displayTimer: false
+        });
+      }, 500);
+    } else {
       this.setState({
         duration: 0
       });
@@ -164,6 +190,7 @@ class Exercises extends Component {
           toggleSidenav={this.toggleSidenav}
           location="exercises"
           exercises={this.state.exercises}
+          toggleTimer={this.toggleTimerFromNavbar}
         />
         <Sidenav styles={this.state.sidenavStyles} />
         <div className={classes.exerciseCardsDiv}>

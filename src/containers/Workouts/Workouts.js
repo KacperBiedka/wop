@@ -361,21 +361,39 @@ class Workouts extends Component {
         sidenavVisible: false
       });
     } else {
-      this.setState({
-        sidenavStyles: {
-          sideNavDiv: {
-            paddingLeft: "30px",
-            width: "200px",
-            borderLeft: "solid 1px #707070"
+      if (window.screen.width >= 3840) {
+        this.setState({
+          sidenavStyles: {
+            sideNavDiv: {
+              paddingLeft: "60px",
+              width: "400px",
+              borderLeft: "solid 2px #707070"
+            },
+            iconDiv: {
+              transitionDelay: "0.3s",
+              visibility: "visible",
+              opacity: "1"
+            }
           },
-          iconDiv: {
-            transitionDelay: "0.3s",
-            visibility: "visible",
-            opacity: "1"
-          }
-        },
-        sidenavVisible: true
-      });
+          sidenavVisible: true
+        });
+      } else {
+        this.setState({
+          sidenavStyles: {
+            sideNavDiv: {
+              paddingLeft: "30px",
+              width: "200px",
+              borderLeft: "solid 1px #707070"
+            },
+            iconDiv: {
+              transitionDelay: "0.3s",
+              visibility: "visible",
+              opacity: "1"
+            }
+          },
+          sidenavVisible: true
+        });
+      }
     }
   };
 
