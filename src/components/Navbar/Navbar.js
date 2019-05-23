@@ -19,7 +19,7 @@ class Navbar extends Component {
     this.setState({
       currentLocation: this.props.location,
       exercises: this.props.exercises,
-      workoutNumber: this.props.exerciseNumber
+      workoutNumber: this.props.workoutNumber
     });
     console.log(this.props.location);
     console.log(this.props.exercises);
@@ -65,9 +65,8 @@ class Navbar extends Component {
       this.setState({
         displayAddExerciseModal: (
           <AddExercise
-            exerciseNumber={this.state.workoutNumber}
+            workoutNumber={this.props.workoutNumber}
             exercisesCopy={this.props.exercises}
-            visible={this.state.showAddExerciseModal}
             closeModal={this.closeAddExerciseModal}
           />
         )

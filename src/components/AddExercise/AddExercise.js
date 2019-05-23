@@ -29,9 +29,10 @@ class AddExercise extends Component {
     this.setState({
       exercisesState: this.props.exercisesCopy,
       closeModal: this.props.closeModal,
-      workoutNumber: this.props.exerciseNumber
+      workoutNumber: this.props.workoutNumber
     });
     console.log(this.props.exercisesCopy);
+    console.log(this.props.workoutNumber);
   };
 
   updateExerciseNameState = e => {
@@ -157,7 +158,7 @@ class AddExercise extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const uid = user.uid;
-        const query = db
+        let query = db
           .collection("workouts")
           .where("uid", "==", uid)
           .where("workoutNumber", "==", this.state.workoutNumber)
@@ -170,24 +171,20 @@ class AddExercise extends Component {
                 .doc(doc.id)
                 .update({
                   exercises: exercisesCopy
-                })
-                .then(() => {
-                  this.props.getExercisesToRedux(
-                    exercisesCopy,
-                    this.state.workoutNumber
-                  );
-                  window.localStorage.setItem(
-                    "exercises",
-                    JSON.stringify(exercisesCopy)
-                  );
-                  this.setState({
-                    loader: null
-                  });
-                  this.props.closeModal();
-                })
-                .catch(error => {
-                  console.log("error performing getExercisesToRedux ", error);
                 });
+              this.props.getExercisesToRedux(
+                exercisesCopy,
+                this.state.workoutNumber
+              );
+              window.localStorage.setItem(
+                "exercises",
+                JSON.stringify(exercisesCopy)
+              );
+              this.setState({
+                loader: null
+              });
+              this.closeModal();
+              console.log("function finished");
             });
           })
           .catch(error => {
@@ -225,10 +222,7 @@ class AddExercise extends Component {
           </div>
           <div className={classes.exerciseNumberDiv}>
             <h5 className={classes.exerciseHeader}>
-              Exercise{" "}
-              {this.props.exercisesCopy != null
-                ? this.props.exercisesCopy.length + 1
-                : null}
+              Exercise {this.props.exercisesCopy.length + 1}
             </h5>
           </div>
           <div className={classes.modalBodyDiv}>

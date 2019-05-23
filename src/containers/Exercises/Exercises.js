@@ -48,6 +48,7 @@ class Exercises extends Component {
       );
       let localStorageNumber = parseInt(window.localStorage.getItem("number"));
       console.log(localStorageExercises);
+      console.log(localStorageNumber);
       this.setState({
         exercises: localStorageExercises,
         number: localStorageNumber
@@ -191,7 +192,7 @@ class Exercises extends Component {
           location="exercises"
           exercises={this.state.exercises}
           toggleTimer={this.toggleTimerFromNavbar}
-          exerciseNumber={this.state.number}
+          workoutNumber={this.state.number}
         />
         <Sidenav styles={this.state.sidenavStyles} />
         <div className={classes.exerciseCardsDiv}>
