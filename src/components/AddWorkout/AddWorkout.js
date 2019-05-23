@@ -274,13 +274,13 @@ class AddWorkout extends Component {
     });
     setTimeout(() => {
       this.props.closeModal();
-    }, 1000);
+    }, 800);
   };
 
   render() {
     return (
       <div className={this.state.class + classes.opacityLayerDiv}>
-        <div className={"animated fadeInDown faster " + classes.mainModalDiv}>
+        <div className={"animated zoomIn faster " + classes.mainModalDiv}>
           <div className={classes.modalHeaderMainDiv}>
             <h5 className={classes.modalHeader}>Add workout</h5>
             <i

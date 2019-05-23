@@ -9,6 +9,7 @@ class Navbar extends Component {
   state = {
     displayAddWorkoutModal: null,
     showEditExerciseModal: false,
+    displayAddExerciseModal: null,
     currentLocation: null,
     workoutNumber: null,
     exercises: []
@@ -18,7 +19,7 @@ class Navbar extends Component {
     this.setState({
       currentLocation: this.props.location,
       exercises: this.props.exercises,
-      workoutNumber: this.props.workoutNumber
+      workoutNumber: this.props.exerciseNumber
     });
     console.log(this.props.location);
     console.log(this.props.exercises);
@@ -51,15 +52,27 @@ class Navbar extends Component {
 
   closeAddExerciseModal = () => {
     this.setState({
-      showAddExerciseModal: false
+      displayAddExerciseModal: null
     });
   };
 
   toggleAddExerciseModal = () => {
-    this.setState({
-      showAddExerciseModal: !this.state.showAddExerciseModal
-    });
-    console.log(this.state.showAddExerciseModal);
+    if (this.state.displayAddExerciseModal) {
+      this.setState({
+        displayAddExerciseModal: null
+      });
+    } else {
+      this.setState({
+        displayAddExerciseModal: (
+          <AddExercise
+            exerciseNumber={this.state.workoutNumber}
+            exercisesCopy={this.props.exercises}
+            visible={this.state.showAddExerciseModal}
+            closeModal={this.closeAddExerciseModal}
+          />
+        )
+      });
+    }
   };
 
   goBackToWorkouts = () => {
@@ -126,12 +139,13 @@ class Navbar extends Component {
               menu
             </i>
           </nav>
-          <AddExercise
+          {/* <AddExercise
             workoutNumber={this.state.workoutNumber}
             exercisesCopy={this.props.exercises}
             visible={this.state.showAddExerciseModal}
             closeModal={this.closeAddExerciseModal}
-          />
+          /> */}
+          {this.state.displayAddExerciseModal}
         </div>
       );
     }

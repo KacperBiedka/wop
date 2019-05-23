@@ -191,6 +191,7 @@ class Exercises extends Component {
           location="exercises"
           exercises={this.state.exercises}
           toggleTimer={this.toggleTimerFromNavbar}
+          exerciseNumber={this.state.number}
         />
         <Sidenav styles={this.state.sidenavStyles} />
         <div className={classes.exerciseCardsDiv}>

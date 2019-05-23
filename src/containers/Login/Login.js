@@ -8,7 +8,7 @@ class Login extends Component {
     password: "",
     emailError: null,
     passwordError: null,
-    mainClass: " animated zoomIn",
+    mainClass: " animated zoomIn fast ",
     emailClass: classes.inputField,
     passwordClass: classes.inputField + " " + classes.passwordInput,
     loader: null
@@ -26,7 +26,7 @@ class Login extends Component {
       this.setState({
         mainClass: " "
       });
-    }, 1000);
+    }, 700);
   };
 
   updateEmailState = e => {
@@ -185,11 +185,11 @@ class Login extends Component {
 
   switchToSignUp = () => {
     this.setState({
-      mainClass: " animated fadeOutUp"
+      mainClass: " animated fadeOutUp fast"
     });
     setTimeout(() => {
       this.props.switchToSignUpDiv();
-    }, 1000);
+    }, 500);
   };
 
   render() {

@@ -404,6 +404,7 @@ class Workouts extends Component {
           toggleSidenav={this.toggleSidenav}
           location="workouts"
           exercises={null}
+          number={null}
         />
         <Sidenav styles={this.state.sidenavStyles} />
         {/* <AddWorkout

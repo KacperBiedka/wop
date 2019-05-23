@@ -1,0 +1,354 @@
+@import '../../_variables.sass'
+
+.opacityLayerDiv
+    position: fixed
+    z-index: 1
+    width: 100vw
+    height: 100vh
+    background: rgba(40, 40, 40, 0.9)
+
+.mainModalDiv
+    display: block 
+    margin: auto
+    margin-top: 3%
+    background: $dark-grey
+    padding: 0
+    width: 775px
+    height: 625px
+    border: 1px solid $border-grey
+    box-shadow: 1px 1px 1px black
+    z-index: 2
+    transition: all 0.3s ease-out
+    text-align: left
+    overflow: -moz-scrollbars-none
+    overflow-y: scroll
+    -ms-overflow-style: none
+    &::-webkit-scrollbar
+         width: 0 !important
+    @media (max-width: 800px)
+        width: 100vw
+        height: 100vh
+        margin-top: 0
+    @media (min-width: 3840px)
+        width: 1550px
+        height: 1610px
+        border: 2px solid $border-grey
+
+.modalHeaderMainDiv
+    width: 100%
+    background: $dark-grey
+    border-bottom: solid 1px $border-grey
+    padding: 1%
+
+.modalHeader
+    font-weight: 200
+    color: #fff
+    font-family: $fira
+    font-size: 25px
+    text-align: left
+    display: inline-block
+    margin-left: 1%
+    margin-bottom: -1%
+    @media (min-width: 3840px)
+        font-size: 50px
+
+.closeIcon
+    display: inline-block
+    color: $light-grey
+    float: right
+    text-align: right
+    vertical-align: middle
+    font-size: 30px
+    margin-right: 1%
+    cursor: pointer
+    &:hover
+        color: #fff
+    @media (min-width: 3840px)
+        font-size: 60px
+
+.exerciseNumberDiv
+    width: 100%
+    padding: 4% 3%
+
+.exerciseHeader
+    color: #fff
+    font-family: $fira
+    font-size: 25px
+    font-weight: 200
+    border-bottom: solid 1px $cyan
+    width: 110px
+
+.modalBodyDiv
+    height: 400px
+
+.inputField
+    font-family: $noto
+    width: 530px
+    display: block
+    height: 50px
+    border: none
+    margin-bottom: 6%
+    background: #333
+    color: $light-grey
+    font-size: 20px
+    padding-left: 2%
+    font-weight: 200
+    border-bottom: solid 2px $light-grey
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (max-width: 600px)
+        width: 95%
+    @media (min-width: 3840px)
+        width: 1060px
+        height: 100px
+        font-size: 40px
+
+.inputFieldSuccess
+    font-family: $noto
+    width: 530px
+    display: block
+    height: 50px
+    border: none
+    margin-bottom: 6%
+    background: #333
+    color: $light-grey
+    font-size: 20px
+    padding-left: 2%
+    font-weight: 200
+    border-bottom: solid 2px $cyan
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (max-width: 600px)
+        width: 95%
+    @media (min-width: 3840px)
+        width: 1060px
+        height: 100px
+        font-size: 40px
+
+
+.inputFieldError
+    font-family: $noto
+    width: 530px
+    display: block
+    height: 50px
+    border: none
+    margin-bottom: 1%
+    background: #333
+    color: $light-grey
+    font-size: 20px
+    padding-left: 2%
+    font-weight: 200
+    border-bottom: solid 2px $red
+    &:placeholder
+        color: #777
+    &:focus
+        outline: none
+    @media (max-width: 600px)
+        width: 95%
+    @media (min-width: 3840px)
+        width: 1060px
+        height: 100px
+        font-size: 40px
+
+
+.errorMessage
+    text-align: left
+    color: $red
+    @media (min-width: 3840px)
+        font-size: 200%
+
+.workoutNameInput
+    margin-bottom: 0%
+
+.modalBodyDiv
+    width: 100%
+    padding-left: 3%    
+
+.bottomModalDiv
+    border-top: solid 1px $border-grey
+    text-align: right
+    height: 100px
+    padding: 1.75%
+
+.submitWorkoutButton
+    width: 250px
+    height: 50px
+    border: solid 1px $light-grey
+    font-family: $fira
+    font-size: 25px
+    font-weight: 200
+    color: $light-grey
+    background: none
+    cursor: pointer
+    @media (min-width: 3840px)
+        width: 500px
+        height: 100px
+        font-size: 50px
+
+.submitButton
+    display: block
+    position: relative
+    background: none
+    color: #fff
+    float: right
+    cursor: pointer
+    border: none
+    width: 250px
+    &:focus
+        outline: none
+    &:hover
+        color: $cyan
+        transition: color 0.25s ease-in
+        transition-delay: 0.25s
+    @media (min-width: 3840px)
+        width: 500px
+    
+    
+.submitSpan
+    display: block
+    width: 250px
+    height: 50px
+    vertical-align: middle
+    text-align: center
+    padding-top: 2.5%
+    font-family: $fira
+    font-size: 25px
+    font-weight: 200
+    border: solid 1px #fff
+    cursor: pointer
+    @media (min-width: 3840px)
+        width: 500px
+        height: 100px
+        font-size: 50px
+
+// Loader
+.loader
+  display: block
+  font-size: 10px
+  margin: 1.5% auto
+  text-indent: -9999em
+  width: 3em
+  height: 3em
+  float: left
+  border-radius: 50%
+  background: $cyan
+  background: -moz-linear-gradient(left, $cyan 10%, rgba(255, 255, 255, 0) 42%)
+  background: -webkit-linear-gradient(left, $cyan 10%, rgba(255, 255, 255, 0) 42%)
+  background: -o-linear-gradient(left, $cyan 10%, rgba(255, 255, 255, 0) 42%)
+  background: -ms-linear-gradient(left, $cyan 10%, rgba(255, 255, 255, 0) 42%)
+  background: linear-gradient(to right, $cyan 10%, rgba(255, 255, 255, 0) 42%)
+  position: relative
+  -webkit-animation: load3 1.4s infinite linear
+  animation: load3 1.4s infinite linear
+  -webkit-transform: translateZ(0)
+  -ms-transform: translateZ(0)
+  transform: translateZ(0)
+  &:before
+    width: 50%
+    height: 50%
+    background: $cyan
+    border-radius: 100% 0 0 0
+    position: absolute
+    top: 0
+    left: 0
+    content: ''
+  &:after
+    background: $dark-grey
+    width: 75%
+    height: 75%
+    border-radius: 50%
+    content: ''
+    margin: auto
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+
+@-webkit-keyframes load3
+  0%
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+
+  100%
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+
+
+@keyframes load3
+  0%
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+
+  100%
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
+
+
+// Submit button animation
+
+.submitButton::before, .submitButton::after 
+	content: "" 
+	width: 0 
+	height: 2px 
+	position: absolute 
+	transition: all 0.2s 
+	background: $cyan
+    
+
+.submitSpan::before, .submitSpan::after 
+	content: "" 
+	width: 2px 
+	height: 0 
+	position: absolute 
+	transition: all 0.2s linear 
+	background: $cyan
+    
+
+.submitButton:hover::before, .submitButton:hover::after 
+	width: 100% 
+
+.submitButton:hover span::before, .submitButton:hover span::after 
+	height: 100% 
+
+
+.buttonAnimation::before, .buttonAnimation::after 
+	transition-delay: 0s 
+
+.buttonAnimation .submitSpan::before, .buttonAnimation .submitSpan::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation 
+	&::before 
+		right: 0 
+		top: 0
+	&::after 
+		left: 0 
+		bottom: 0
+	.submitSpan 
+		&::before 
+			left: 0 
+			top: 0
+		&::after 
+			right: 0 
+			bottom: 0
+
+.buttonAnimation:hover::before, .buttonAnimation:hover::after 
+	transition-delay: 0.2s 
+
+.buttonAnimation:hover .submitSpan::before, .buttonAnimation:hover .submitSpan::after 
+	transition-delay: 0s 
+
+
+    
+
+
+
+
+
+
+
