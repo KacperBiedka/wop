@@ -135,52 +135,40 @@ class Exercises extends Component {
   toggleTimer = name => {
     if (name === "closed") {
       this.setState({
-        timerClass: "animated fadeOutDown faster "
+        timerClass: "animated slideOutDown faster "
       });
       setTimeout(() => {
         this.setState({
-          duration: 0,
+          duration: 1,
           displayTimer: false
         });
       }, 500);
     } else if (name === "active") {
       this.setState({
-        duration: 0
+        timerClass: "animated slideInUp faster ",
+        displayTimer: true,
+        duration: 1
       });
-      this.setState({
-        timerClass: "animated fadeInUp faster "
-      });
-      setTimeout(() => {
-        this.setState({
-          displayTimer: true
-        });
-      }, 500);
     }
   };
 
   toggleTimerFromNavbar = () => {
     if (this.state.displayTimer) {
       this.setState({
-        timerClass: "animated fadeOutDown faster "
+        timerClass: "animated slideOutDown faster "
       });
       setTimeout(() => {
         this.setState({
-          duration: 0,
+          duration: 1,
           displayTimer: false
         });
       }, 500);
     } else {
       this.setState({
-        duration: 0
+        timerClass: "animated slideInUp faster ",
+        displayTimer: true,
+        duration: 1
       });
-      this.setState({
-        timerClass: "animated fadeInUp faster "
-      });
-      setTimeout(() => {
-        this.setState({
-          displayTimer: true
-        });
-      }, 100);
     }
   };
 

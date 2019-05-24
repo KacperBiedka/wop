@@ -5,6 +5,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none;
+  overflow-y: scroll;
+  -ms-overflow-style: none;       
+}
+
+body::-webkit-scrollbar {
+  width: 0 !important
 }
 
 input[type="number"]::-webkit-outer-spin-button,
