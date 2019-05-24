@@ -5,6 +5,7 @@ import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
 import NavBar from "../../components/Navbar/Navbar";
 import Timer from "../../components/Timer/Timer";
 import Sidenav from "../../components/Sidenav/Sidenav";
+import EditExercise from "../../components/EditExercise/EditExercise";
 
 import classes from "./Exercises.module.sass";
 
@@ -22,7 +23,8 @@ class Exercises extends Component {
     },
     sidenavVisible: false,
     timerClass: "animated fadeInUp faster ",
-    displayTimer: false
+    displayTimer: false,
+    displayEditModal: null
   };
 
   componentDidMount() {
@@ -172,6 +174,37 @@ class Exercises extends Component {
     }
   };
 
+  closeEditModal = () => {
+    this.setState({
+      displayEditModal: null
+    });
+  };
+
+  toggleEditModal = properties => {
+    if (this.state.displayEditModal) {
+      this.setState({
+        displayEditModal: null
+      });
+    } else {
+      console.log("function toggleEditModal worked");
+      this.setState({
+        displayEditModal: (
+          <EditExercise
+            key={properties.key}
+            exercisesState={properties.exercisesState}
+            workoutNumber={properties.workoutNumber}
+            exerciseNumber={properties.exerciseNumber}
+            closeModal={this.closeEditModal}
+            exerciseName={properties.exerciseName}
+            sets={properties.sets}
+            reps={properties.reps}
+            weight={properties.weight}
+          />
+        )
+      });
+    }
+  };
+
   render() {
     return (
       <div style={this.state.addedMargin} className={classes.mainDiv}>
@@ -182,6 +215,7 @@ class Exercises extends Component {
           toggleTimer={this.toggleTimerFromNavbar}
           workoutNumber={this.state.number}
         />
+        {this.state.displayEditModal}
         <Sidenav styles={this.state.sidenavStyles} />
         <div className={classes.exerciseCardsDiv}>
           {this.state.exercises.map(ex => {
@@ -196,6 +230,19 @@ class Exercises extends Component {
                 weight={ex.exercise.weight}
                 workoutNumber={this.state.number}
                 toggleTimer={this.toggleTimer}
+                toggleEditModal={() =>
+                  this.toggleEditModal({
+                    key: ex.exercise.exerciseName + ex.exercise.exerciseNumber,
+                    exerciseName: ex.exercise.exerciseName,
+                    exercisesState: this.state.exercises,
+                    exerciseNumber: ex.exercise.exerciseNumber,
+                    sets: ex.exercise.sets,
+                    reps: ex.exercise.reps,
+                    weight: ex.exercise.weight,
+                    workoutNumber: this.state.number,
+                    closeModal: this.closeEditModal
+                  })
+                }
               />
             );
           })}

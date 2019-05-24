@@ -9,7 +9,6 @@ const WorkoutCard = props => {
       className={classes.workoutCardDiv + " animated zoomIn fast"}
     >
       <div className={classes.workoutCardHeaderDiv}>
-        {/* <h5 onClick={this.logData} className={classes.workoutNameHeader}>{this.state.workouts[w.number - 1].name}</h5> */}
         <input
           key={props.number}
           className={classes.workoutCardHeader}
