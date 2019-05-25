@@ -14,17 +14,6 @@ class ExerciseCard extends Component {
   componentDidMount = () => {
     this.setState({
       exercisesState: this.props.exercisesState
-      // properties: {
-      //   key: this.props.exerciseNumber + this.props.exerciseName,
-      //   exercisesState: this.props.exercisesState,
-      //   workoutNumber: this.props.workoutNumber,
-      //   exerciseNumber: this.props.exerciseNumber,
-      //   exerciseName: this.props.exerciseName,
-      //   sets: this.props.sets,
-      //   reps: this.props.reps,
-      //   weight: this.props.weight,
-      //   closeModal: this.props.closeEditModal
-      // }
     });
   };
 
@@ -108,37 +97,6 @@ class ExerciseCard extends Component {
     }
     return exerciseSquaresTable;
   };
-
-  // closeEditModal = () => {
-  //   this.setState({
-  //     displayEditModal: null
-  //   });
-  // };
-
-  // toggleEditModal = () => {
-  //   if (this.state.displayEditModal) {
-  //     this.setState({
-  //       displayEditModal: null
-  //     });
-  //   } else {
-  //     this.setState({
-  //       displayEditModal: (
-  //         <EditExercise
-  //           key={this.props.exerciseNumber + this.props.exerciseName}
-  //           exercisesState={this.state.exercisesState}
-  //           workoutNumber={this.props.workoutNumber}
-  //           exerciseNumber={this.props.exerciseNumber}
-  //           visible={this.state.showEditModal}
-  //           closeModal={this.closeEditModal}
-  //           exerciseName={this.props.exerciseName}
-  //           sets={this.props.sets}
-  //           reps={this.props.reps}
-  //           weight={this.props.weight}
-  //         />
-  //       )
-  //     });
-  //   }
-  // };
 
   render() {
     return (

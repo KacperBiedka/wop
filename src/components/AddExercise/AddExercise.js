@@ -13,19 +13,21 @@ class AddExercise extends Component {
     exerciseNameError: null,
     exerciseNameClass: classes.inputField,
     loader: null,
-    sets: null,
+    sets: NaN,
     setsError: null,
     setsClass: classes.inputField,
-    reps: null,
+    reps: NaN,
     repsError: null,
     repsClass: classes.inputField,
-    weight: null,
+    weight: NaN,
     weightError: null,
     weightClass: classes.inputField,
-    class: ""
+    class: "",
+    invalidChars: ["-", "+", "e"]
   };
 
   componentDidMount = () => {
+    console.log(this.state.class.trim());
     this.setState({
       exercisesState: this.props.exercisesCopy,
       closeModal: this.props.closeModal,
@@ -60,8 +62,8 @@ class AddExercise extends Component {
     });
   };
 
-  submitToFirebase = () => {
-    if (!this.state.exerciseName.trim()) {
+  checkForExerciseNameError = () => {
+    if (this.state.exerciseName === null) {
       this.setState({
         exerciseNameClass: classes.inputFieldError,
         exerciseListClass: classes.exerciseListError,
@@ -71,14 +73,39 @@ class AddExercise extends Component {
           </p>
         )
       });
-    }
-    if (this.state.exerciseName.trim()) {
+    } else if (!this.state.exerciseName.trim()) {
+      this.setState({
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        exerciseNameError: (
+          <p className={classes.errorMessage}>
+            Exercise Name field can't be empty
+          </p>
+        )
+      });
+    } else {
       this.setState({
         exerciseNameClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
         exerciseNameError: null
       });
     }
+  };
+
+  checkForSetsError = () => {
+    if (!this.state.sets) {
+      this.setState({
+        setsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        setsError: (
+          <p className={classes.errorMessage}>Sets field can't be empty</p>
+        )
+      });
+    }
+  };
+
+  submitToFirebase = () => {
+    this.checkForExerciseNameError();
     if (!this.state.sets) {
       this.setState({
         setsClass: classes.inputFieldError,

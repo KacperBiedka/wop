@@ -9,7 +9,7 @@ class EditExercise extends Component {
     exercisesState: [],
     workoutNumber: null,
     exerciseNumber: null,
-    exerciseName: null,
+    exerciseName: "",
     exerciseNameClass: classes.inputField,
     exerciseNameError: null,
     sets: null,
@@ -153,7 +153,7 @@ class EditExercise extends Component {
                     "exercises",
                     JSON.stringify(exercisesCopy)
                   );
-                  window.location.reload();
+                  this.closeModal();
                 })
                 .catch(error => {
                   console.log("error performing getExercisesToRedux ", error);
