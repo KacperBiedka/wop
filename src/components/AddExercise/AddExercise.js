@@ -22,8 +22,7 @@ class AddExercise extends Component {
     weight: NaN,
     weightError: null,
     weightClass: classes.inputField,
-    class: "",
-    invalidChars: ["-", "+", "e"]
+    class: ""
   };
 
   componentDidMount = () => {
@@ -62,8 +61,8 @@ class AddExercise extends Component {
     });
   };
 
-  checkForExerciseNameError = () => {
-    if (this.state.exerciseName === null) {
+  checkExerciseNameError = () => {
+    if (!this.state.exerciseName.trim()) {
       this.setState({
         exerciseNameClass: classes.inputFieldError,
         exerciseListClass: classes.exerciseListError,
@@ -73,17 +72,8 @@ class AddExercise extends Component {
           </p>
         )
       });
-    } else if (!this.state.exerciseName.trim()) {
-      this.setState({
-        exerciseNameClass: classes.inputFieldError,
-        exerciseListClass: classes.exerciseListError,
-        exerciseNameError: (
-          <p className={classes.errorMessage}>
-            Exercise Name field can't be empty
-          </p>
-        )
-      });
-    } else {
+    }
+    if (this.state.exerciseName.trim()) {
       this.setState({
         exerciseNameClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
@@ -92,20 +82,7 @@ class AddExercise extends Component {
     }
   };
 
-  checkForSetsError = () => {
-    if (!this.state.sets) {
-      this.setState({
-        setsClass: classes.inputFieldError,
-        exerciseListClass: classes.exerciseListError,
-        setsError: (
-          <p className={classes.errorMessage}>Sets field can't be empty</p>
-        )
-      });
-    }
-  };
-
-  submitToFirebase = () => {
-    this.checkForExerciseNameError();
+  checkSetsError = () => {
     if (!this.state.sets) {
       this.setState({
         setsClass: classes.inputFieldError,
@@ -122,6 +99,9 @@ class AddExercise extends Component {
         setsError: null
       });
     }
+  };
+
+  checkRepsError = () => {
     if (!this.state.reps) {
       this.setState({
         repsClass: classes.inputFieldError,
@@ -138,7 +118,10 @@ class AddExercise extends Component {
         repsError: null
       });
     }
-    if (!this.state.weight) {
+  };
+
+  checkWeightError = () => {
+    if (!this.state.weight && this.state.weight !== 0) {
       this.setState({
         weightClass: classes.inputFieldError,
         exerciseListClass: classes.exerciseListError,
@@ -147,15 +130,22 @@ class AddExercise extends Component {
         )
       });
     }
-    if (this.state.weight) {
+    if (this.state.weight || this.state.weight === 0) {
       this.setState({
         weightClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
         weightError: null
       });
     }
+  };
+
+  submitToFirebase = () => {
+    this.checkExerciseNameError();
+    this.checkSetsError();
+    this.checkRepsError();
+    this.checkWeightError();
     if (
-      this.state.weight &&
+      this.state.weight >= 0 &&
       this.state.reps &&
       this.state.sets &&
       this.state.exerciseName

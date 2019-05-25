@@ -37,7 +37,7 @@ class AddWorkout extends Component {
     });
   };
 
-  renderNextExerciseInputs = () => {
+  checkExerciseNameError = () => {
     if (!this.state.exerciseName.trim()) {
       this.setState({
         exerciseNameClass: classes.inputFieldError,
@@ -49,13 +49,28 @@ class AddWorkout extends Component {
         )
       });
     }
-    if (this.state.exerciseName.trim()) {
+    if (this.state.exerciseName.length > 45) {
+      this.setState({
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        exerciseNameError: (
+          <p className={classes.errorMessage}>Exercise Name is too long</p>
+        )
+      });
+    }
+    if (
+      this.state.exerciseName.trim() &&
+      this.state.exerciseName.length <= 45
+    ) {
       this.setState({
         exerciseNameClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
         exerciseNameError: null
       });
     }
+  };
+
+  checkSetsError = () => {
     if (!this.state.sets) {
       this.setState({
         setsClass: classes.inputFieldError,
@@ -72,6 +87,9 @@ class AddWorkout extends Component {
         setsError: null
       });
     }
+  };
+
+  checkRepsError = () => {
     if (!this.state.reps) {
       this.setState({
         repsClass: classes.inputFieldError,
@@ -88,7 +106,10 @@ class AddWorkout extends Component {
         repsError: null
       });
     }
-    if (!this.state.weight) {
+  };
+
+  checkWeightError = () => {
+    if (!this.state.weight && this.state.weight !== 0) {
       this.setState({
         weightClass: classes.inputFieldError,
         exerciseListClass: classes.exerciseListError,
@@ -97,18 +118,26 @@ class AddWorkout extends Component {
         )
       });
     }
-    if (this.state.weight) {
+    if (this.state.weight || this.state.weight === 0) {
       this.setState({
         weightClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
         weightError: null
       });
     }
+  };
+
+  renderNextExerciseInputs = () => {
+    this.checkExerciseNameError();
+    this.checkSetsError();
+    this.checkRepsError();
+    this.checkWeightError();
     if (
-      this.state.weight &&
+      this.state.weight >= 0 &&
       this.state.reps &&
       this.state.sets &&
-      this.state.exerciseName
+      this.state.exerciseName &&
+      this.state.exerciseName.length <= 45
     ) {
       let exercisesArray = this.state.exercises.slice();
       let exercise = {
@@ -177,17 +206,7 @@ class AddWorkout extends Component {
     });
   };
 
-  submitExercisesToFirebase = () => {
-    const db = firebase.firestore();
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    if (this.state.workoutName.trim()) {
-      this.setState({
-        workoutNameClass: classes.inputFieldSuccess,
-        workoutNameError: null
-      });
-    }
+  checkWorkoutNameError = () => {
     if (!this.state.workoutName.trim()) {
       console.log("there is no workout name :( pepehands");
       this.setState({
@@ -200,13 +219,40 @@ class AddWorkout extends Component {
         loader: null
       });
     }
+    if (this.state.workoutName.length > 45) {
+      this.setState({
+        workoutNameClass: classes.inputFieldError,
+        workoutNameError: (
+          <p className={classes.errorMessage}>Workout Name is too long</p>
+        ),
+        loader: null
+      });
+    }
+    if (this.state.workoutName.trim() && this.state.workoutName.length <= 45) {
+      this.setState({
+        workoutNameClass: classes.inputFieldSuccess,
+        workoutNameError: null
+      });
+    }
+  };
+
+  submitExercisesToFirebase = () => {
+    const db = firebase.firestore();
+    this.setState({
+      loader: <div className={classes.loader} />
+    });
+    this.checkWorkoutNameError();
     if (!(this.state.exercises.length > 0)) {
       alert("You need to add at least one exercise!");
       this.setState({
         loader: null
       });
     }
-    if (this.state.workoutName.trim() && this.state.exercises.length > 0) {
+    if (
+      this.state.workoutName.trim() &&
+      this.state.workoutName.length <= 45 &&
+      this.state.exercises.length > 0
+    ) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           const uid = user.uid;
@@ -244,7 +290,10 @@ class AddWorkout extends Component {
   };
 
   changeExerciseNumberOnRemove = item => {
-    if (item.exercise.exerciseNumber > this.state.clickedExerciseNumber) {
+    if (
+      item.exercise.exerciseNumber > this.state.clickedExerciseNumber &&
+      item.exercise.exerciseNumber !== 1
+    ) {
       item.exercise.exerciseNumber -= 1;
     }
   };
