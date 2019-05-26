@@ -25,12 +25,22 @@
     height: 50px
     text-align: left
     padding: 1.5% 
+    @media (max-width: 600px)
+        padding-top: 2.5%
+        
 
 .exerciseCardHeader
     font-size: 25px
     font-family: $fira
     font-weight: 200
     float: left
+    @media (max-width: 600px)
+        font-size: 20px
+        padding-top: 1%
+        width: 89%
+        overflow-x: scroll
+        white-space: nowrap
+        margin-right: 1%
 
 .deleteIcon
     font-size: 175%
@@ -39,6 +49,8 @@
     &:hover
         color: $red
         transition: color 0.2s ease-in
+    @media (max-width: 600px)
+        width: 10%
     
 .exerciseCardBodyDiv
     height: 175px
