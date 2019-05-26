@@ -57,7 +57,7 @@ class AddExercise extends Component {
 
   updateWeightState = e => {
     this.setState({
-      weight: parseInt(e.target.value.trim())
+      weight: parseFloat(e.target.value)
     });
   };
 
@@ -73,7 +73,19 @@ class AddExercise extends Component {
         )
       });
     }
-    if (this.state.exerciseName.trim()) {
+    if (this.state.exerciseName.length > 45) {
+      this.setState({
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        exerciseNameError: (
+          <p className={classes.errorMessage}>Exercise Name is too long</p>
+        )
+      });
+    }
+    if (
+      this.state.exerciseName.trim() &&
+      this.state.exerciseName.length <= 45
+    ) {
       this.setState({
         exerciseNameClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
@@ -92,7 +104,18 @@ class AddExercise extends Component {
         )
       });
     }
-    if (this.state.sets) {
+    if (this.state.sets > 99) {
+      this.setState({
+        setsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        setsError: (
+          <p className={classes.errorMessage}>
+            You can't set sets to more than 99 sets
+          </p>
+        )
+      });
+    }
+    if (this.state.sets && this.state.sets <= 99) {
       this.setState({
         setsClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
@@ -111,7 +134,18 @@ class AddExercise extends Component {
         )
       });
     }
-    if (this.state.reps) {
+    if (this.state.reps > 99) {
+      this.setState({
+        repsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        repsError: (
+          <p className={classes.errorMessage}>
+            You can't set reps to more than 99 reps
+          </p>
+        )
+      });
+    }
+    if (this.state.reps && this.state.reps <= 99) {
       this.setState({
         repsClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
@@ -130,7 +164,21 @@ class AddExercise extends Component {
         )
       });
     }
-    if (this.state.weight || this.state.weight === 0) {
+    if (this.state.weight > 999) {
+      this.setState({
+        weightClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        weightError: (
+          <p className={classes.errorMessage}>
+            You can't set weight to more than 999kg
+          </p>
+        )
+      });
+    }
+    if (
+      (this.state.weight || this.state.weight === 0) &&
+      this.state.weight <= 999
+    ) {
       this.setState({
         weightClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
@@ -148,7 +196,11 @@ class AddExercise extends Component {
       this.state.weight >= 0 &&
       this.state.reps &&
       this.state.sets &&
-      this.state.exerciseName
+      this.state.exerciseName &&
+      this.state.exerciseName.length <= 45 &&
+      this.state.reps <= 99 &&
+      this.state.sets <= 99 &&
+      this.state.weight <= 999
     ) {
       this.addExerciseToFirebase();
     }

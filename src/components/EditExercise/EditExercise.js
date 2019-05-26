@@ -57,56 +57,150 @@ class EditExercise extends Component {
 
   updateWeightState = e => {
     this.setState({
-      weight: parseInt(e.target.value.trim())
+      weight: parseFloat(e.target.value)
     });
   };
 
-  submitEdit = () => {
+  checkExerciseNameError = () => {
     if (!this.state.exerciseName.trim()) {
       this.setState({
-        exerciseNameError: null
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        exerciseNameError: (
+          <p className={classes.errorMessage}>
+            Exercise Name field can't be empty
+          </p>
+        )
       });
     }
-    if (this.state.exerciseName && this.state.exerciseNameError) {
+    if (this.state.exerciseName.length > 45) {
       this.setState({
-        exerciseNameError: null
-      });
-    }
-    if (!this.state.sets) {
-      this.setState({
-        setsError: null
-      });
-    }
-    if (this.state.sets && this.state.setsError) {
-      this.setState({
-        setsError: null
-      });
-    }
-    if (!this.state.reps) {
-      this.setState({
-        repsError: null
-      });
-    }
-    if (this.state.reps && this.state.repsError) {
-      this.setState({
-        repsError: null
-      });
-    }
-    if (!this.state.weight) {
-      this.setState({
-        weightError: null
-      });
-    }
-    if (this.state.weight && !this.state.weightError) {
-      this.setState({
-        weightError: null
+        exerciseNameClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        exerciseNameError: (
+          <p className={classes.errorMessage}>Exercise Name is too long</p>
+        )
       });
     }
     if (
-      this.state.weight &&
+      this.state.exerciseName.trim() &&
+      this.state.exerciseName.length <= 45
+    ) {
+      this.setState({
+        exerciseNameClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
+        exerciseNameError: null
+      });
+    }
+  };
+
+  checkSetsError = () => {
+    if (!this.state.sets) {
+      this.setState({
+        setsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        setsError: (
+          <p className={classes.errorMessage}>Sets field can't be empty</p>
+        )
+      });
+    }
+    if (this.state.sets > 99) {
+      this.setState({
+        setsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        setsError: (
+          <p className={classes.errorMessage}>
+            You can't set sets to more than 99 sets
+          </p>
+        )
+      });
+    }
+    if (this.state.sets && this.state.sets <= 99) {
+      this.setState({
+        setsClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
+        setsError: null
+      });
+    }
+  };
+
+  checkRepsError = () => {
+    if (!this.state.reps) {
+      this.setState({
+        repsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        repsError: (
+          <p className={classes.errorMessage}>Reps field can't be empty</p>
+        )
+      });
+    }
+    if (this.state.reps > 99) {
+      this.setState({
+        repsClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        repsError: (
+          <p className={classes.errorMessage}>
+            You can't set reps to more than 99 reps
+          </p>
+        )
+      });
+    }
+    if (this.state.reps && this.state.reps <= 99) {
+      this.setState({
+        repsClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
+        repsError: null
+      });
+    }
+  };
+
+  checkWeightError = () => {
+    if (!this.state.weight && this.state.weight !== 0) {
+      this.setState({
+        weightClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        weightError: (
+          <p className={classes.errorMessage}>Weight field can't be empty</p>
+        )
+      });
+    }
+    if (this.state.weight > 999) {
+      this.setState({
+        weightClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        weightError: (
+          <p className={classes.errorMessage}>
+            You can't set weight to more than 999kg
+          </p>
+        )
+      });
+    }
+    if (
+      (this.state.weight || this.state.weight === 0) &&
+      this.state.weight <= 999
+    ) {
+      this.setState({
+        weightClass: classes.inputFieldSuccess,
+        exerciseListClass: classes.exerciseList,
+        weightError: null
+      });
+    }
+  };
+
+  submitEdit = () => {
+    this.checkExerciseNameError();
+    this.checkRepsError();
+    this.checkSetsError();
+    this.checkWeightError();
+    if (
+      this.state.weight >= 0 &&
       this.state.reps &&
       this.state.sets &&
-      this.state.exerciseName
+      this.state.exerciseName &&
+      this.state.exerciseName.length <= 45 &&
+      this.state.reps <= 99 &&
+      this.state.sets <= 99 &&
+      this.state.weight <= 999
     ) {
       this.editExercise();
     }

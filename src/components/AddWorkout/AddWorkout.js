@@ -37,6 +37,118 @@ class AddWorkout extends Component {
     });
   };
 
+  renderNextExerciseInputs = () => {
+    this.checkExerciseNameError();
+    this.checkSetsError();
+    this.checkRepsError();
+    this.checkWeightError();
+    if (
+      this.state.weight >= 0 &&
+      this.state.reps &&
+      this.state.sets &&
+      this.state.exerciseName &&
+      this.state.exerciseName.length <= 45 &&
+      this.state.reps <= 99 &&
+      this.state.sets <= 99 &&
+      this.state.weight <= 999
+    ) {
+      let exercisesArray = this.state.exercises.slice();
+      let exercise = {
+        exerciseNumber: this.state.exerciseNumber,
+        exerciseName: this.state.exerciseName,
+        sets: this.state.sets,
+        reps: this.state.reps,
+        weight: this.state.weight
+      };
+      console.log(exercisesArray);
+      exercisesArray.push({ exercise });
+      console.log(exercisesArray);
+      this.setState({
+        exercises: exercisesArray
+      });
+      this.setState({
+        exerciseNumber: this.state.exerciseNumber + 1
+      });
+      console.log(this.state.exercises);
+      this.setState({
+        exerciseNameClass: classes.inputField,
+        setsClass: classes.inputField,
+        repsClass: classes.inputField,
+        weightClass: classes.inputField,
+        exerciseListClass: classes.exerciseList,
+        exerciseName: "",
+        sets: NaN,
+        reps: NaN,
+        weight: NaN,
+        exerciseNameError: null,
+        setsError: null,
+        repsError: null,
+        weightError: null
+      });
+    }
+  };
+
+  updateExerciseNameState = e => {
+    this.setState({
+      exerciseName: e.target.value
+    });
+  };
+
+  updateSetsState = e => {
+    this.setState({
+      sets: parseInt(e.target.value.trim())
+    });
+  };
+
+  updateRepsState = e => {
+    this.setState({
+      reps: parseInt(e.target.value.trim())
+    });
+  };
+
+  updateWeightState = e => {
+    this.setState({
+      weight: parseFloat(e.target.value)
+    });
+  };
+
+  updateWorkoutNameState = e => {
+    this.setState({
+      workoutName: e.target.value,
+      workoutNameError: null
+    });
+  };
+
+  checkWorkoutNameError = () => {
+    if (!this.state.workoutName.trim()) {
+      console.log("there is no workout name :( pepehands");
+      this.setState({
+        workoutNameClass: classes.inputFieldError,
+        workoutNameError: (
+          <p className={classes.errorMessage}>
+            Workout Name field can't be empty
+          </p>
+        ),
+        loader: null
+      });
+    }
+    if (this.state.workoutName.length > 45) {
+      this.setState({
+        workoutNameClass: classes.inputFieldError,
+        workoutNameError: (
+          <p className={classes.errorMessage}>Workout Name is too long</p>
+        ),
+        loader: null
+      });
+    }
+    if (this.state.workoutName.trim() && this.state.workoutName.length <= 45) {
+      this.setState({
+        workoutNameClass: classes.inputFieldSuccess,
+        workoutNameError: null
+      });
+    }
+  };
+
   checkExerciseNameError = () => {
     if (!this.state.exerciseName.trim()) {
       this.setState({
@@ -159,115 +271,6 @@ class AddWorkout extends Component {
         weightClass: classes.inputFieldSuccess,
         exerciseListClass: classes.exerciseList,
         weightError: null
-      });
-    }
-  };
-
-  renderNextExerciseInputs = () => {
-    this.checkExerciseNameError();
-    this.checkSetsError();
-    this.checkRepsError();
-    this.checkWeightError();
-    if (
-      this.state.weight >= 0 &&
-      this.state.reps &&
-      this.state.sets &&
-      this.state.exerciseName &&
-      this.state.exerciseName.length <= 45
-    ) {
-      let exercisesArray = this.state.exercises.slice();
-      let exercise = {
-        exerciseNumber: this.state.exerciseNumber,
-        exerciseName: this.state.exerciseName,
-        sets: this.state.sets,
-        reps: this.state.reps,
-        weight: this.state.weight
-      };
-      console.log(exercisesArray);
-      exercisesArray.push({ exercise });
-      console.log(exercisesArray);
-      this.setState({
-        exercises: exercisesArray
-      });
-      this.setState({
-        exerciseNumber: this.state.exerciseNumber + 1
-      });
-      console.log(this.state.exercises);
-      this.setState({
-        exerciseNameClass: classes.inputField,
-        setsClass: classes.inputField,
-        repsClass: classes.inputField,
-        weightClass: classes.inputField,
-        exerciseListClass: classes.exerciseList,
-        exerciseName: "",
-        sets: NaN,
-        reps: NaN,
-        weight: NaN,
-        exerciseNameError: null,
-        setsError: null,
-        repsError: null,
-        weightError: null
-      });
-    }
-  };
-
-  updateExerciseNameState = e => {
-    this.setState({
-      exerciseName: e.target.value
-    });
-  };
-
-  updateSetsState = e => {
-    this.setState({
-      sets: parseInt(e.target.value.trim())
-    });
-  };
-
-  updateRepsState = e => {
-    this.setState({
-      reps: parseInt(e.target.value.trim())
-    });
-  };
-
-  updateWeightState = e => {
-    this.setState({
-      weight: parseFloat(e.target.value)
-    });
-  };
-
-  updateWorkoutNameState = e => {
-    this.setState({
-      workoutName: e.target.value,
-      workoutNameError: null
-    });
-  };
-
-  checkWorkoutNameError = () => {
-    if (!this.state.workoutName.trim()) {
-      console.log("there is no workout name :( pepehands");
-      this.setState({
-        workoutNameClass: classes.inputFieldError,
-        workoutNameError: (
-          <p className={classes.errorMessage}>
-            Workout Name field can't be empty
-          </p>
-        ),
-        loader: null
-      });
-    }
-    if (this.state.workoutName.length > 45) {
-      this.setState({
-        workoutNameClass: classes.inputFieldError,
-        workoutNameError: (
-          <p className={classes.errorMessage}>Workout Name is too long</p>
-        ),
-        loader: null
-      });
-    }
-    if (this.state.workoutName.trim() && this.state.workoutName.length <= 45) {
-      this.setState({
-        workoutNameClass: classes.inputFieldSuccess,
-        workoutNameError: null
       });
     }
   };
