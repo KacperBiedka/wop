@@ -68,9 +68,12 @@
         font-size: 60px
 
 .workoutNameDiv
+    height: 120px
     width: 100%
     padding: 4% 3%
     border-bottom: solid 1px $border-grey
+    @media (max-width: 900px)
+        height: auto
 
 .mainBodyDiv
     height: 655px
@@ -148,6 +151,11 @@
         height: 100px
         font-size: 40px
 
+.workoutNameErrorMessage
+    text-align: left
+    color: $red
+    @media (min-width: 3840px)
+        font-size: 200%
 
 .errorMessage
     text-align: left
@@ -155,6 +163,7 @@
     color: $red
     @media (min-width: 3840px)
         font-size: 200%
+
 
 .workoutNameInput
     margin-bottom: 0%
@@ -212,8 +221,8 @@
     -ms-overflow-style: none
     &::-webkit-scrollbar
          width: 0 !important
-    @media (max-width: 800px)
-        height: 280px
+    @media (max-width: 600px)
+        height: 130px
     @media (max-height: 820px) 
         height: 80px
     @media (max-height: 750px)
@@ -224,7 +233,7 @@
         height: 240px
 
 .exerciseListError
-    height: 55px
+    height: 30px
     overflow: -moz-scrollbars-none
     overflow-y: scroll
     -ms-overflow-style: none
@@ -247,7 +256,7 @@
 
 .exerciseListSpan
     display: inline-block
-    width: 85%
+    width: 90%
     margin-bottom: 2%
     color: #fff
     font-family: $source
@@ -257,6 +266,7 @@
     vertical-align: middle
     @media (min-width: 3840px)
         font-size: 50px
+
 
 .iconSpan
     display: inline-block
@@ -270,10 +280,13 @@
     
 
 .bottomModalDiv
+    position: relative
+    background: $dark-grey
+    z-index: 2
+    height: 100px
     border-top: solid 1px $border-grey
     text-align: right
     padding: 3%
-    height: 100px
 
 .submitWorkoutButton
     width: 250px

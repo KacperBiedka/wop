@@ -138,8 +138,7 @@ class ExerciseCard extends Component {
                 Edit
               </p>
             </div>
-            {/* {this.state.loader} */}
-            <div className={classes.loader} />
+            {this.state.loader}
           </div>
         </div>
       </div>

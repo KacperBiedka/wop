@@ -50,7 +50,8 @@ class AddWorkout extends Component {
       this.state.exerciseName.length <= 45 &&
       this.state.reps <= 99 &&
       this.state.sets <= 99 &&
-      this.state.weight <= 999
+      this.state.weight <= 999 &&
+      this.state.weight.toString().length <= 5
     ) {
       let exercisesArray = this.state.exercises.slice();
       let exercise = {
@@ -110,6 +111,7 @@ class AddWorkout extends Component {
     this.setState({
       weight: parseFloat(e.target.value)
     });
+    console.log(parseFloat(e.target.value).toString().length);
   };
 
   updateWorkoutNameState = e => {
@@ -125,7 +127,7 @@ class AddWorkout extends Component {
       this.setState({
         workoutNameClass: classes.inputFieldError,
         workoutNameError: (
-          <p className={classes.errorMessage}>
+          <p className={classes.workoutNameErrorMessage}>
             Workout Name field can't be empty
           </p>
         ),
@@ -136,7 +138,9 @@ class AddWorkout extends Component {
       this.setState({
         workoutNameClass: classes.inputFieldError,
         workoutNameError: (
-          <p className={classes.errorMessage}>Workout Name is too long</p>
+          <p className={classes.workoutNameErrorMessage}>
+            Workout Name is too long
+          </p>
         ),
         loader: null
       });

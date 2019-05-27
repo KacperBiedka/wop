@@ -7,7 +7,7 @@ import classes from "./Workouts.module.sass";
 import Navbar from "../../components/Navbar/Navbar";
 import Loading from "../../components/Loading/Loading";
 import WorkoutMessage from "../../components/WorkoutMessage/WorkoutMessage";
-// import AddWorkout from "../../components/AddWorkout/AddWorkout";
+import AddWorkout from "../../components/AddWorkout/AddWorkout";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import WorkoutCard from "../../components/WorkoutCard/WorkoutCard";
 
@@ -20,6 +20,7 @@ class Workouts extends Component {
     loading: true,
     numberOfWorkouts: 0,
     displayWorkoutMessage: false,
+    displayAddWorkoutModal: null,
     addWorkoutDisplay: "none",
     reduxExercises: [],
     sidenavStyles: {
@@ -277,20 +278,22 @@ class Workouts extends Component {
   };
 
   toggleAddWorkoutModal = () => {
-    if (this.state.addWorkoutDisplay === "none") {
+    if (this.state.displayAddWorkoutModal) {
       this.setState({
-        addWorkoutDisplay: "block"
+        displayAddWorkoutModal: null
       });
     } else {
       this.setState({
-        addWorkoutDisplay: "none"
+        displayAddWorkoutModal: (
+          <AddWorkout closeModal={this.closeAddWorkoutModal} />
+        )
       });
     }
   };
 
   closeAddWorkoutModal = () => {
     this.setState({
-      addWorkoutDisplay: "none"
+      displayAddWorkoutModal: null
     });
   };
 
@@ -357,13 +360,10 @@ class Workouts extends Component {
           number={null}
         />
         <Sidenav styles={this.state.sidenavStyles} />
-        {/* <AddWorkout
-          display={this.state.addWorkoutDisplay}
-          closeModal={this.closeAddWorkoutModal}
-        /> */}
+        {this.state.displayAddWorkoutModal}
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
-          <WorkoutMessage addWorkout={this.toggleAddWorkoutModal} />
+          <WorkoutMessage toggleAddWorkoutModal={this.toggleAddWorkoutModal} />
         ) : null}
         <div className={classes.workoutCardsDiv}>
           {this.state.workouts.map(w => {

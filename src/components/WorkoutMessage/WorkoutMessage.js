@@ -1,14 +1,14 @@
 import React from "react";
-import classes from "./WorkoutMessage.module.css";
+import classes from "./WorkoutMessage.module.sass";
 
 const workoutMessage = props => {
   return (
     <div className={classes.workoutMessageDiv}>
-      <h3 classsName={classes.messageHeader}>
-        You haven't added any workouts yet
-      </h3>
+      <h3 className={classes.mainHeader}>You haven't added any workouts yet</h3>
       <h5 className={classes.addWorkoutHeader}>Start by adding a workout </h5>
-      <button onClick={props.addWorkout} className={classes.addWorkoutButton} />
+      <div onClick={props.toggleAddWorkoutModal} className={classes.iconDiv}>
+        <i className={"material-icons " + classes.plusIcon}>add</i>
+      </div>
     </div>
   );
 };
