@@ -21,7 +21,8 @@ class EditExercise extends Component {
     weight: null,
     weightError: null,
     weightClass: classes.inputField,
-    class: ""
+    class: "",
+    loader: null
   };
 
   componentDidMount = () => {
@@ -207,6 +208,9 @@ class EditExercise extends Component {
   };
 
   editExercise = () => {
+    this.setState({
+      loader: <div className={classes.loader} />
+    });
     const db = firebase.firestore();
     let exercisesCopy = this.state.exercisesState;
     let exercise = {
@@ -243,6 +247,9 @@ class EditExercise extends Component {
                     exercisesCopy,
                     this.state.workoutNumber
                   );
+                  this.setState({
+                    loader: null
+                  });
                   window.localStorage.setItem(
                     "exercises",
                     JSON.stringify(exercisesCopy)
@@ -295,6 +302,7 @@ class EditExercise extends Component {
           <div className={classes.modalBodyDiv}>
             <input
               onChange={this.updateExerciseNameState}
+              onBlur={this.checkExerciseNameError}
               className={this.state.exerciseNameClass}
               type="text"
               placeholder="Exercise Name"
@@ -303,6 +311,7 @@ class EditExercise extends Component {
             {this.state.exerciseNameError}
             <input
               onChange={this.updateSetsState}
+              onBlur={this.checkSetsError}
               className={this.state.setsClass}
               type="number"
               placeholder="Sets"
@@ -311,6 +320,7 @@ class EditExercise extends Component {
             {this.state.setsError}
             <input
               onChange={this.updateRepsState}
+              onBlur={this.checkRepsError}
               className={this.state.repsClass}
               type="number"
               placeholder="Reps"
@@ -319,6 +329,7 @@ class EditExercise extends Component {
             {this.state.repsError}
             <input
               onChange={this.updateWeightState}
+              onBlur={this.checkWeightError}
               className={this.state.weightClass}
               type="number"
               placeholder="Weight (kg)"

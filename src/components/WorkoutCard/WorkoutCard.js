@@ -35,8 +35,10 @@ const WorkoutCard = props => {
               <span className={classes.exerciseNameSpan}>
                 {ex.exercise.exerciseName}
               </span>
-              {ex.exercise.sets} sets {ex.exercise.reps} reps with{" "}
-              {ex.exercise.weight}kg
+              <span className={classes.exerciseNumbersSpan}>
+                {ex.exercise.sets} sets {ex.exercise.reps} reps with{" "}
+                {ex.exercise.weight}kg
+              </span>
             </li>
           );
         })}

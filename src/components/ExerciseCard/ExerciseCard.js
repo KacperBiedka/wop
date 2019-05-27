@@ -8,7 +8,9 @@ import * as actionTypes from "../../store/actions/actionTypes";
 class ExerciseCard extends Component {
   state = {
     exercisesState: [],
-    properties: {}
+    properties: {},
+    class: "",
+    loader: null
   };
 
   componentDidMount = () => {
@@ -18,6 +20,9 @@ class ExerciseCard extends Component {
   };
 
   removeExercise = () => {
+    this.setState({
+      loader: <div className={classes.loader} />
+    });
     const db = firebase.firestore();
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -51,21 +56,26 @@ class ExerciseCard extends Component {
                 })
                 .then(() => {
                   this.setState({
-                    exercisesState: exercisesCopy
+                    class: "animated zoomOut faster ",
+                    loader: null
                   });
-                  this.props.getExercisesToRedux(
-                    exercisesCopy,
-                    this.props.workoutNumber
-                  );
-                  window.localStorage.setItem(
-                    "exercises",
-                    JSON.stringify(exercisesCopy)
-                  );
+                  setTimeout(() => {
+                    this.setState({
+                      exercisesState: exercisesCopy
+                    });
+                    this.props.getExercisesToRedux(
+                      exercisesCopy,
+                      this.props.workoutNumber
+                    );
+                    window.localStorage.setItem(
+                      "exercises",
+                      JSON.stringify(exercisesCopy)
+                    );
+                  }, 1000);
                   console.log(
                     "successfuly removed the exercise from the doc",
                     exercisesCopy
                   );
-                  window.location.reload();
                 })
                 .catch(error => {
                   console.log("error updating the exercises: ", error);
@@ -104,28 +114,32 @@ class ExerciseCard extends Component {
         key={this.props.exerciseName + this.props.exerciseNumber}
         className={"animated zoomIn faster " + classes.exerciseCardDiv}
       >
-        <div className={classes.exerciseCardHeaderDiv}>
-          <h5 className={classes.exerciseCardHeader}>
-            {this.props.exerciseName} with {this.props.weight} kg
-          </h5>
-          <i
-            className={"material-icons " + classes.deleteIcon}
-            onClick={this.removeExercise}
-          >
-            close
-          </i>
-        </div>
-        <div className={classes.exerciseCardBodyDiv}>
-          {this.renderSquares()}
-        </div>
-        <div className={classes.exerciseCardBottomDiv}>
-          <div className={classes.anchorDiv}>
-            <p
-              className={classes.modalAnchor}
-              onClick={this.props.toggleEditModal}
+        <div className={this.state.class + classes.mainDiv}>
+          <div className={classes.exerciseCardHeaderDiv}>
+            <h5 className={classes.exerciseCardHeader}>
+              {this.props.exerciseName} with {this.props.weight} kg
+            </h5>
+            <i
+              className={"material-icons " + classes.deleteIcon}
+              onClick={this.removeExercise}
             >
-              Edit
-            </p>
+              close
+            </i>
+          </div>
+          <div className={classes.exerciseCardBodyDiv}>
+            {this.renderSquares()}
+          </div>
+          <div className={classes.exerciseCardBottomDiv}>
+            <div className={classes.anchorDiv}>
+              <p
+                className={classes.modalAnchor}
+                onClick={this.props.toggleEditModal}
+              >
+                Edit
+              </p>
+            </div>
+            {/* {this.state.loader} */}
+            <div className={classes.loader} />
           </div>
         </div>
       </div>

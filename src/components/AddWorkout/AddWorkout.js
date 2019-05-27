@@ -198,7 +198,7 @@ class AddWorkout extends Component {
         exerciseListClass: classes.exerciseListError,
         setsError: (
           <p className={classes.errorMessage}>
-            You can't set sets to more than 99 sets
+            You can't set the sets to more than 99 sets
           </p>
         )
       });
@@ -228,7 +228,7 @@ class AddWorkout extends Component {
         exerciseListClass: classes.exerciseListError,
         repsError: (
           <p className={classes.errorMessage}>
-            You can't set reps to more than 99 reps
+            You can't the reps to more than 99 reps
           </p>
         )
       });
@@ -258,14 +258,26 @@ class AddWorkout extends Component {
         exerciseListClass: classes.exerciseListError,
         weightError: (
           <p className={classes.errorMessage}>
-            You can't set weight to more than 999kg
+            You can't set the weight higher than 999kg
+          </p>
+        )
+      });
+    }
+    if (this.state.weight.toString().length > 5) {
+      this.setState({
+        weightClass: classes.inputFieldError,
+        exerciseListClass: classes.exerciseListError,
+        weightError: (
+          <p className={classes.errorMessage}>
+            You can't set the weight to more than 2 decimal places
           </p>
         )
       });
     }
     if (
       (this.state.weight || this.state.weight === 0) &&
-      this.state.weight <= 999
+      this.state.weight <= 999 &&
+      this.state.weight.toString().length <= 5
     ) {
       this.setState({
         weightClass: classes.inputFieldSuccess,
@@ -378,93 +390,100 @@ class AddWorkout extends Component {
               close
             </i>
           </div>
-          <div className={classes.workoutNameDiv}>
-            <input
-              onChange={this.updateWorkoutNameState}
-              className={
-                classes.workoutNameInput + " " + this.state.workoutNameClass
-              }
-              type="text"
-              placeholder="Workout Name"
-              value={this.state.workoutName}
-            />
-            {this.state.workoutNameError}
-          </div>
-          <div className={classes.modalBodyDiv}>
-            <h5 className={classes.exercisesHeader}>
-              Exercise {this.state.exerciseNumber}
-            </h5>
-            <input
-              onChange={this.updateExerciseNameState}
-              className={this.state.exerciseNameClass}
-              type="text"
-              placeholder="Exercise Name"
-              value={this.state.exerciseName}
-            />
-            {this.state.exerciseNameError}
-            <input
-              onChange={this.updateSetsState}
-              className={this.state.setsClass + " " + classes.numberInputField}
-              type="number"
-              placeholder="Sets"
-              value={this.state.sets}
-            />
-            {this.state.setsError}
-            <input
-              onChange={this.updateRepsState}
-              className={this.state.repsClass + " " + classes.numberInputField}
-              type="number"
-              placeholder="Reps (per set)"
-              value={this.state.reps}
-            />
-            {this.state.repsError}
-            <input
-              onChange={this.updateWeightState}
-              className={
-                this.state.weightClass + " " + classes.numberInputField
-              }
-              type="number"
-              placeholder="Weight (kg)"
-              value={this.state.weight}
-            />
-            {this.state.weightError}
-            <div className={classes.addExerciseButtonContainer}>
-              <button
-                onClick={this.renderNextExerciseInputs}
-                className={classes.addExerciseButton}
-              >
-                <span className={classes.addExerciseButtonText}>
-                  Add exercise
-                </span>
-                <i className={"material-icons " + classes.plusIcon}>add</i>
-              </button>
+          <div className={classes.mainBodyDiv}>
+            <div className={classes.workoutNameDiv}>
+              <input
+                onChange={this.updateWorkoutNameState}
+                onBlur={this.checkWorkoutNameError}
+                className={
+                  classes.workoutNameInput + " " + this.state.workoutNameClass
+                }
+                type="text"
+                placeholder="Workout Name"
+                value={this.state.workoutName}
+              />
+              {this.state.workoutNameError}
             </div>
-            <div className={this.state.exerciseListClass}>
-              {this.state.exercises.map(ex => {
-                return (
-                  <span
-                    number={ex.exercise.exerciseNumber}
-                    className={classes.exerciseListSpan}
-                    key={
-                      ex.exercise.exerciseName +
-                      ex.exercise.exerciseNumber +
-                      ex.exercise.weight
-                    }
-                  >
-                    Exercise {ex.exercise.exerciseNumber} -{" "}
-                    {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
-                    {ex.exercise.reps} reps with {ex.exercise.weight} kg
-                    <i
-                      onClick={() =>
-                        this.removeExercise(ex.exercise.exerciseNumber - 1)
-                      }
-                      className={"material-icons " + classes.iconSpan}
-                    >
-                      close
-                    </i>
+            <div className={classes.modalBodyDiv}>
+              <h5 className={classes.exercisesHeader}>
+                Exercise {this.state.exerciseNumber}
+              </h5>
+              <input
+                onChange={this.updateExerciseNameState}
+                className={this.state.exerciseNameClass}
+                type="text"
+                placeholder="Exercise Name"
+                value={this.state.exerciseName}
+              />
+              {this.state.exerciseNameError}
+              <input
+                onChange={this.updateSetsState}
+                className={
+                  this.state.setsClass + " " + classes.numberInputField
+                }
+                type="number"
+                placeholder="Sets"
+                value={this.state.sets}
+              />
+              {this.state.setsError}
+              <input
+                onChange={this.updateRepsState}
+                className={
+                  this.state.repsClass + " " + classes.numberInputField
+                }
+                type="number"
+                placeholder="Reps (per set)"
+                value={this.state.reps}
+              />
+              {this.state.repsError}
+              <input
+                onChange={this.updateWeightState}
+                className={
+                  this.state.weightClass + " " + classes.numberInputField
+                }
+                type="number"
+                placeholder="Weight (kg)"
+                value={this.state.weight}
+              />
+              {this.state.weightError}
+              <div className={classes.addExerciseButtonContainer}>
+                <button
+                  onClick={this.renderNextExerciseInputs}
+                  className={classes.addExerciseButton}
+                >
+                  <span className={classes.addExerciseButtonText}>
+                    Add exercise
                   </span>
-                );
-              })}
+                  <i className={"material-icons " + classes.plusIcon}>add</i>
+                </button>
+              </div>
+              <div className={this.state.exerciseListClass}>
+                {this.state.exercises.map(ex => {
+                  return (
+                    <span
+                      number={ex.exercise.exerciseNumber}
+                      className={classes.exerciseListSpan}
+                      key={
+                        ex.exercise.exerciseName +
+                        ex.exercise.exerciseNumber +
+                        ex.exercise.weight
+                      }
+                    >
+                      Exercise {ex.exercise.exerciseNumber} -{" "}
+                      {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
+                      {ex.exercise.reps} reps with {ex.exercise.weight} kg
+                      <i
+                        onClick={() =>
+                          this.removeExercise(ex.exercise.exerciseNumber - 1)
+                        }
+                        className={"material-icons " + classes.iconSpan}
+                      >
+                        close
+                      </i>
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className={classes.bottomModalDiv}>

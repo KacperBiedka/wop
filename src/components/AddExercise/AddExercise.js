@@ -297,6 +297,7 @@ class AddExercise extends Component {
           <div className={classes.modalBodyDiv}>
             <input
               onChange={this.updateExerciseNameState}
+              onBlur={this.checkExerciseNameError}
               className={this.state.exerciseNameClass}
               type="text"
               placeholder="Exercise Name"
@@ -305,6 +306,7 @@ class AddExercise extends Component {
             {this.state.exerciseNameError}
             <input
               onChange={this.updateSetsState}
+              onBlur={this.checkSetsError}
               className={this.state.setsClass}
               type="number"
               placeholder="Sets"
@@ -313,6 +315,7 @@ class AddExercise extends Component {
             {this.state.setsError}
             <input
               onChange={this.updateRepsState}
+              onBlur={this.checkRepsError}
               className={this.state.repsClass}
               type="number"
               placeholder="Reps"
@@ -321,6 +324,7 @@ class AddExercise extends Component {
             {this.state.repsError}
             <input
               onChange={this.updateWeightState}
+              onBlur={this.checkWeightError}
               className={this.state.weightClass}
               type="number"
               placeholder="Weight (kg)"
