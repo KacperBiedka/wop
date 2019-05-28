@@ -28,7 +28,8 @@ class Workouts extends Component {
       borderLeft: "none",
       paddingLeft: "0px"
     },
-    sidenavVisible: false
+    sidenavVisible: false,
+    removingWorkout: false
   };
 
   componentDidMount() {
@@ -136,84 +137,91 @@ class Workouts extends Component {
   };
 
   removeWorkout = number => {
-    console.log("removeWorkout function triggered " + number);
-    const db = firebase.firestore();
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        console.log(user.uid);
-        const uid = user.uid;
-        let deleteQuery = db
-          .collection("workouts")
-          .where("uid", "==", uid)
-          .where("workoutNumber", "==", number)
-          .limit(1);
-        const subtractNumberQuery = db
-          .collection("workouts")
-          .where("uid", "==", uid)
-          .orderBy("workoutNumber", "desc");
-        deleteQuery.get().then(snapshot => {
-          console.log("get doc for delete function worked");
-          snapshot.docs.forEach(doc => {
-            db.collection("workouts")
-              .doc(doc.id)
-              .delete()
-              .then(() => {
-                console.log("delete firebase function worked");
-                subtractNumberQuery
-                  .get()
-                  .then(snapshot => {
-                    if (snapshot.docs.length > 0) {
-                      console.log("get function worked");
-                      snapshot.docs.forEach(doc => {
-                        console.log("------workout number------");
-                        console.log(doc.data().workoutNumber);
-                        if (doc.data().workoutNumber > number) {
-                          db.collection("workouts")
-                            .doc(doc.id)
-                            .update({
-                              workoutNumber: doc.data().workoutNumber - 1
-                            })
-                            .catch(error => {
-                              console.log(
-                                "Error while looping through other workouts ",
-                                error.message
-                              );
-                            });
-                        }
-                      });
-                    } else {
-                      console.log("there are no other workouts");
-                    }
-                  })
-                  .then(() => {
-                    db.collection("users")
-                      .doc(uid)
-                      .update({
-                        workoutsNumber: this.state.numberOfWorkouts - 1
-                      })
-                      .then(() => {
-                        window.location.reload();
-                      })
-                      .catch(error => {
-                        console.log(
-                          "error updating user workoutsNumber ",
-                          error
-                        );
-                      });
-                  })
-                  .catch(error => {
-                    console.log(
-                      "error updating user workoutNumber doc ",
-                      error
-                    );
-                  });
-              });
+    if (!this.state.removingWorkout) {
+      this.setState({
+        removingWorkout: true
+      });
+      console.log("removeWorkout function triggered " + number);
+      const db = firebase.firestore();
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          console.log(user.uid);
+          const uid = user.uid;
+          let deleteQuery = db
+            .collection("workouts")
+            .where("uid", "==", uid)
+            .where("workoutNumber", "==", number)
+            .limit(1);
+          const subtractNumberQuery = db
+            .collection("workouts")
+            .where("uid", "==", uid)
+            .orderBy("workoutNumber", "desc");
+          deleteQuery.get().then(snapshot => {
+            console.log("get doc for delete function worked");
+            snapshot.docs.forEach(doc => {
+              db.collection("workouts")
+                .doc(doc.id)
+                .delete()
+                .then(() => {
+                  console.log("delete firebase function worked");
+                  subtractNumberQuery
+                    .get()
+                    .then(snapshot => {
+                      if (snapshot.docs.length > 0) {
+                        console.log("get function worked");
+                        snapshot.docs.forEach(doc => {
+                          console.log("------workout number------");
+                          console.log(doc.data().workoutNumber);
+                          if (doc.data().workoutNumber > number) {
+                            db.collection("workouts")
+                              .doc(doc.id)
+                              .update({
+                                workoutNumber: doc.data().workoutNumber - 1
+                              })
+                              .catch(error => {
+                                console.log(
+                                  "Error while looping through other workouts ",
+                                  error.message
+                                );
+                              });
+                          }
+                        });
+                      } else {
+                        console.log("there are no other workouts");
+                      }
+                    })
+                    .then(() => {
+                      db.collection("users")
+                        .doc(uid)
+                        .update({
+                          workoutsNumber: this.state.numberOfWorkouts - 1
+                        })
+                        .then(() => {
+                          window.location.reload();
+                        })
+                        .catch(error => {
+                          console.log(
+                            "error updating user workoutsNumber ",
+                            error
+                          );
+                        });
+                    })
+                    .catch(error => {
+                      console.log(
+                        "error updating user workoutNumber doc ",
+                        error
+                      );
+                    });
+                });
+            });
           });
-        });
-      } else {
-        console.log("user is not logged in");
-      }
-    });
+        } else {
+          console.log("user is not logged in");
+        }
+      });
+    } else {
+      alert("You already removing a workout");
+    }
   };
 
   editWorkoutName = event => {

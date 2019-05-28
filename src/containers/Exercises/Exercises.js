@@ -147,6 +147,7 @@ class Exercises extends Component {
       }, 500);
     } else if (name === "active") {
       this.setState({
+        timerMessage: "0:00",
         timerClass: "animated slideInUp faster ",
         displayTimer: true,
         duration: 1
