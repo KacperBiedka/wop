@@ -21,7 +21,8 @@
     "react-scripts": "2.1.5",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "tar": "^4.4.8"
+    "tar": "^4.4.8",
+    "webpack": "^4.28.3"
   },
   "scripts": {
     "dev": "next",
