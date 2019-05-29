@@ -292,55 +292,55 @@ class AddWorkout extends Component {
   };
 
   submitExercisesToFirebase = () => {
-    const db = firebase.firestore();
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    this.checkWorkoutNameError();
-    if (!(this.state.exercises.length > 0)) {
-      alert("You need to add at least one exercise!");
+    if (!this.state.loader) {
+      console.log("submitExercisesToFirebase function triggered");
+      const db = firebase.firestore();
       this.setState({
-        loader: null
+        loader: <div className={classes.loader} />
       });
-    }
-    if (
-      this.state.workoutName.trim() &&
-      this.state.workoutName.length <= 45 &&
-      this.state.exercises.length > 0
-    ) {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          const uid = user.uid;
-          db.collection("users")
-            .doc(uid)
-            .set({
-              uid: uid,
-              email: user.email,
-              workoutsNumber: this.state.globalWorkoutNumber + 1
-            });
-          db.collection("workouts")
-            .add({
-              uid: uid,
-              exercises: this.state.exercises,
-              workoutName: this.state.workoutName,
-              workoutNumber: this.state.globalWorkoutNumber + 1
-            })
-            .then(() => {
-              this.setState({
-                loader: null
+      this.checkWorkoutNameError();
+      if (!(this.state.exercises.length > 0)) {
+        alert("You need to add at least one exercise!");
+        this.setState({
+          loader: null
+        });
+      }
+      if (
+        this.state.workoutName.trim() &&
+        this.state.workoutName.length <= 45 &&
+        this.state.exercises.length > 0
+      ) {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            const uid = user.uid;
+            db.collection("users")
+              .doc(uid)
+              .set({
+                uid: uid,
+                email: user.email,
+                workoutsNumber: this.state.globalWorkoutNumber + 1
               });
-              window.location.href = "/workouts";
-            })
-            .catch(error => {
-              console.error("Error adding workout: ", error);
-              this.setState({
-                loader: null
+            db.collection("workouts")
+              .add({
+                uid: uid,
+                exercises: this.state.exercises,
+                workoutName: this.state.workoutName,
+                workoutNumber: this.state.globalWorkoutNumber + 1
+              })
+              .then(() => {
+                window.location.href = "/workouts";
+              })
+              .catch(error => {
+                console.error("Error adding workout: ", error);
+                this.setState({
+                  loader: null
+                });
               });
-            });
-        } else {
-          console.log("user not logged in");
-        }
-      });
+          } else {
+            console.log("user not logged in");
+          }
+        });
+      }
     }
   };
 
