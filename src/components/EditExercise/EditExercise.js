@@ -208,66 +208,70 @@ class EditExercise extends Component {
   };
 
   editExercise = () => {
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    const db = firebase.firestore();
-    let exercisesCopy = this.state.exercisesState;
-    let exercise = {
-      exerciseName: this.state.exerciseName,
-      exerciseNumber: this.state.exerciseNumber,
-      reps: this.state.reps,
-      sets: this.state.sets,
-      weight: this.state.weight,
-      workoutNumber: this.state.workoutNumber
-    };
-    console.log(this.state.exercisesState);
-    console.log(exercisesCopy);
-    exercisesCopy[this.state.exerciseNumber - 1] = { exercise };
-    console.log(exercisesCopy);
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const uid = user.uid;
-        const query = db
-          .collection("workouts")
-          .where("uid", "==", uid)
-          .where("workoutNumber", "==", this.state.workoutNumber)
-          .limit(1);
-        query
-          .get()
-          .then(snapshot => {
-            snapshot.docs.forEach(doc => {
-              db.collection("workouts")
-                .doc(doc.id)
-                .update({
-                  exercises: exercisesCopy
-                })
-                .then(() => {
-                  this.props.getExercisesToRedux(
-                    exercisesCopy,
-                    this.state.workoutNumber
-                  );
-                  this.setState({
-                    loader: null
+    console.log("edit exercise");
+    if (!this.state.loader) {
+      console.log("triggered the function");
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
+      const db = firebase.firestore();
+      let exercisesCopy = this.state.exercisesState;
+      let exercise = {
+        exerciseName: this.state.exerciseName,
+        exerciseNumber: this.state.exerciseNumber,
+        reps: this.state.reps,
+        sets: this.state.sets,
+        weight: this.state.weight,
+        workoutNumber: this.state.workoutNumber
+      };
+      console.log(this.state.exercisesState);
+      console.log(exercisesCopy);
+      exercisesCopy[this.state.exerciseNumber - 1] = { exercise };
+      console.log(exercisesCopy);
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          const uid = user.uid;
+          const query = db
+            .collection("workouts")
+            .where("uid", "==", uid)
+            .where("workoutNumber", "==", this.state.workoutNumber)
+            .limit(1);
+          query
+            .get()
+            .then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                db.collection("workouts")
+                  .doc(doc.id)
+                  .update({
+                    exercises: exercisesCopy
+                  })
+                  .then(() => {
+                    this.props.getExercisesToRedux(
+                      exercisesCopy,
+                      this.state.workoutNumber
+                    );
+                    this.setState({
+                      loader: null
+                    });
+                    window.localStorage.setItem(
+                      "exercises",
+                      JSON.stringify(exercisesCopy)
+                    );
+                    this.closeModal();
+                  })
+                  .catch(error => {
+                    console.log("error performing getExercisesToRedux ", error);
                   });
-                  window.localStorage.setItem(
-                    "exercises",
-                    JSON.stringify(exercisesCopy)
-                  );
-                  this.closeModal();
-                })
-                .catch(error => {
-                  console.log("error performing getExercisesToRedux ", error);
-                });
+              });
+            })
+            .catch(function(error) {
+              console.error("Error editing exercise: ", error);
             });
-          })
-          .catch(function(error) {
-            console.error("Error editing exercise: ", error);
-          });
-      } else {
-        console.log("user not logged in");
-      }
-    });
+        } else {
+          console.log("user not logged in");
+        }
+      });
+    }
   };
 
   closeModal = () => {

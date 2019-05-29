@@ -207,62 +207,61 @@ class AddExercise extends Component {
   };
 
   addExerciseToFirebase = () => {
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    const db = firebase.firestore();
-    let exercisesCopy = this.state.exercisesState;
-    let exercise = {
-      exerciseName: this.state.exerciseName,
-      exerciseNumber: this.state.exercisesState.length + 1,
-      reps: this.state.reps,
-      sets: this.state.sets,
-      weight: this.state.weight,
-      workoutNumber: this.state.workoutNumber
-    };
-    console.log(this.state.exercisesState);
-    console.log(exercisesCopy);
-    exercisesCopy.push({ exercise });
-    console.log(exercisesCopy);
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const uid = user.uid;
-        let query = db
-          .collection("workouts")
-          .where("uid", "==", uid)
-          .where("workoutNumber", "==", this.state.workoutNumber)
-          .limit(1);
-        query
-          .get()
-          .then(snapshot => {
-            snapshot.docs.forEach(doc => {
-              db.collection("workouts")
-                .doc(doc.id)
-                .update({
-                  exercises: exercisesCopy
-                });
-              this.props.getExercisesToRedux(
-                exercisesCopy,
-                this.state.workoutNumber
-              );
-              window.localStorage.setItem(
-                "exercises",
-                JSON.stringify(exercisesCopy)
-              );
-              this.setState({
-                loader: null
+    if (!this.state.loader) {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
+      const db = firebase.firestore();
+      let exercisesCopy = this.state.exercisesState;
+      let exercise = {
+        exerciseName: this.state.exerciseName,
+        exerciseNumber: this.state.exercisesState.length + 1,
+        reps: this.state.reps,
+        sets: this.state.sets,
+        weight: this.state.weight,
+        workoutNumber: this.state.workoutNumber
+      };
+      console.log(this.state.exercisesState);
+      console.log(exercisesCopy);
+      exercisesCopy.push({ exercise });
+      console.log(exercisesCopy);
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          const uid = user.uid;
+          let query = db
+            .collection("workouts")
+            .where("uid", "==", uid)
+            .where("workoutNumber", "==", this.state.workoutNumber)
+            .limit(1);
+          query
+            .get()
+            .then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                db.collection("workouts")
+                  .doc(doc.id)
+                  .update({
+                    exercises: exercisesCopy
+                  });
+                this.props.getExercisesToRedux(
+                  exercisesCopy,
+                  this.state.workoutNumber
+                );
+                window.localStorage.setItem(
+                  "exercises",
+                  JSON.stringify(exercisesCopy)
+                );
+                this.closeModal();
+                console.log("function finished");
               });
-              this.closeModal();
-              console.log("function finished");
+            })
+            .catch(error => {
+              console.error("Error editing exercise: ", error);
             });
-          })
-          .catch(error => {
-            console.error("Error editing exercise: ", error);
-          });
-      } else {
-        console.log("user not logged in");
-      }
-    });
+        } else {
+          console.log("user not logged in");
+        }
+      });
+    }
   };
 
   closeModal = () => {

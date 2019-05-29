@@ -11,7 +11,6 @@
     "node-gyp": "^4.0.0",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
-    "react-bootstrap": "^1.0.0-beta.5",
     "react-dnd": "^7.4.3",
     "react-dnd-html5-backend": "^7.4.0",
     "react-dom": "^16.7.0",

@@ -8,10 +8,12 @@ class WorkoutCard extends Component {
   };
 
   removeWorkout = () => {
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    this.props.removeWorkout();
+    if (!this.state.loader) {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
+      this.props.removeWorkout();
+    }
   };
 
   render() {

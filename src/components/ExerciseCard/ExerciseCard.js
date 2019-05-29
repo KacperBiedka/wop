@@ -20,75 +20,77 @@ class ExerciseCard extends Component {
   };
 
   removeExercise = () => {
-    this.setState({
-      loader: <div className={classes.loader} />
-    });
-    const db = firebase.firestore();
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        let exercisesCopy = this.state.exercisesState;
-        console.log(exercisesCopy);
-        exercisesCopy.splice(this.props.exerciseNumber - 1, 1);
-        exercisesCopy.map((ex, index) => {
-          console.log(ex.exercise.exerciseNumber);
-          console.log(ex);
-          if (ex.exercise.exerciseNumber > this.props.exerciseNumber) {
-            exercisesCopy[index].exercise.exerciseNumber =
-              ex.exercise.exerciseNumber - 1;
-          }
-          return null;
-        });
-        console.log(exercisesCopy);
-        const uid = user.uid;
-        const query = db
-          .collection("workouts")
-          .where("uid", "==", uid)
-          .where("workoutNumber", "==", this.props.workoutNumber)
-          .limit(1);
-        query
-          .get()
-          .then(snapshot => {
-            snapshot.docs.forEach(doc => {
-              db.collection("workouts")
-                .doc(doc.id)
-                .update({
-                  exercises: exercisesCopy
-                })
-                .then(() => {
-                  this.setState({
-                    class: "animated zoomOut faster ",
-                    loader: null
-                  });
-                  setTimeout(() => {
-                    this.setState({
-                      exercisesState: exercisesCopy
-                    });
-                    this.props.getExercisesToRedux(
-                      exercisesCopy,
-                      this.props.workoutNumber
-                    );
-                    window.localStorage.setItem(
-                      "exercises",
-                      JSON.stringify(exercisesCopy)
-                    );
-                  }, 1000);
-                  console.log(
-                    "successfuly removed the exercise from the doc",
-                    exercisesCopy
-                  );
-                })
-                .catch(error => {
-                  console.log("error updating the exercises: ", error);
-                });
-            });
-          })
-          .catch(error => {
-            console.log("error getting the workout doc.id: ", error);
+    if (!this.state.loader) {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
+      const db = firebase.firestore();
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          let exercisesCopy = this.state.exercisesState;
+          console.log(exercisesCopy);
+          exercisesCopy.splice(this.props.exerciseNumber - 1, 1);
+          exercisesCopy.map((ex, index) => {
+            console.log(ex.exercise.exerciseNumber);
+            console.log(ex);
+            if (ex.exercise.exerciseNumber > this.props.exerciseNumber) {
+              exercisesCopy[index].exercise.exerciseNumber =
+                ex.exercise.exerciseNumber - 1;
+            }
+            return null;
           });
-      } else {
-        window.location.href = "../login";
-      }
-    });
+          console.log(exercisesCopy);
+          const uid = user.uid;
+          const query = db
+            .collection("workouts")
+            .where("uid", "==", uid)
+            .where("workoutNumber", "==", this.props.workoutNumber)
+            .limit(1);
+          query
+            .get()
+            .then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                db.collection("workouts")
+                  .doc(doc.id)
+                  .update({
+                    exercises: exercisesCopy
+                  })
+                  .then(() => {
+                    this.setState({
+                      class: "animated zoomOut faster ",
+                      loader: null
+                    });
+                    setTimeout(() => {
+                      this.setState({
+                        exercisesState: exercisesCopy
+                      });
+                      this.props.getExercisesToRedux(
+                        exercisesCopy,
+                        this.props.workoutNumber
+                      );
+                      window.localStorage.setItem(
+                        "exercises",
+                        JSON.stringify(exercisesCopy)
+                      );
+                    }, 1000);
+                    console.log(
+                      "successfuly removed the exercise from the doc",
+                      exercisesCopy
+                    );
+                  })
+                  .catch(error => {
+                    console.log("error updating the exercises: ", error);
+                  });
+              });
+            })
+            .catch(error => {
+              console.log("error getting the workout doc.id: ", error);
+            });
+        } else {
+          window.location.href = "../login";
+        }
+      });
+    }
   };
 
   renderSquares = () => {
