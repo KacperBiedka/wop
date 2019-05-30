@@ -42,6 +42,31 @@ class Workouts extends Component {
     console.log(this.state.exercises);
   };
 
+  // updateTimers = () => {
+  //   const db = firebase.firestore();
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       db.collection("workouts")
+  //         .get()
+  //         .then(snapshot => {
+  //           if (snapshot.docs.length > 0) {
+  //             snapshot.docs.forEach(doc => {
+  //               db.collection("workouts")
+  //                 .doc(doc.id)
+  //                 .update({
+  //                   timers: [15, 30, 90]
+  //                 });
+  //             });
+  //           } else {
+  //             console.log("there are no documents");
+  //           }
+  //         });
+  //     } else {
+  //       console.log("user not logged in");
+  //     }
+  //   });
+  // };
+
   getAllWorkoutsFromFirebase = () => {
     const db = firebase.firestore();
     firebase.auth().onAuthStateChanged(user => {
@@ -367,7 +392,10 @@ class Workouts extends Component {
           exercises={null}
           number={null}
         />
-        <Sidenav styles={this.state.sidenavStyles} />
+        <Sidenav
+          toggleModal={this.toggleAddWorkoutModal}
+          styles={this.state.sidenavStyles}
+        />
         {this.state.displayAddWorkoutModal}
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (

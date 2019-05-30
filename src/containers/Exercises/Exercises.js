@@ -6,6 +6,7 @@ import NavBar from "../../components/Navbar/Navbar";
 import Timer from "../../components/Timer/Timer";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import EditExercise from "../../components/EditExercise/EditExercise";
+import EditTimers from "../../components/EditTimers/EditTimers";
 
 import classes from "./Exercises.module.sass";
 
@@ -24,7 +25,8 @@ class Exercises extends Component {
     sidenavVisible: false,
     timerClass: "animated fadeInUp faster ",
     displayTimer: false,
-    displayEditModal: null
+    displayEditModal: null,
+    displayEditTimersModal: null
   };
 
   componentDidMount() {
@@ -206,6 +208,20 @@ class Exercises extends Component {
     }
   };
 
+  toggleEditTimersModal = () => {
+    if (this.state.displayEditTimersModal) {
+      this.setState({
+        displayEditTimersModal: null
+      });
+    } else {
+      this.setState({
+        displayEditTimersModal: (
+          <EditTimers closeModal={this.toggleEditTimersModal} />
+        )
+      });
+    }
+  };
+
   render() {
     return (
       <div style={this.state.addedMargin} className={classes.mainDiv}>
@@ -217,7 +233,11 @@ class Exercises extends Component {
           workoutNumber={this.state.number}
         />
         {this.state.displayEditModal}
-        <Sidenav styles={this.state.sidenavStyles} />
+        {this.state.displayEditTimersModal}
+        <Sidenav
+          styles={this.state.sidenavStyles}
+          toggleModal={this.toggleEditTimersModal}
+        />
         <div className={classes.exerciseCardsDiv}>
           {this.state.exercises.map(ex => {
             return (
