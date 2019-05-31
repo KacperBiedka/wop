@@ -26,7 +26,8 @@ class Exercises extends Component {
     timerClass: "animated fadeInUp faster ",
     displayTimer: false,
     displayEditModal: null,
-    displayEditTimersModal: null
+    displayEditTimersModal: null,
+    playSound: false
   };
 
   componentDidMount() {
@@ -90,8 +91,10 @@ class Exercises extends Component {
         this.setState({
           duration: this.state.duration + 1
         });
-        if (this.state.duration === 30) {
-          console.log("loop finished");
+        if (this.state.duration === 10) {
+          this.setState({
+            playSound: true
+          });
         }
       } else {
         this.setState({
@@ -267,6 +270,7 @@ class Exercises extends Component {
               />
             );
           })}
+          {this.state.playSound ? null : null}
           {this.state.displayTimer ? (
             <div className={this.state.timerClass + classes.timerContainer}>
               <Timer
@@ -276,6 +280,9 @@ class Exercises extends Component {
             </div>
           ) : null}
         </div>
+        <audio>
+          <source src={"../../assets/bellNotification.mp3"} />
+        </audio>
       </div>
     );
   }
