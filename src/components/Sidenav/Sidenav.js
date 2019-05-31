@@ -8,11 +8,6 @@ const Sidenav = props => {
     window.location.href = "..";
   };
 
-  const playAudio = () => {
-    let audio = new Audio("../../assets/bellNotification.mp3");
-    audio.play();
-  };
-
   return (
     <div style={props.styles.sideNavDiv} className={classes.sidenavDiv}>
       <i />
@@ -40,11 +35,7 @@ const Sidenav = props => {
         <i className={"material-icons " + classes.navIcon}>alarm</i>
         <p className={classes.iconText}>Edit timers</p>
       </div>
-      <div
-        onClick={playAudio}
-        style={props.styles.iconDiv}
-        className={classes.iconDiv}
-      >
+      <div style={props.styles.iconDiv} className={classes.iconDiv}>
         <i className={"material-icons " + classes.navIcon}>help</i>
         <p className={classes.iconText}>Help</p>
       </div>

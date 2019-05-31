@@ -92,9 +92,7 @@ class Exercises extends Component {
           duration: this.state.duration + 1
         });
         if (this.state.duration === 10) {
-          this.setState({
-            playSound: true
-          });
+          document.getElementById("audio").play();
         }
       } else {
         this.setState({
