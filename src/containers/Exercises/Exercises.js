@@ -285,7 +285,6 @@ class Exercises extends Component {
               />
             );
           })}
-          {this.state.playSound ? null : null}
           {this.state.displayTimer ? (
             <div className={this.state.timerClass + classes.timerContainer}>
               <Timer

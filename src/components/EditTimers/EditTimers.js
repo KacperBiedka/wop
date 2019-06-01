@@ -11,16 +11,18 @@ class EditTimers extends Component {
     timerMessages: [],
     minutes: NaN,
     minutesClass: classes.inputField,
+    minutesError: null,
     seconds: NaN,
     secondsClass: classes.inputField,
+    secondsError: null,
     class: ""
   };
 
   componentDidMount = async () => {
     await this.setState({
-      exercises: this.props.exercises,
+      exercises: [...this.props.exercises],
       number: this.props.number,
-      timers: this.props.timers
+      timers: [...this.props.timers]
     });
     console.log(this.props.exercises, this.props.number, this.props.timers);
     this.createTimerMessages();
@@ -59,11 +61,13 @@ class EditTimers extends Component {
   };
 
   checkMinutesError = () => {
-    if (!this.state.minutes) {
+    if (!this.state.minutes && !this.state.seconds) {
       this.setState({
         minutesClass: classes.inputFieldError,
         minutesError: (
-          <p className={classes.errorMessage}>Minutes field can't be empty</p>
+          <p className={classes.errorMessage}>
+            You can't leave both fields empty
+          </p>
         )
       });
     }
@@ -77,7 +81,11 @@ class EditTimers extends Component {
         )
       });
     }
-    if (this.state.minutes && this.state.minutes <= 99) {
+    if (
+      this.state.minutes &&
+      this.state.minutes <= 99 &&
+      this.state.secondsError
+    ) {
       this.setState({
         minutesClass: classes.inputFieldSuccess,
         minutesError: null
@@ -86,11 +94,13 @@ class EditTimers extends Component {
   };
 
   checkSecondsError = () => {
-    if (!this.state.seconds) {
+    if (!this.state.seconds && !this.state.minutes) {
       this.setState({
         secondsClass: classes.inputFieldError,
         secondsError: (
-          <p className={classes.errorMessage}>Seconds field can't be empty</p>
+          <p className={classes.errorMessage}>
+            You can't leave both fields empty
+          </p>
         )
       });
     }
@@ -131,6 +141,61 @@ class EditTimers extends Component {
     }, 700);
   };
 
+  addTimer = async () => {
+    console.log("function fworkeed");
+    this.checkMinutesError();
+    this.checkSecondsError();
+    if (
+      (this.state.minutes || this.state.seconds) &&
+      (!this.state.minutes || this.state.minutes <= 99) &&
+      (!this.state.seconds || this.state.seconds <= 59)
+    ) {
+      console.log(this.state.seconds);
+      console.log(this.state.minutes);
+      let timersArrayCopy = [...this.state.timers];
+      console.log(timersArrayCopy);
+      let timer = 0;
+      if (this.state.minutes && this.state.seconds) {
+        timer = this.state.minutes * 60 + this.state.seconds;
+        timersArrayCopy.push(timer);
+        await this.setState({
+          timers: timersArrayCopy
+        });
+        console.log(timersArrayCopy);
+      }
+      if (this.state.minutes && !this.state.seconds) {
+        console.log(this.state.minutes);
+        timer = this.state.minutes * 60;
+        timersArrayCopy.push(timer);
+        await this.setState({
+          timers: timersArrayCopy
+        });
+        console.log(timersArrayCopy);
+      }
+      if (this.state.seconds && !this.state.minutes) {
+        timer = this.state.seconds;
+        timersArrayCopy.push(timer);
+        await this.setState({
+          timers: timersArrayCopy
+        });
+        console.log(timersArrayCopy);
+      }
+      console.log("it reached here");
+      console.log(this.state.timers);
+      this.createTimerMessages();
+      this.setState({
+        seconds: NaN,
+        minutes: NaN,
+        secondsClass: classes.inputField,
+        minutesClass: classes.inputField,
+        secondsError: null,
+        minutesError: null
+      });
+    } else {
+      console.log("It didnt pass ");
+    }
+  };
+
   render() {
     return (
       <div className={this.state.class + classes.opacityLayerDiv}>
@@ -154,6 +219,7 @@ class EditTimers extends Component {
                 placeholder="Minutes"
                 value={this.state.minutes}
               />
+              {this.state.minutesError}
               <input
                 onChange={this.updateSecondsState}
                 className={this.state.secondsClass}
@@ -161,8 +227,12 @@ class EditTimers extends Component {
                 placeholder="Seconds"
                 value={this.state.seconds}
               />
+              {this.state.secondsError}
               <div className={classes.addExerciseButtonContainer}>
-                <button className={classes.addExerciseButton}>
+                <button
+                  onClick={this.addTimer}
+                  className={classes.addExerciseButton}
+                >
                   <span className={classes.addExerciseButtonText}>
                     Add timer
                   </span>
