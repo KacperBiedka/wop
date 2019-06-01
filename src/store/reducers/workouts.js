@@ -3,16 +3,19 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   exercises: null,
   number: null,
-  workoutsNumber: null
+  workoutsNumber: null,
+  timers: []
 };
 
 const getExercises = (state = initialState, action) => {
   const exercises = action.exercises;
   const number = action.number;
+  const timers = action.timers;
   return {
     ...state,
     ...exercises,
-    number
+    number,
+    timers
   };
 };
 

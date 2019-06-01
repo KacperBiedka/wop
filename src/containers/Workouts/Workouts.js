@@ -86,7 +86,8 @@ class Workouts extends Component {
                 let workoutsCopy = this.state.workouts;
                 let workoutObject = {
                   name: doc.data().workoutName,
-                  number: doc.data().workoutNumber
+                  number: doc.data().workoutNumber,
+                  timers: doc.data().timers
                 };
                 workoutsCopy.push(workoutObject);
                 this.setState({
@@ -403,6 +404,7 @@ class Workouts extends Component {
         ) : null}
         <div className={classes.workoutCardsDiv}>
           {this.state.workouts.map(w => {
+            console.log(w.timers);
             return (
               <WorkoutCard
                 key={w.number}
@@ -415,7 +417,8 @@ class Workouts extends Component {
                 getExercisesToRedux={() =>
                   this.props.getExercisesToRedux(
                     this.state.exercises[w.number - 1],
-                    w.number
+                    w.number,
+                    w.timers
                   )
                 }
                 removeWorkout={() => this.removeWorkout(w.number)}
@@ -436,8 +439,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getExercisesToRedux: (exercises, number) =>
-      dispatch(actionTypes.getExercises(exercises, number)),
+    getExercisesToRedux: (exercises, number, timers) =>
+      dispatch(actionTypes.getExercises(exercises, number, timers)),
     getWorkoutsNumber: number => dispatch(actionTypes.getWorkoutsNumber(number))
   };
 };

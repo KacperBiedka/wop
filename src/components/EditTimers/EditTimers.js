@@ -1,17 +1,126 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
 import classes from "./EditTimers.module.sass";
 
 class EditTimers extends Component {
   state = {
+    exercises: [],
+    number: null,
+    timers: [],
+    timerMessages: [],
     minutes: NaN,
     minutesClass: classes.inputField,
     seconds: NaN,
     secondsClass: classes.inputField,
-    timers: [],
     class: ""
   };
 
-  componentDidMount = () => {};
+  componentDidMount = async () => {
+    await this.setState({
+      exercises: this.props.exercises,
+      number: this.props.number,
+      timers: this.props.timers
+    });
+    console.log(this.props.exercises, this.props.number, this.props.timers);
+    this.createTimerMessages();
+  };
+
+  createTimerMessages = () => {
+    let timerMessagesCopy = [];
+    this.state.timers.map((timer, index) => {
+      let minutes = parseInt(timer / 60);
+      let seconds = timer - minutes * 60;
+      let timerMessage = null;
+      if (seconds >= 10) {
+        timerMessage = minutes + ":" + seconds;
+      } else if (seconds < 10) {
+        timerMessage = minutes + ":0" + seconds;
+      }
+      console.log(this.state.timerMessages);
+      timerMessagesCopy.push(timerMessage);
+      return timerMessagesCopy;
+    });
+    this.setState({
+      timerMessages: timerMessagesCopy
+    });
+  };
+
+  updateMinutesState = e => {
+    this.setState({
+      minutes: parseInt(e.target.value.trim())
+    });
+  };
+
+  updateSecondsState = e => {
+    this.setState({
+      seconds: parseInt(e.target.value.trim())
+    });
+  };
+
+  checkMinutesError = () => {
+    if (!this.state.minutes) {
+      this.setState({
+        minutesClass: classes.inputFieldError,
+        minutesError: (
+          <p className={classes.errorMessage}>Minutes field can't be empty</p>
+        )
+      });
+    }
+    if (this.state.minutes > 99) {
+      this.setState({
+        minutesClass: classes.inputFieldError,
+        minutesError: (
+          <p className={classes.errorMessage}>
+            You can't set this field's value to more than 99 minutes
+          </p>
+        )
+      });
+    }
+    if (this.state.minutes && this.state.minutes <= 99) {
+      this.setState({
+        minutesClass: classes.inputFieldSuccess,
+        minutesError: null
+      });
+    }
+  };
+
+  checkSecondsError = () => {
+    if (!this.state.seconds) {
+      this.setState({
+        secondsClass: classes.inputFieldError,
+        secondsError: (
+          <p className={classes.errorMessage}>Seconds field can't be empty</p>
+        )
+      });
+    }
+    if (this.state.seconds > 59) {
+      this.setState({
+        secondsClass: classes.inputFieldError,
+        secondsError: (
+          <p className={classes.errorMessage}>
+            You can't set this field's value to more than 59 seconds
+          </p>
+        )
+      });
+    }
+    if (this.state.seconds && this.state.seconds <= 59) {
+      this.setState({
+        secondsClass: classes.inputFieldSuccess,
+        secondsError: null
+      });
+    }
+  };
+
+  removeTimer = number => {
+    let timersCopy = this.state.timers;
+    timersCopy.splice(number, 1);
+    this.setState({
+      timers: timersCopy
+    });
+    console.log(timersCopy);
+    this.createTimerMessages();
+  };
 
   closeModal = () => {
     this.setState({
@@ -27,7 +136,7 @@ class EditTimers extends Component {
       <div className={this.state.class + classes.opacityLayerDiv}>
         <div className={"animated zoomIn faster " + classes.mainModalDiv}>
           <div className={classes.modalHeaderMainDiv}>
-            <h5 className={classes.modalHeader}>Add workout</h5>
+            <h5 className={classes.modalHeader}>Edit timers</h5>
             <i
               onClick={this.closeModal}
               className={"material-icons " + classes.closeIcon}
@@ -39,14 +148,18 @@ class EditTimers extends Component {
             <div className={classes.modalBodyDiv}>
               <h5 className={classes.exercisesHeader}>Timers</h5>
               <input
+                onChange={this.updateMinutesState}
                 className={this.state.minutesClass}
                 type="number"
                 placeholder="Minutes"
+                value={this.state.minutes}
               />
               <input
+                onChange={this.updateSecondsState}
                 className={this.state.secondsClass}
                 type="number"
                 placeholder="Seconds"
+                value={this.state.seconds}
               />
               <div className={classes.addExerciseButtonContainer}>
                 <button className={classes.addExerciseButton}>
@@ -56,25 +169,17 @@ class EditTimers extends Component {
                   <i className={"material-icons " + classes.plusIcon}>add</i>
                 </button>
               </div>
-              {/* <div className={this.state.exerciseListClass}>
-                {this.state.exercises.map(ex => {
+              <div className={this.state.exerciseListClass}>
+                {this.state.timerMessages.map((timer, index) => {
                   return (
                     <span
-                      number={ex.exercise.exerciseNumber}
+                      number={index}
                       className={classes.exerciseListSpan}
-                      key={
-                        ex.exercise.exerciseName +
-                        ex.exercise.exerciseNumber +
-                        ex.exercise.weight
-                      }
+                      key={timer + index}
                     >
-                      Exercise {ex.exercise.exerciseNumber} -{" "}
-                      {ex.exercise.exerciseName} {ex.exercise.sets} sets{" "}
-                      {ex.exercise.reps} reps with {ex.exercise.weight} kg
+                      {timer}
                       <i
-                        onClick={() =>
-                          this.removeExercise(ex.exercise.exerciseNumber - 1)
-                        }
+                        onClick={() => this.removeTimer(index)}
                         className={"material-icons " + classes.iconSpan}
                       >
                         close
@@ -82,7 +187,8 @@ class EditTimers extends Component {
                     </span>
                   );
                 })}
-              </div> */}
+                {console.log(this.state.timerMessages)};
+              </div>
             </div>
           </div>
           <div className={classes.bottomModalDiv}>
@@ -90,7 +196,7 @@ class EditTimers extends Component {
             <button
               className={classes.submitButton + " " + classes.buttonAnimation}
             >
-              <span className={classes.submitSpan}>Submit Workout</span>
+              <span className={classes.submitSpan}>Edit Timers</span>
             </button>
           </div>
         </div>
@@ -99,4 +205,22 @@ class EditTimers extends Component {
   }
 }
 
-export default EditTimers;
+const mapStateToProps = state => {
+  return {
+    exercises: state.exercises,
+    number: state.number,
+    timers: state.timers
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getExercisesToRedux: (exercises, number, timers) =>
+      dispatch(actionTypes.getExercises(exercises, number, timers))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditTimers);

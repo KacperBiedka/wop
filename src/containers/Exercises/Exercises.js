@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
 
 import ExerciseCard from "../../components/ExerciseCard/ExerciseCard";
 import NavBar from "../../components/Navbar/Navbar";
@@ -14,6 +15,7 @@ class Exercises extends Component {
   state = {
     exercises: [],
     number: null,
+    timers: [],
     showTimer: false,
     duration: 0,
     timerMessage: "0:00",
@@ -41,24 +43,39 @@ class Exercises extends Component {
         JSON.stringify(this.props.exercises)
       );
       window.localStorage.setItem("number", JSON.stringify(this.props.number));
+      window.localStorage.setItem("timers", JSON.stringify(this.props.timers));
       console.log(window.localStorage.getItem("exercises"));
       console.log(window.localStorage.getItem("number"));
+      console.log(window.localStorage.getItem("timers"));
+
       this.setState({
         exercises: this.props.exercises,
-        number: this.props.number
+        number: this.props.number,
+        timers: this.props.timers
       });
     } else {
       let localStorageExercises = JSON.parse(
         window.localStorage.getItem("exercises")
       );
       let localStorageNumber = parseInt(window.localStorage.getItem("number"));
+      let localStorageTimers = JSON.parse(
+        window.localStorage.getItem("timers")
+      );
       console.log(localStorageExercises);
       console.log(localStorageNumber);
+      console.log(localStorageTimers);
       this.setState({
         exercises: localStorageExercises,
-        number: localStorageNumber
+        number: localStorageNumber,
+        timers: localStorageTimers
       });
+      this.props.getExercisesToRedux(
+        localStorageExercises,
+        localStorageNumber,
+        localStorageTimers
+      );
     }
+
     console.log(this.state.exercises);
   }
 
@@ -289,8 +306,19 @@ class Exercises extends Component {
 const mapStateToProps = state => {
   return {
     exercises: state.exercises,
-    number: state.number
+    number: state.number,
+    timers: state.timers
   };
 };
 
-export default connect(mapStateToProps)(Exercises);
+const mapDispatchToProps = dispatch => {
+  return {
+    getExercisesToRedux: (exercises, number, timers) =>
+      dispatch(actionTypes.getExercises(exercises, number, timers))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Exercises);
