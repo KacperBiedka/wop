@@ -244,7 +244,8 @@ class AddExercise extends Component {
                   });
                 this.props.getExercisesToRedux(
                   exercisesCopy,
-                  this.state.workoutNumber
+                  this.state.workoutNumber,
+                  this.props.timers
                 );
                 window.localStorage.setItem(
                   "exercises",
@@ -348,7 +349,8 @@ class AddExercise extends Component {
 
 const mapStateToProps = state => {
   return {
-    exercises: state.exercises
+    exercises: state.exercises,
+    timers: state.timers
   };
 };
 

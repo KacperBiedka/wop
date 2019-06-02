@@ -325,7 +325,8 @@ class AddWorkout extends Component {
                 uid: uid,
                 exercises: this.state.exercises,
                 workoutName: this.state.workoutName,
-                workoutNumber: this.state.globalWorkoutNumber + 1
+                workoutNumber: this.state.globalWorkoutNumber + 1,
+                timers: [10, 30, 60]
               })
               .then(() => {
                 window.location.href = "/workouts";

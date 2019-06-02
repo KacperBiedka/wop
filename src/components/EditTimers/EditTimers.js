@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import firebase from "../../firebase";
 import * as actionTypes from "../../store/actions/actionTypes";
 import classes from "./EditTimers.module.sass";
 
@@ -15,7 +16,8 @@ class EditTimers extends Component {
     seconds: NaN,
     secondsClass: classes.inputField,
     secondsError: null,
-    class: ""
+    class: "",
+    loader: null
   };
 
   componentDidMount = async () => {
@@ -132,17 +134,8 @@ class EditTimers extends Component {
     this.createTimerMessages();
   };
 
-  closeModal = () => {
-    this.setState({
-      class: "animated fadeOutUp fast "
-    });
-    setTimeout(() => {
-      this.props.closeModal();
-    }, 700);
-  };
-
   addTimer = async () => {
-    console.log("function fworkeed");
+    console.log("function worked");
     this.checkMinutesError();
     this.checkSecondsError();
     if (
@@ -196,6 +189,65 @@ class EditTimers extends Component {
     }
   };
 
+  submitTimersToFirebase = () => {
+    if (!this.state.loader) {
+      if (this.state.timers.length > 0) {
+        const db = firebase.firestore();
+        this.setState({
+          loader: <div className={classes.loader} />
+        });
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            const uid = user.uid;
+            db.collection("workouts")
+              .where("uid", "==", uid)
+              .where("workoutNumber", "==", this.state.number)
+              .get()
+              .then(snapshot => {
+                snapshot.docs.forEach(doc => {
+                  db.collection("workouts")
+                    .doc(doc.id)
+                    .update({
+                      timers: this.state.timers
+                    })
+                    .then(() => {
+                      this.props.getExercisesToRedux(
+                        this.state.exercises,
+                        this.state.number,
+                        this.state.timers
+                      );
+                      this.closeModal();
+                    })
+                    .catch(error => {
+                      console.error("Error updating timers : ", error);
+                      this.setState({
+                        loader: null
+                      });
+                    });
+                });
+              })
+              .catch(error => {
+                console.log("error getting document: ", error);
+              });
+          } else {
+            console.log("user not logged in");
+          }
+        });
+      } else {
+        alert("You need to add at least one timer!");
+      }
+    }
+  };
+
+  closeModal = () => {
+    this.setState({
+      class: "animated fadeOutUp fast "
+    });
+    setTimeout(() => {
+      this.props.closeModal();
+    }, 700);
+  };
+
   render() {
     return (
       <div className={this.state.class + classes.opacityLayerDiv}>
@@ -239,7 +291,7 @@ class EditTimers extends Component {
                   <i className={"material-icons " + classes.plusIcon}>add</i>
                 </button>
               </div>
-              <div className={this.state.exerciseListClass}>
+              <div className={classes.timersList}>
                 {this.state.timerMessages.map((timer, index) => {
                   return (
                     <span
@@ -264,6 +316,7 @@ class EditTimers extends Component {
           <div className={classes.bottomModalDiv}>
             {this.state.loader}
             <button
+              onClick={this.submitTimersToFirebase}
               className={classes.submitButton + " " + classes.buttonAnimation}
             >
               <span className={classes.submitSpan}>Edit Timers</span>

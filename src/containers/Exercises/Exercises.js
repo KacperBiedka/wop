@@ -108,7 +108,7 @@ class Exercises extends Component {
         this.setState({
           duration: this.state.duration + 1
         });
-        if (this.state.duration === 10) {
+        if (this.state.timers.includes(this.state.duration)) {
           document.getElementById("audio").play();
         }
       } else {
@@ -229,13 +229,17 @@ class Exercises extends Component {
   toggleEditTimersModal = () => {
     if (this.state.displayEditTimersModal) {
       this.setState({
-        displayEditTimersModal: null
+        displayEditTimersModal: null,
+        timers: this.props.timers
       });
+      this.toggleSidenav();
     } else {
+      this.toggleSidenav();
       this.setState({
         displayEditTimersModal: (
           <EditTimers closeModal={this.toggleEditTimersModal} />
-        )
+        ),
+        timers: this.props.timers
       });
     }
   };
