@@ -356,8 +356,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getExercisesToRedux: (exercises, number) =>
-      dispatch(actionTypes.getExercises(exercises, number))
+    getExercisesToRedux: (exercises, number, timers) =>
+      dispatch(actionTypes.getExercises(exercises, number, timers))
   };
 };
 

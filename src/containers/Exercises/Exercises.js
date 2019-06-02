@@ -259,6 +259,7 @@ class Exercises extends Component {
         <Sidenav
           styles={this.state.sidenavStyles}
           toggleModal={this.toggleEditTimersModal}
+          displayEditTimerModal={true}
         />
         <div className={classes.exerciseCardsDiv}>
           {this.state.exercises.map(ex => {

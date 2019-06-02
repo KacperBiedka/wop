@@ -27,14 +27,16 @@ const Sidenav = props => {
         <i className={"material-icons " + classes.navIcon}>looks_one</i>
         <p className={classes.iconText}>1RM calculator</p>
       </div>
-      <div
-        onClick={props.toggleModal}
-        style={props.styles.iconDiv}
-        className={classes.iconDiv}
-      >
-        <i className={"material-icons " + classes.navIcon}>alarm</i>
-        <p className={classes.iconText}>Edit timers</p>
-      </div>
+      {props.displayEditTimerModal ? (
+        <div
+          onClick={props.toggleModal}
+          style={props.styles.iconDiv}
+          className={classes.iconDiv}
+        >
+          <i className={"material-icons " + classes.navIcon}>alarm</i>
+          <p className={classes.iconText}>Edit timers</p>
+        </div>
+      ) : null}
       <div style={props.styles.iconDiv} className={classes.iconDiv}>
         <i className={"material-icons " + classes.navIcon}>help</i>
         <p className={classes.iconText}>Help</p>

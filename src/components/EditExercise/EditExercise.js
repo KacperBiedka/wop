@@ -248,7 +248,8 @@ class EditExercise extends Component {
                   .then(() => {
                     this.props.getExercisesToRedux(
                       exercisesCopy,
-                      this.state.workoutNumber
+                      this.state.workoutNumber,
+                      this.props.timers
                     );
                     this.setState({
                       loader: null
@@ -256,6 +257,10 @@ class EditExercise extends Component {
                     window.localStorage.setItem(
                       "exercises",
                       JSON.stringify(exercisesCopy)
+                    );
+                    window.localStorage.setItem(
+                      "timers",
+                      JSON.stringify(this.props.timers)
                     );
                     this.closeModal();
                   })
@@ -358,14 +363,15 @@ class EditExercise extends Component {
 
 const mapStateToProps = state => {
   return {
-    exercises: state.exercises
+    exercises: state.exercises,
+    timers: state.timers
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getExercisesToRedux: (exercises, number) =>
-      dispatch(actionTypes.getExercises(exercises, number))
+    getExercisesToRedux: (exercises, number, timers) =>
+      dispatch(actionTypes.getExercises(exercises, number, timers))
   };
 };
 

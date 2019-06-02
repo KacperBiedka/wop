@@ -76,6 +76,8 @@
 
 .mainBodyDiv
     height: 655px
+    @media (max-height: 750px)
+        height: 80vh
 
 .inputField
     font-family: $noto
@@ -221,13 +223,13 @@
     &::-webkit-scrollbar
          width: 0 !important
     @media (max-width: 600px)
-        height: 130px
-    @media (max-height: 820px) 
-        height: 80px
+        height: 300px
+    @media (max-height: 830px) 
+        height: 300px
     @media (max-height: 750px)
-        height: 40px
+        height: 250px
     @media (max-height: 600px)
-        height: 20px
+        height: 200px
     @media (min-width: 3840px)
         height: 240px
 

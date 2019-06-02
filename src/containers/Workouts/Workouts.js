@@ -396,6 +396,7 @@ class Workouts extends Component {
         <Sidenav
           toggleModal={this.toggleAddWorkoutModal}
           styles={this.state.sidenavStyles}
+          displayEditTimerModal={false}
         />
         {this.state.displayAddWorkoutModal}
         {this.state.loading ? <Loading /> : null}
