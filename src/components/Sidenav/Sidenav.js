@@ -16,10 +16,6 @@ const Sidenav = props => {
         <p className={classes.iconText}>Account</p>
       </div>
       <div style={props.styles.iconDiv} className={classes.iconDiv}>
-        <i className={"material-icons " + classes.navIcon}>settings</i>
-        <p className={classes.iconText}>Settings</p>
-      </div>
-      <div style={props.styles.iconDiv} className={classes.iconDiv}>
         <i className={"material-icons " + classes.navIcon}>trending_up</i>
         <p className={classes.iconText}>Check Progress</p>
       </div>
@@ -39,7 +35,7 @@ const Sidenav = props => {
       ) : null}
       <div style={props.styles.iconDiv} className={classes.iconDiv}>
         <i className={"material-icons " + classes.navIcon}>help</i>
-        <p className={classes.iconText}>Help</p>
+        <p className={classes.iconText}>FAQ</p>
       </div>
       <div
         onClick={logout}

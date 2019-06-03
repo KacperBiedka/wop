@@ -192,6 +192,31 @@ class Login extends Component {
     }, 500);
   };
 
+  sendForgotPasswordEmail = () => {
+    this.checkForEmailError();
+    if (this.state.emailError) {
+      alert(
+        "Enter a valid email adress if you want to recieve the reset password email"
+      );
+    } else {
+      this.setState({
+        loader: <div className={classes.loader} />
+      });
+      firebase
+        .auth()
+        .sendPasswordResetEmail(this.state.email)
+        .then(() => {
+          this.setState({
+            loader: null
+          });
+          alert("the email was sent to " + this.state.email);
+        })
+        .catch(error => {
+          console.log("error sending forgot password email: ", error);
+        });
+    }
+  };
+
   render() {
     return (
       <div className={classes.mainLoginDiv}>
@@ -221,7 +246,12 @@ class Login extends Component {
               <span className={classes.loginSpan}>Sign In</span>
             </button>
             <div className={classes.forgotPasswordDiv}>
-              <p className={classes.forgotPassword}>Forgot password ?</p>
+              <p
+                onClick={this.sendForgotPasswordEmail}
+                className={classes.forgotPassword}
+              >
+                Forgot password ?
+              </p>
             </div>
           </div>
           <div className={classes.differentOptionsDiv}>

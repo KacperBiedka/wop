@@ -150,28 +150,40 @@ class EditTimers extends Component {
       let timer = 0;
       if (this.state.minutes && this.state.seconds) {
         timer = this.state.minutes * 60 + this.state.seconds;
-        timersArrayCopy.push(timer);
-        await this.setState({
-          timers: timersArrayCopy
-        });
-        console.log(timersArrayCopy);
+        if (this.state.timers.includes(timer)) {
+          alert("You have already added a timer like this");
+        } else {
+          timersArrayCopy.push(timer);
+          await this.setState({
+            timers: timersArrayCopy
+          });
+          console.log(timersArrayCopy);
+        }
       }
       if (this.state.minutes && !this.state.seconds) {
         console.log(this.state.minutes);
         timer = this.state.minutes * 60;
-        timersArrayCopy.push(timer);
-        await this.setState({
-          timers: timersArrayCopy
-        });
-        console.log(timersArrayCopy);
+        if (this.state.timers.includes(timer)) {
+          alert("You have already added a timer like this");
+        } else {
+          timersArrayCopy.push(timer);
+          await this.setState({
+            timers: timersArrayCopy
+          });
+          console.log(timersArrayCopy);
+        }
       }
       if (this.state.seconds && !this.state.minutes) {
         timer = this.state.seconds;
-        timersArrayCopy.push(timer);
-        await this.setState({
-          timers: timersArrayCopy
-        });
-        console.log(timersArrayCopy);
+        if (this.state.timers.includes(timer)) {
+          alert("You have already added a timer like this");
+        } else {
+          timersArrayCopy.push(timer);
+          await this.setState({
+            timers: timersArrayCopy
+          });
+          console.log(timersArrayCopy);
+        }
       }
       console.log("it reached here");
       console.log(this.state.timers);
