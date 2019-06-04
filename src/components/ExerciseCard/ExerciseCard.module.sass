@@ -16,6 +16,10 @@
         width: 95vw
         display: block
         margin: 30px auto
+    @media (min-width: 3840px)
+        width: 1550px
+        height: 540px
+        margin: 80px 100px
 
 .exerciseCardHeaderDiv
     display: block
@@ -27,6 +31,8 @@
     padding: 1.5% 
     @media (max-width: 600px)
         padding-top: 2.5%
+    @media (min-width: 3840px)
+        height: 100px
         
 
 .exerciseCardHeader
@@ -41,6 +47,8 @@
         overflow-x: scroll
         white-space: nowrap
         margin-right: 1%
+    @media (min-width: 3840px)
+        font-size: 50px
 
 .deleteIcon
     font-size: 175%
@@ -51,6 +59,8 @@
         transition: color 0.2s ease-in
     @media (max-width: 600px)
         width: 10%
+    @media (min-width: 3840px)
+        font-size: 350%
     
 .exerciseCardBodyDiv
     height: 175px
@@ -60,7 +70,9 @@
     -ms-overflow-style: none
     width: 100% 
     &::-webkit-scrollbar
-         width: 0 !important
+        width: 0 !important
+    @media (min-width: 3840px)
+        height: 350px
         
 
 .exerciseCardBottomDiv
@@ -69,6 +81,8 @@
     padding: 0.8% 1.5%
     @media (max-width: 600px)
         padding: 3% 1.5%
+    @media (min-width: 3840px)
+        height: 100px
     
 
 .modalAnchor
@@ -92,6 +106,8 @@
         transition: 0.5s ease
     &:hover::after
         width: 100%
+    @media (min-width: 3840px)
+        font-size: 40px
 
 // Loader
 .loader

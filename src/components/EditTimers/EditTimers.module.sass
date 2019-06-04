@@ -19,11 +19,6 @@
     z-index: 2
     transition: all 0.3s ease-out
     text-align: left
-    // overflow: -moz-scrollbars-none
-    // overflow-y: scroll
-    // -ms-overflow-style: none
-    // &::-webkit-scrollbar
-    //      width: 0 !important
     @media (max-width: 800px)
         width: 100vw
         height: 100vh
@@ -39,6 +34,8 @@
     border-bottom: solid 1px $border-grey
     padding: 1%
     height: 45px
+    @media (min-width: 3840px)
+        height: 90px
 
 .modalHeader
     font-weight: 200
@@ -73,11 +70,15 @@
     border-bottom: solid 1px $border-grey
     @media (max-width: 900px)
         height: auto
+    @media (min-width: 3840px)
+        height: 240px
 
 .mainBodyDiv
     height: 655px
     @media (max-height: 750px)
         height: 80vh
+    @media (min-width: 3840px)
+        height: 1310px
 
 .inputField
     font-family: $noto
@@ -231,29 +232,29 @@
     @media (max-height: 600px)
         height: 200px
     @media (min-width: 3840px)
-        height: 240px
+        height: 700px
 
-.exerciseListError
-    height: 30px
-    overflow: -moz-scrollbars-none
-    overflow-y: scroll
-    -ms-overflow-style: none
-    &::-webkit-scrollbar
-         width: 0 !important
-    @media (max-width: 800px)
-        height: 200px
-    @media (max-height: 950px)
-        height: 150px
-    @media (max-height: 900px)
-        height: 100px
-    @media (max-height: 850px) 
-        height: 50px
-    @media (max-height: 800px)
-        height: 20px
-    @media (max-height: 600px)
-        height: 10px
-    @media (min-width: 3840px)
-        height: 110px
+// .exerciseListError
+//     height: 30px
+//     overflow: -moz-scrollbars-none
+//     overflow-y: scroll
+//     -ms-overflow-style: none
+//     &::-webkit-scrollbar
+//          width: 0 !important
+//     @media (max-width: 800px)
+//         height: 200px
+//     @media (max-height: 950px)
+//         height: 150px
+//     @media (max-height: 900px)
+//         height: 100px
+//     @media (max-height: 850px) 
+//         height: 50px
+//     @media (max-height: 800px)
+//         height: 20px
+//     @media (max-height: 600px)
+//         height: 10px
+//     @media (min-width: 3840px)
+//         height: 60px
 
 .exerciseListSpan
     display: inline-block
@@ -280,6 +281,8 @@
     &:hover
         color: $red
         transition: color 0.2s ease
+    @media (min-width: 3840px)
+        font-size: 56px
     
 
 .bottomModalDiv
@@ -290,6 +293,8 @@
     border-top: solid 1px $border-grey
     text-align: right
     padding: 2%
+    @media (min-width: 3840px)
+        height: 150px
 
 .submitWorkoutButton
     width: 250px
