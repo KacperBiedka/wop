@@ -8,6 +8,7 @@ import Timer from "../../components/Timer/Timer";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import EditExercise from "../../components/EditExercise/EditExercise";
 import EditTimers from "../../components/EditTimers/EditTimers";
+import ResetPassword from "../../components/ResetPassword/ResetPassword";
 
 import classes from "./Exercises.module.sass";
 
@@ -29,7 +30,8 @@ class Exercises extends Component {
     displayTimer: false,
     displayEditModal: null,
     displayEditTimersModal: null,
-    playSound: false
+    playSound: false,
+    displayResetPasswordModal: null
   };
 
   componentDidMount() {
@@ -139,26 +141,57 @@ class Exercises extends Component {
           iconDiv: {
             visibility: "hidden",
             opacity: "0"
+          },
+          iconChildrenDiv: {
+            display: "none"
           }
         },
         sidenavVisible: false
       });
     } else {
-      this.setState({
-        sidenavStyles: {
-          sideNavDiv: {
-            paddingLeft: "30px",
-            width: "200px",
-            borderLeft: "solid 1px #707070"
+      if (window.screen.width >= 3840) {
+        this.setState({
+          sidenavStyles: {
+            sideNavDiv: {
+              paddingLeft: "60px",
+              width: "400px",
+              borderLeft: "solid 2px #707070"
+            },
+            iconDiv: {
+              transitionDelay: "0.3s",
+              visibility: "visible",
+              opacity: "1"
+            },
+            iconChildrenDiv: {
+              transitionDelay: "0.5s",
+              visibility: "visible",
+              opacity: "1"
+            }
           },
-          iconDiv: {
-            transitionDelay: "0.3s",
-            visibility: "visible",
-            opacity: "1"
-          }
-        },
-        sidenavVisible: true
-      });
+          sidenavVisible: true
+        });
+      } else {
+        this.setState({
+          sidenavStyles: {
+            sideNavDiv: {
+              paddingLeft: "30px",
+              width: "200px",
+              borderLeft: "solid 1px #707070"
+            },
+            iconDiv: {
+              transitionDelay: "0.3s",
+              visibility: "visible",
+              opacity: "1"
+            },
+            iconChildrenDiv: {
+              transitionDelay: "0.5s",
+              visibility: "visible",
+              opacity: "1"
+            }
+          },
+          sidenavVisible: true
+        });
+      }
     }
   };
 
@@ -252,6 +285,27 @@ class Exercises extends Component {
     }
   };
 
+  toggleResetPasswordModal = () => {
+    if (this.state.displayResetPasswordModal) {
+      this.setState({
+        displayResetPasswordModal: null
+      });
+    } else {
+      this.toggleSidenav();
+      this.setState({
+        displayResetPasswordModal: (
+          <ResetPassword closeModal={this.closeResetPasswordModal} />
+        )
+      });
+    }
+  };
+
+  closeResetPasswordModal = () => {
+    this.setState({
+      displayAddWorkoutModal: null
+    });
+  };
+
   render() {
     return (
       <div style={this.state.addedMargin} className={classes.mainDiv}>
@@ -264,9 +318,11 @@ class Exercises extends Component {
         />
         {this.state.displayEditModal}
         {this.state.displayEditTimersModal}
+        {this.state.displayResetPasswordModal}
         <Sidenav
           styles={this.state.sidenavStyles}
           toggleModal={this.toggleEditTimersModal}
+          toggleResetPasswordModal={this.toggleResetPasswordModal}
           displayEditTimerModal={true}
         />
         <div className={classes.exerciseCardsDiv}>

@@ -10,6 +10,7 @@ import WorkoutMessage from "../../components/WorkoutMessage/WorkoutMessage";
 import AddWorkout from "../../components/AddWorkout/AddWorkout";
 import Sidenav from "../../components/Sidenav/Sidenav";
 import WorkoutCard from "../../components/WorkoutCard/WorkoutCard";
+import ResetPassword from "../../components/ResetPassword/ResetPassword";
 
 class Workouts extends Component {
   state = {
@@ -331,6 +332,28 @@ class Workouts extends Component {
     });
   };
 
+  toggleResetPasswordModal = () => {
+    if (this.state.displayResetPasswordModal) {
+      this.setState({
+        displayResetPasswordModal: null
+      });
+      this.toggleSidenav();
+    } else {
+      this.toggleSidenav();
+      this.setState({
+        displayResetPasswordModal: (
+          <ResetPassword closeModal={this.closeResetPasswordModal} />
+        )
+      });
+    }
+  };
+
+  closeResetPasswordModal = () => {
+    this.setState({
+      displayAddWorkoutModal: null
+    });
+  };
+
   toggleSidenav = () => {
     if (this.state.sidenavVisible) {
       this.setState({
@@ -343,6 +366,9 @@ class Workouts extends Component {
           iconDiv: {
             visibility: "hidden",
             opacity: "0"
+          },
+          iconChildrenDiv: {
+            display: "none"
           }
         },
         sidenavVisible: false
@@ -360,6 +386,11 @@ class Workouts extends Component {
               transitionDelay: "0.3s",
               visibility: "visible",
               opacity: "1"
+            },
+            iconChildrenDiv: {
+              transitionDelay: "0.5s",
+              visibility: "visible",
+              opacity: "1"
             }
           },
           sidenavVisible: true
@@ -374,6 +405,11 @@ class Workouts extends Component {
             },
             iconDiv: {
               transitionDelay: "0.3s",
+              visibility: "visible",
+              opacity: "1"
+            },
+            iconChildrenDiv: {
+              transitionDelay: "0.5s",
               visibility: "visible",
               opacity: "1"
             }
@@ -395,10 +431,12 @@ class Workouts extends Component {
         />
         <Sidenav
           toggleModal={this.toggleAddWorkoutModal}
+          toggleResetPasswordModal={this.toggleResetPasswordModal}
           styles={this.state.sidenavStyles}
           displayEditTimerModal={false}
         />
         {this.state.displayAddWorkoutModal}
+        {this.state.displayResetPasswordModal}
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
           <WorkoutMessage toggleAddWorkoutModal={this.toggleAddWorkoutModal} />

@@ -29,16 +29,19 @@ class Sidenav extends Component {
     if (this.state.accountContent) {
       this.setState({
         accountContent: (
-          <div className={classes.childrenIconDiv}>
+          <div
+            style={this.props.styles.iconDiv}
+            className={classes.childrenIconDiv}
+          >
             <div
-              style={this.props.styles.iconDiv}
+              style={this.props.styles.iconChildrenDiv}
               className={"animated fadeOutRight faster " + classes.iconDiv}
             >
               <i className={"material-icons " + classes.navIcon}>cached</i>
               <p className={classes.iconText}>Reset password</p>
             </div>
             <div
-              style={this.props.styles.iconDiv}
+              style={this.props.styles.iconChildrenDiv}
               className={"animated fadeOutRight faster " + classes.iconDiv}
             >
               <i className={"material-icons " + classes.navIcon}>delete</i>
@@ -55,9 +58,13 @@ class Sidenav extends Component {
     } else {
       this.setState({
         accountContent: (
-          <div className={classes.childrenIconDiv}>
+          <div
+            style={this.props.styles.iconDiv}
+            className={classes.childrenIconDiv}
+          >
             <div
-              style={this.props.styles.iconDiv}
+              onClick={this.props.toggleResetPasswordModal}
+              style={this.props.styles.iconChildrenDiv}
               className={"animated fadeInRight faster " + classes.iconDiv}
             >
               <i className={"material-icons " + classes.navIcon}>cached</i>
@@ -65,7 +72,7 @@ class Sidenav extends Component {
             </div>
             <div
               onClick={this.deleteUser}
-              style={this.props.styles.iconDiv}
+              style={this.props.styles.iconChildrenDiv}
               className={"animated fadeInRight faster " + classes.iconDiv}
             >
               <i className={"material-icons " + classes.navIcon}>delete</i>
@@ -89,7 +96,7 @@ class Sidenav extends Component {
           <i className={"material-icons " + classes.navIcon}>account_box</i>
           <p className={classes.iconText}>Account</p>
         </div>
-        {this.state.accountContent}
+        <div style={this.props.styles.iconDiv}>{this.state.accountContent}</div>
         <div style={this.props.styles.iconDiv} className={classes.iconDiv}>
           <i className={"material-icons " + classes.navIcon}>trending_up</i>
           <p className={classes.iconText}>Check Progress</p>
