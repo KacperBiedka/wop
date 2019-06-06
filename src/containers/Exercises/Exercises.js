@@ -9,6 +9,7 @@ import Sidenav from "../../components/Sidenav/Sidenav";
 import EditExercise from "../../components/EditExercise/EditExercise";
 import EditTimers from "../../components/EditTimers/EditTimers";
 import ResetPassword from "../../components/ResetPassword/ResetPassword";
+import ResetEmail from "../../components/ResetEmail/ResetEmail";
 
 import classes from "./Exercises.module.sass";
 
@@ -31,7 +32,8 @@ class Exercises extends Component {
     displayEditModal: null,
     displayEditTimersModal: null,
     playSound: false,
-    displayResetPasswordModal: null
+    displayResetPasswordModal: null,
+    displayResetEmailModal: null
   };
 
   componentDidMount() {
@@ -141,9 +143,6 @@ class Exercises extends Component {
           iconDiv: {
             visibility: "hidden",
             opacity: "0"
-          },
-          iconChildrenDiv: {
-            display: "none"
           }
         },
         sidenavVisible: false
@@ -161,11 +160,6 @@ class Exercises extends Component {
               transitionDelay: "0.3s",
               visibility: "visible",
               opacity: "1"
-            },
-            iconChildrenDiv: {
-              transitionDelay: "0.5s",
-              visibility: "visible",
-              opacity: "1"
             }
           },
           sidenavVisible: true
@@ -180,11 +174,6 @@ class Exercises extends Component {
             },
             iconDiv: {
               transitionDelay: "0.3s",
-              visibility: "visible",
-              opacity: "1"
-            },
-            iconChildrenDiv: {
-              transitionDelay: "0.5s",
               visibility: "visible",
               opacity: "1"
             }
@@ -302,7 +291,28 @@ class Exercises extends Component {
 
   closeResetPasswordModal = () => {
     this.setState({
-      displayAddWorkoutModal: null
+      displayResetPasswordModal: null
+    });
+  };
+
+  toggleResetEmailModal = () => {
+    if (this.state.displayResetEmailModal) {
+      this.setState({
+        displayResetEmailModal: null
+      });
+    } else {
+      this.toggleSidenav();
+      this.setState({
+        displayResetEmailModal: (
+          <ResetEmail closeModal={this.closeResetEmailModal} />
+        )
+      });
+    }
+  };
+
+  closeResetEmailModal = () => {
+    this.setState({
+      displayResetEmailModal: null
     });
   };
 
@@ -319,10 +329,12 @@ class Exercises extends Component {
         {this.state.displayEditModal}
         {this.state.displayEditTimersModal}
         {this.state.displayResetPasswordModal}
+        {this.state.displayResetEmailModal}
         <Sidenav
           styles={this.state.sidenavStyles}
           toggleModal={this.toggleEditTimersModal}
           toggleResetPasswordModal={this.toggleResetPasswordModal}
+          toggleResetEmailModal={this.toggleResetEmailModal}
           displayEditTimerModal={true}
         />
         <div className={classes.exerciseCardsDiv}>
