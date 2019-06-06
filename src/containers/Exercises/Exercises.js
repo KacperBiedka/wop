@@ -10,6 +10,7 @@ import EditExercise from "../../components/EditExercise/EditExercise";
 import EditTimers from "../../components/EditTimers/EditTimers";
 import ResetPassword from "../../components/ResetPassword/ResetPassword";
 import ResetEmail from "../../components/ResetEmail/ResetEmail";
+import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
 
 import classes from "./Exercises.module.sass";
 
@@ -33,7 +34,8 @@ class Exercises extends Component {
     displayEditTimersModal: null,
     playSound: false,
     displayResetPasswordModal: null,
-    displayResetEmailModal: null
+    displayResetEmailModal: null,
+    displayDeleteAccountModal: null
   };
 
   componentDidMount() {
@@ -316,6 +318,29 @@ class Exercises extends Component {
     });
   };
 
+  toggleDeleteAccountModal = () => {
+    if (this.state.displayDeleteAccountModal) {
+      console.log("yes");
+      this.setState({
+        displayDeleteAccountModal: null
+      });
+    } else {
+      console.log("no");
+      this.toggleSidenav();
+      this.setState({
+        displayDeleteAccountModal: (
+          <DeleteAccount closeModal={this.closeDeleteAccountModal} />
+        )
+      });
+    }
+  };
+
+  closeDeleteAccountModal = () => {
+    this.setState({
+      displayDeleteAccountModal: null
+    });
+  };
+
   render() {
     return (
       <div style={this.state.addedMargin} className={classes.mainDiv}>
@@ -330,11 +355,13 @@ class Exercises extends Component {
         {this.state.displayEditTimersModal}
         {this.state.displayResetPasswordModal}
         {this.state.displayResetEmailModal}
+        {this.state.displayDeleteAccountModal}
         <Sidenav
           styles={this.state.sidenavStyles}
           toggleModal={this.toggleEditTimersModal}
           toggleResetPasswordModal={this.toggleResetPasswordModal}
           toggleResetEmailModal={this.toggleResetEmailModal}
+          toggleDeleteAccountModal={this.toggleDeleteAccountModal}
           displayEditTimerModal={true}
         />
         <div className={classes.exerciseCardsDiv}>

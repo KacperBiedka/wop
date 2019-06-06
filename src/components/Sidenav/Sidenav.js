@@ -14,7 +14,7 @@ const Sidenav = props => {
     var user = firebase.auth().currentUser;
     if (user != null) {
       user.providerData.forEach(profile => {
-        if (profile.providerId == "password") {
+        if (profile.providerId === "password") {
           console.log(profile.providerId);
           resetPasswordDiv = (
             <div
