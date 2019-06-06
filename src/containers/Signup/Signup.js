@@ -73,6 +73,29 @@ class Signup extends Component {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+          firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+              firebase
+                .firestore()
+                .collection("users")
+                .doc(user.uid)
+                .set({
+                  uid: user.uid,
+                  email: this.state.email,
+                  password: this.state.password
+                })
+                .then(() => {
+                  console.log("successfuly created a new user");
+                })
+                .catch(error => {
+                  console.log("error creating new user document: ", error);
+                });
+            } else {
+              console.log("user is not logged in yet");
+            }
+          });
+        })
         .catch(error => {
           this.validateErrorCode(error.code, error.message);
         });

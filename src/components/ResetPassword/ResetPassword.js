@@ -4,6 +4,7 @@ import classes from "./ResetPassword.module.sass";
 
 class ResetPassword extends Component {
   state = {
+    firebasePassword: "woah",
     password: "",
     newPassword: "",
     passwordError: null,
@@ -82,6 +83,69 @@ class ResetPassword extends Component {
     }
   };
 
+  getPasswordFromFirebase = () => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            let password = doc.data().password;
+            this.checkPasswordWithFirebase(password);
+          })
+          .catch(error => {
+            console.log("error updating state with firebase data: ", error);
+          });
+      } else {
+        console.log("user is not logged in");
+      }
+    });
+  };
+
+  checkPasswordWithFirebase = firebasePassword => {
+    console.log(this.state.password);
+    console.log(firebasePassword);
+    if (!(this.state.password === firebasePassword)) {
+      this.setState({
+        passwordError: (
+          <p className={classes.errorMessage}>Password is incorrect</p>
+        ),
+        passwordClass: classes.inputFieldError
+      });
+    } else {
+      if (!this.state.passwordError && !this.state.newPasswordError) {
+        const user = firebase.auth().currentUser;
+        user
+          .updatePassword(this.state.newPassword)
+          .then(() => {
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(user.uid)
+              .update({
+                password: this.state.newPassword
+              })
+              .then(() => {
+                console.log(
+                  "successfuly set the new password value in users collection"
+                );
+                this.closeModal();
+              })
+              .catch(error => {
+                console.log("error updating password in firestore: ", error);
+              });
+            alert("Successfuly updated the password");
+          })
+          .catch(error => {
+            alert(error.message);
+            console.log("Error updating the password: ", error);
+          });
+      }
+    }
+  };
+
   closeModal = () => {
     this.setState({
       class: "animated fadeOutUp fast "
@@ -105,7 +169,12 @@ class ResetPassword extends Component {
             </i>
           </div>
           <div className={classes.mainBodyDiv}>
-            <h5 className={classes.resetPasswordHeader}>Reset Password</h5>
+            <h5
+              onClick={this.checkPasswordWithFirebase}
+              className={classes.resetPasswordHeader}
+            >
+              Reset Password
+            </h5>
             <input
               onChange={this.updatePasswordState}
               onBlur={this.checkForPasswordError}
@@ -128,7 +197,7 @@ class ResetPassword extends Component {
           <div className={classes.bottomModalDiv}>
             {this.state.loader}
             <button
-              onClick={this.submitTimersToFirebase}
+              onClick={this.getPasswordFromFirebase}
               className={classes.submitButton + " " + classes.buttonAnimation}
             >
               <span className={classes.submitSpan}>Edit Timers</span>
