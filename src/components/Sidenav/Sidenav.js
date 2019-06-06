@@ -10,18 +10,6 @@ const Sidenav = props => {
     window.location.href = "..";
   };
 
-  const deleteUser = () => {
-    firebase
-      .auth()
-      .currentUser.delete()
-      .then(function() {
-        window.location.href = "../login";
-      })
-      .catch(function(error) {
-        alert(error.message);
-      });
-  };
-
   const renderResetPassword = () => {
     var user = firebase.auth().currentUser;
     if (user != null) {
@@ -63,7 +51,7 @@ const Sidenav = props => {
       </div>
       {resetPasswordDiv}
       <div
-        onClick={deleteUser}
+        onClick={props.toggleDeleteAccountModal}
         style={props.styles.iconDiv}
         className={classes.iconDiv}
       >

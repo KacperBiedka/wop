@@ -18,13 +18,6 @@ class Signup extends Component {
   };
 
   componentDidMount = () => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        window.location.href = "workouts";
-      } else {
-        console.log("not logged in");
-      }
-    });
     setTimeout(() => {
       this.setState({
         mainClass: " "
@@ -86,7 +79,7 @@ class Signup extends Component {
                   password: this.state.password
                 })
                 .then(() => {
-                  console.log("successfuly created a new user");
+                  window.location.href = "/workouts";
                 })
                 .catch(error => {
                   console.log("error creating new user document: ", error);

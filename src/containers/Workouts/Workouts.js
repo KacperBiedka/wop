@@ -34,7 +34,8 @@ class Workouts extends Component {
     sidenavVisible: false,
     removingWorkout: false,
     displayResetPasswordModal: null,
-    displayResetEmailModal: null
+    displayResetEmailModal: null,
+    displayDeleteAccountModal: null
   };
 
   componentDidMount() {
@@ -385,6 +386,29 @@ class Workouts extends Component {
     });
   };
 
+  toggleDeleteAccountModal = () => {
+    if (this.state.displayDeleteAccountModal) {
+      console.log("yes");
+      this.setState({
+        displayDeleteAccountModal: null
+      });
+    } else {
+      console.log("no");
+      this.toggleSidenav();
+      this.setState({
+        displayDeleteAccountModal: (
+          <DeleteAccount closeModal={this.closeDeleteAccountModal} />
+        )
+      });
+    }
+  };
+
+  closeDeleteAccountModal = () => {
+    this.setState({
+      displayDeleteAccountModal: null
+    });
+  };
+
   toggleSidenav = () => {
     if (this.state.sidenavVisible) {
       this.setState({
@@ -451,13 +475,14 @@ class Workouts extends Component {
           toggleModal={this.toggleAddWorkoutModal}
           toggleResetPasswordModal={this.toggleResetPasswordModal}
           toggleResetEmailModal={this.toggleResetEmailModal}
+          toggleDeleteAccountModal={this.toggleDeleteAccountModal}
           styles={this.state.sidenavStyles}
           displayEditTimerModal={false}
         />
         {this.state.displayAddWorkoutModal}
         {this.state.displayResetPasswordModal}
         {this.state.displayResetEmailModal}
-        <DeleteAccount />
+        {this.state.displayDeleteAccountModal}
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
           <WorkoutMessage toggleAddWorkoutModal={this.toggleAddWorkoutModal} />
