@@ -12,6 +12,7 @@ import Sidenav from "../../components/Sidenav/Sidenav";
 import WorkoutCard from "../../components/WorkoutCard/WorkoutCard";
 import ResetPassword from "../../components/ResetPassword/ResetPassword";
 import ResetEmail from "../../components/ResetEmail/ResetEmail";
+import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
 
 class Workouts extends Component {
   state = {
@@ -456,6 +457,7 @@ class Workouts extends Component {
         {this.state.displayAddWorkoutModal}
         {this.state.displayResetPasswordModal}
         {this.state.displayResetEmailModal}
+        <DeleteAccount />
         {this.state.loading ? <Loading /> : null}
         {this.state.displayWorkoutMessage ? (
           <WorkoutMessage toggleAddWorkoutModal={this.toggleAddWorkoutModal} />
