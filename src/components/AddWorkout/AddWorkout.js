@@ -315,7 +315,7 @@ class AddWorkout extends Component {
             const uid = user.uid;
             db.collection("users")
               .doc(uid)
-              .set({
+              .update({
                 uid: uid,
                 email: user.email,
                 workoutsNumber: this.state.globalWorkoutNumber + 1
