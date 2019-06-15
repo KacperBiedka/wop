@@ -115,15 +115,7 @@ class Exercises extends Component {
           duration: this.state.duration + 1
         });
         if (this.state.timers.includes(this.state.duration - 1)) {
-          this.setState({
-            timerClass: "animated flash faster "
-          });
           document.getElementById("audio").play();
-          setTimeout(() => {
-            this.setState({
-              timerClass: " "
-            });
-          }, 500);
         }
       } else {
         this.setState({
