@@ -200,7 +200,7 @@ class ResetPassword extends Component {
               onClick={this.getPasswordFromFirebase}
               className={classes.submitButton + " " + classes.buttonAnimation}
             >
-              <span className={classes.submitSpan}>Edit Timers</span>
+              <span className={classes.submitSpan}>Reset Password</span>
             </button>
           </div>
         </div>

@@ -196,7 +196,7 @@ class ResetEmail extends Component {
               onClick={this.getEmailFromFirebase}
               className={classes.submitButton + " " + classes.buttonAnimation}
             >
-              <span className={classes.submitSpan}>Edit Timers</span>
+              <span className={classes.submitSpan}>Reset Email</span>
             </button>
           </div>
         </div>
