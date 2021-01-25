@@ -8,11 +8,11 @@ Workouts are stored in cloud Firestore database and the authentication is handle
 
 ### Workouts Screen
 
-![ScreenShot](https://i.imgur.com/fXMpUkL.png)
+![Workouts](https://i.imgur.com/GClVaH1.png)
 
 ### Exercises Screen
 
-![ScreenShot](https://i.imgur.com/QVi4q6Q.png)
+![Exercises](https://i.imgur.com/tCHqvwj.png)
 
 ## Technologies
 
