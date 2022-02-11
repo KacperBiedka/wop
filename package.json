@@ -7,7 +7,7 @@
     "babel-loader": "^8.0.6",
     "firebase": "^5.8.2",
     "node-gyp": "^4.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
